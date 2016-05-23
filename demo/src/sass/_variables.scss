@@ -1,0 +1,11 @@
+// Color variables
+@import 'sass-md-colors/colors/variables';
+
+// Customize any variables here, before loading the default variables
+$brand-primary: $indigo-400 !default;
+
+// Bootstrap
+@import 'bootstrap/scss/variables';
+
+// MDK
+@import 'material-design-kit/src/sass/variables';

@@ -1,0 +1,35 @@
+---
+title: Blend image header
+---
+{% extends "layouts/demo.html" %}
+{% block page %}
+
+  <style>
+    .mdk-header {
+      height: 700px;
+    }
+    .mdk-header__bg-front {
+      background-image: url('assets/images/photo-1463580009491-9111ca5c3f84.jpg');
+    }
+    .container {
+      padding-top: 700px;
+    }
+  </style>
+
+  <div class="mdk-header mdk-js-header bg-primary" 
+    effects="waterfall blend-background"
+    condenses reveals>
+    <div class="mdk-header__content">
+      <button class="navbar-toggler" type="button">
+        <span class="material-icons">menu</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="content">
+      {% include '_sample-content.html' %}
+    </div>
+  </div>
+
+{% endblock %}
