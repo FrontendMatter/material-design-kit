@@ -41,5 +41,13 @@
     "html",
     "css",
     "javascript"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/themekit/material-design-kit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/themekit/material-design-kit/issues"
+  },
+  "homepage": "https://github.com/themekit/material-design-kit#readme"
 }
