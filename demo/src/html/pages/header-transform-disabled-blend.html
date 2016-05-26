@@ -1,0 +1,27 @@
+---
+title: Transform disabled header with blend effect
+---
+{% extends "layouts/demo.html" %}
+{% block page %}
+
+  <style>
+    .mdk-header__bg-front {
+      background-color: #E91E63;
+    }
+  </style>
+
+  <div class="mdk-header mdk-js-header navbar-dark bg-primary" transform-disabled effects="blend-background">
+    <div class="mdk-header__content">
+      <button class="navbar-toggler" type="button">
+        <span class="material-icons">menu</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="content">
+      {% include '_sample-content.html' %}
+    </div>
+  </div>
+
+{% endblock %}

@@ -3,7 +3,7 @@ const MODIFIER = 'mdk-header--shadow'
 /**
  * waterfall effect
  */
-export const HEADER_EFFECT_WATERFALL = {
+export const HEADER_SCROLL_EFFECT_WATERFALL = {
 	name: 'waterfall',
 	run (progress, top) {
 		if (this.isOnScreen() && this.isContentBelow()) {

@@ -1,20 +1,69 @@
 /**
  * Allows an element to respond to scroll events from a designated scroll target
+ * @param  {HTMLElement} 		element      The element which should respond to scroll events
+ * @param  {string|HTMLElement} scrollTarget The scroll target (optional)
+ * @return {Object}
  */
-export class ScrollTargetBehavior {
+export const scrollTargetBehavior = (element, scrollTarget) => ({
+
+	// The element which should respond to scroll events
+	element,
+
+	// The scroll target
+	_scrollTarget: null,
+	
+	/**
+	 * Get `_scrollTarget` or `_defaultScrollTarget`
+	 * @return {HTMLElement}
+	 */
+	get scrollTarget () {
+		if (this._scrollTarget) {
+			return this._scrollTarget
+		}
+		return this._defaultScrollTarget
+	},
 
 	/**
-	 * ScrollTarget constructor
-	 * @param  {HTMLElement} 		element      The element which should respond to scroll events
+	 * Set `_scrollTarget`
+	 * @param  {HTMLElement} value
+	 */
+	set scrollTarget (value) {
+		this._scrollTarget = value
+	},
+
+	/**
+	 * Attach the scroll event listener to the scroll target
 	 * @param  {string|HTMLElement} scrollTarget The scroll target (optional)
 	 */
-	constructor (element, scrollTarget) {
-		this.element = element
-		if (!scrollTarget) {
+	attachToScrollTarget (scrollTarget) {
+		this.detachFromScrollTarget()
+		
+		if (scrollTarget === 'document') {
 			this.scrollTarget = this._doc
 		}
-		this._attach(scrollTarget)
-	}
+		else if (typeof scrollTarget === 'string') {
+			this.scrollTarget = this._owner.querySelector(`#${ scrollTarget }`)
+		}
+		else if (scrollTarget instanceof HTMLElement) {
+			this.scrollTarget = scrollTarget
+		}
+
+		if (this.scrollTarget) {
+			this.eventTarget = this.scrollTarget === this._doc ? window : this.scrollTarget
+			this._boundScrollHandler = this._boundScrollHandler || this._scrollHandler.bind(this)
+			this.eventTarget.addEventListener('scroll', this._boundScrollHandler)
+		}
+	},
+
+	/**
+	 * Detach the scroll event listener from the scroll target
+	 * @return {[type]} [description]
+	 */
+	detachFromScrollTarget () {
+		if (this.eventTarget) {
+			this.eventTarget.removeEventListener('scroll', this._boundScrollHandler)
+		}
+	},
 
 	/**
 	 * Scrolls the content to a particular place.
@@ -29,7 +78,7 @@ export class ScrollTargetBehavior {
 			this.scrollTarget.scrollLeft = left
 			this.scrollTarget.scrollTop = top
 		}
-	}
+	},
 
 	/**
 	 * Scrolls the content to a particular place using a behavior.
@@ -91,7 +140,7 @@ export class ScrollTargetBehavior {
 		else {
 			this.scroll(left, top)
 		}
-	}
+	},
 
 	/**
 	 * Returns true if the scroll target is a valid HTMLElement.
@@ -99,46 +148,16 @@ export class ScrollTargetBehavior {
 	 */
 	_isValidScrollTarget () {
 		return this.scrollTarget instanceof HTMLElement
-	}
-
-	/**
-	 * Attach the scroll event listener to the scroll target
-	 * @param  {string|HTMLElement} scrollTarget The scroll target (optional)
-	 */
-	_attach (scrollTarget) {
-		this._detach()
-		
-		if (scrollTarget === 'document') {
-			this.scrollTarget = this._doc
-		}
-		else if (typeof scrollTarget === 'string') {
-			this.scrollTarget = this._owner.querySelector(`#${ scrollTarget }`)
-		}
-		else if (scrollTarget instanceof HTMLElement) {
-			this.scrollTarget = scrollTarget
-		}
-
-		if (this.scrollTarget) {
-			this.eventTarget = this.scrollTarget === this._doc ? window : this.scrollTarget
-			this._boundScrollHandler = this._boundScrollHandler || this._scrollHandler.bind(this)
-			this.eventTarget.addEventListener('scroll', this._boundScrollHandler)
-		}
-	}
-
-	/**
-	 * Detach the scroll event listener from the scroll target
-	 * @return {[type]} [description]
-	 */
-	_detach () {
-		if (this.eventTarget) {
-			this.eventTarget.removeEventListener('scroll', this._boundScrollHandler)
-		}
-	}
+	},
 
 	/**
 	 * Scroll event handler (runs on every scroll event)
 	 */
-	_scrollHandler () {}
+	_scrollHandler () {},
+
+	get _defaultScrollTarget () {
+		return this._doc
+	},
 
 	/**
 	 * Get the ownerDocument
@@ -146,7 +165,7 @@ export class ScrollTargetBehavior {
 	 */
 	get _owner () {
 		return this.element.ownerDocument
-	}
+	},
 
 	/**
 	 * Get the document element
@@ -154,7 +173,7 @@ export class ScrollTargetBehavior {
 	 */
 	get _doc () {
 		return this._owner.documentElement
-	}
+	},
 
 	/**
 	 * Gets the number of pixels that the content of an element is scrolled upward.
@@ -165,7 +184,7 @@ export class ScrollTargetBehavior {
 			return this.scrollTarget === this._doc ? window.pageYOffset : this.scrollTarget.scrollTop
 		}
 		return 0
-	}
+	},
 
 	/**
 	 * Sets the number of pixels that the content of an element is scrolled upward.
@@ -178,7 +197,7 @@ export class ScrollTargetBehavior {
 		else if (this._isValidScrollTarget()) {
 			this.scrollTarget.scrollTop = top
 		}
-	}
+	},
 
 	/**
 	 * Gets the number of pixels that the content of an element is scrolled to the left.
@@ -189,7 +208,7 @@ export class ScrollTargetBehavior {
 			return this.scrollTarget === this._doc ? window.pageXOffset : this.scrollTarget.scrollLeft
 		}
 		return 0
-	}
+	},
 
 	/**
 	 * Sets the number of pixels that the content of an element is scrolled to the left.
@@ -202,7 +221,7 @@ export class ScrollTargetBehavior {
 		else if (this._isValidScrollTarget()) {
 			this.scrollTarget.scrollLeft = left
 		}
-	}
+	},
 
 	/**
 	 * Gets the width of the scroll target.
@@ -213,7 +232,7 @@ export class ScrollTargetBehavior {
 			return this.scrollTarget === this._doc ? window.innerWidth : this.scrollTarget.offsetWidth
 		}
 		return 0
-	}
+	},
 
 	/**
 	 * Gets the height of the scroll target.
@@ -224,5 +243,12 @@ export class ScrollTargetBehavior {
 			return this.scrollTarget === this._doc ? window.innerHeight : this.scrollTarget.offsetHeight
 		}
 		return 0
+	},
+
+	get _isPositionedFixed () {
+		if (this.element instanceof HTMLElement) {
+			return window.getComputedStyle(this.element).position === 'fixed'
+		}
+		return false
 	}
-}
+})

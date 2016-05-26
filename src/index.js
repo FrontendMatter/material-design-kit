@@ -1,40 +1,74 @@
 // STYLING
-import './sass/style'
+import './style'
 
 // BEHAVIORS
-import { ScrollTargetBehavior } from './scroll-target'
-import { ScrollEffectBehavior } from './scroll-effect'
+import { scrollTargetBehavior } from './scroll-target-behavior'
+import { scrollEffectBehavior } from './scroll-effect-behavior'
 
 // COMPONENTS
-import { HeaderComponent } from './header'
+import { headerComponent } from './header'
+import { boxComponent } from './box'
 
-// HEADER EFFECTS
-import { HEADER_EFFECTS } from './header-effects'
+// SCROLL EFFECTS
+import { SCROLL_EFFECTS } from './scroll-effects'
+
+// HEADER SCROLL EFFECTS
+import { HEADER_SCROLL_EFFECTS } from './header-scroll-effects'
 
 // EXPORT BEHAVIORS
-export { ScrollTargetBehavior } from './scroll-target'
-export { ScrollEffectBehavior } from './scroll-effect'
+export { scrollTargetBehavior } from './scroll-target-behavior'
+export { scrollEffectBehavior } from './scroll-effect-behavior'
 
 // EXPORT COMPONENTS
-export { HeaderComponent } from './header'
+export { headerComponent } from './header'
+export { boxComponent } from './box'
 
-// EXPORT HEADER EFFECTS
-export { HEADER_EFFECTS } from './header-effects'
+// EXPORT SCROLL EFFECTS
+export { SCROLL_EFFECTS } from './scroll-effects'
 
+// EXPORT HEADER SCROLL EFFECTS
+export { HEADER_SCROLL_EFFECTS } from './header-scroll-effects'
+
+////////////////////////////////
+// SELF INITIALIZE COMPONENTS //
+////////////////////////////////
+
+// SELF INITIALIZE HEADERS
 let headerNodes = document.querySelectorAll('.mdk-js-header')
-let headerInstances = [...headerNodes]
+let headers = [...headerNodes]
 
-headerInstances = headerInstances.map(element => {
-	let header = new HeaderComponent(element)
-	HEADER_EFFECTS.map(effect => header.registerEffect(effect.name, effect))
+headers = headers.map(element => {
+	const header = headerComponent(element)
+	SCROLL_EFFECTS.concat(HEADER_SCROLL_EFFECTS).map(effect => header.registerEffect(effect.name, effect))
 	return header
 })
 
+// SELF INITIALIZE BOXES
+let boxNodes = document.querySelectorAll('.mdk-js-box')
+let boxes = [...boxNodes]
+
+boxes = boxes.map(element => {
+	const box = boxComponent(element)
+	SCROLL_EFFECTS.map(effect => box.registerEffect(effect.name, effect))
+	return box
+})
+
+// EXPORT SELF INITIALIZED COMPONENTS
+export { 
+	headers, 
+	boxes 
+}
+
 // EXPORT DEFAULT
 export default { 
-	ScrollTargetBehavior, 
-	ScrollEffectBehavior, 
-	HeaderComponent,
-	HEADER_EFFECTS,
-	headerInstances
+	scrollTargetBehavior, 
+	scrollEffectBehavior, 
+	headerComponent,
+	boxComponent,
+	SCROLL_EFFECTS,
+	HEADER_SCROLL_EFFECTS,
+	headers,
+	boxes
 }
+
+/* eslint spaced-comment: 0 */

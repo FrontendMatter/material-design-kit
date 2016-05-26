@@ -1,0 +1,1 @@
+export { scrollTargetBehavior } from './scroll-target-behavior'

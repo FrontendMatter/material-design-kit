@@ -1,10 +1,10 @@
-const FRONT_LAYER = '.mdk-header__bg-front'
-const REAR_LAYER = '.mdk-header__bg-rear'
+const FRONT_LAYER = '[class*="__bg-front"]'
+const REAR_LAYER = '[class*="__bg-rear"]'
 
 /**
  * blend-background effect
  */
-export const HEADER_EFFECT_BLEND_BACKGROUND = {
+export const SCROLL_EFFECT_BLEND_BACKGROUND = {
 	name: 'blend-background',
 	setUp () {
 		let bgFrontLayer = this.element.querySelector(FRONT_LAYER)

@@ -1,0 +1,1 @@
+export { boxComponent } from './box'

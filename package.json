@@ -1,12 +1,12 @@
 {
   "name": "material-design-kit",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "description": "Interactive web components that provide a Material Design experience using vanilla Web technologies like CSS, JavaScript and HTML.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack --config src/build/webpack.config.dev.js --progress --watch",
-    "build": "NODE_ENV=production webpack --config src/build/webpack.config.production.js --progress",
-    "build-dev": "webpack --config src/build/webpack.config.dev.js --progress"
+    "dev": "webpack --config build/webpack.config.dev.js --progress --watch",
+    "build": "NODE_ENV=production webpack --config build/webpack.config.production.js --progress",
+    "build-dev": "webpack --config build/webpack.config.dev.js --progress"
   },
   "main": "dist/material-design-kit.js",
   "author": "MOSAICPRO <contact@mosaicpro.biz> (http://themeforest.net/user/mosaicpro/portfolio)",

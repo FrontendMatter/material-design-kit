@@ -8,7 +8,7 @@ var config = new WebpackConfig()
 			importer: require('sass-importer-npm')
 		},
 		sassImportLoader: {
-			base: './src/sass/_variables.scss'
+			base: './src/_variables.scss'
 		}
 	})
 	.use('extract')

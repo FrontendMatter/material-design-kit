@@ -1,0 +1,1 @@
+export { scrollEffectBehavior } from './scroll-effect-behavior'

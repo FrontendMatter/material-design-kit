@@ -2,10 +2,11 @@
 @import 'sass-md-colors/colors/variables';
 
 // Customize any variables here, before loading the default variables
-$brand-primary: $indigo-400 !default;
+$brand-primary: 		$indigo-400 !default;
+$font-family-base: 		Roboto, 'Helvetica Neue', Arial, Helvetica, sans-serif !default;
 
 // Bootstrap
 @import 'bootstrap/scss/variables';
 
 // MDK
-@import 'material-design-kit/src/sass/variables';
+@import 'material-design-kit/src/variables';
