@@ -1,14 +1,12 @@
 import { assign } from '../util'
 import { scrollEffectBehavior } from '../scroll-effect-behavior'
 
-const MOD = 'mdk-header'
-
-const ELEMENT_CONTENT = `.${ MOD }__content`
-const ELEMENT_BG = `.${ MOD }__bg`
-const ELEMENT_BG_FRONT_LAYER = `${ ELEMENT_BG }-front`
-const ELEMENT_BG_REAR_LAYER = `${ ELEMENT_BG }-rear`
-
-const MODIFIER_FIXED = `${ MOD }--fixed`
+const MODULE = 'mdk-header'
+const CONTENT = `.${ MODULE }__content`
+const BG = `.${ MODULE }__bg`
+const FRONT_LAYER = `${ BG }-front`
+const REAR_LAYER = `${ BG }-rear`
+const MODIFIER_FIXED = `${ MODULE }--fixed`
 
 /**
  * A container element for navigation and other content at the top 
@@ -84,6 +82,14 @@ export const headerComponent = (element, scrollTarget, effects = []) => {
 		},
 
 		/**
+		 * Returns true if the header will condense based on the size of the header
+		 * @return {Boolean}
+		 */
+		willCondense () {
+			return this._dHeight > 0 && this.condenses
+		},
+
+		/**
 		 * Returns true if the element is visible in the current viewport.
 		 * @return {Boolean}
 		 */
@@ -117,9 +123,9 @@ export const headerComponent = (element, scrollTarget, effects = []) => {
 		_setupBackgrounds () {
 			let bgNode = document.createElement('DIV')
 			this.element.insertBefore(bgNode, this.element.childNodes[0])
-			bgNode.classList.add(ELEMENT_BG.substr(1))
+			bgNode.classList.add(BG.substr(1))
 
-			const bgLayerClassNames = [ELEMENT_BG_FRONT_LAYER.substr(1), ELEMENT_BG_REAR_LAYER.substr(1)]
+			const bgLayerClassNames = [FRONT_LAYER.substr(1), REAR_LAYER.substr(1)]
 			bgLayerClassNames.map(className => {
 				let bgNodeLayer = document.createElement('DIV')
 				bgNode.appendChild(bgNodeLayer)
@@ -154,6 +160,9 @@ export const headerComponent = (element, scrollTarget, effects = []) => {
 
 		// Pass MouseWheel events from `scrollTarget` with `position: fixed`
 		_setUpFixedPositionedScroll () {
+			if (this._fixedPositionedScrollHandler !== undefined) {
+				this.element.removeEventListener('wheel', this._fixedPositionedScrollHandler)
+			}
 			if (this._isPositionedFixed && this.scrollTarget !== this._doc) {
 				this._fixedPositionedScrollHandler = (e) => {
 					let passMouseEvent = new WheelEvent(e.type, e)
@@ -169,7 +178,7 @@ export const headerComponent = (element, scrollTarget, effects = []) => {
 		 */
 		_getPrimaryElement () {
 			let primaryElement
-			let nodes = this.element.querySelector(ELEMENT_CONTENT).children
+			let nodes = this.element.querySelector(CONTENT).children
 
 			for (let i = 0; i < nodes.length; i++) {
 				if (nodes[i].nodeType === Node.ELEMENT_NODE) {
@@ -300,14 +309,14 @@ export const headerComponent = (element, scrollTarget, effects = []) => {
 	// Attach to scrollTarget
 	componentWithBehavior.attachToScrollTarget(scrollTarget)
 
+	// Handle fixed positioned scroll
+	componentWithBehavior._setUpFixedPositionedScroll()
+
 	// Setup backgrounds
 	componentWithBehavior._setupBackgrounds()
 
 	// Setup layout
 	componentWithBehavior._setUpLayout()
-
-	// Handle fixed positioned scroll
-	componentWithBehavior._setUpFixedPositionedScroll()
 
 	return componentWithBehavior
 }

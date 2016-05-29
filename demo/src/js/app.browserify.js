@@ -1,2 +1,2 @@
 // MDK
-require('material-design-kit')
+var MDK = window.MDK = require('material-design-kit')

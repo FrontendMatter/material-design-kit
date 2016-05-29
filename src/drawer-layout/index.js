@@ -1,0 +1,1 @@
+export { drawerLayoutComponent } from './drawer-layout'

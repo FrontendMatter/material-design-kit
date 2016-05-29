@@ -1,4 +1,4 @@
-import { assign } from '../util'
+import { assign, transform } from '../util'
 import { scrollTargetBehavior } from '../scroll-target-behavior'
 
 /**
@@ -187,14 +187,7 @@ export const scrollEffectBehavior = (element, scrollTarget, effects = [], effect
 		 */
 		_transform (value, element) {
 			element = element || this.element
-			const properties = [
-				'transform',
-				'WebkitTransform',
-				'msTransform',
-				'MozTransform',
-				'OTransform'
-			]
-			properties.map(p => element.style[p] = value)
+			transform(value, element)
 		}
 	}
 

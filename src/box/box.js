@@ -1,10 +1,10 @@
 import { assign } from '../util'
 import { scrollEffectBehavior } from '../scroll-effect-behavior'
 
-const MOD = 'mdk-box'
-const ELEMENT_BG = `.${ MOD }__bg`
-const ELEMENT_BG_FRONT_LAYER = `${ ELEMENT_BG }-front`
-const ELEMENT_BG_REAR_LAYER = `${ ELEMENT_BG }-rear`
+const MODULE = 'mdk-box'
+const BG = `.${ MODULE }__bg`
+const FRONT_LAYER = `${ BG }-front`
+const REAR_LAYER = `${ BG }-rear`
 
 /**
  * A container element for generic content with 
@@ -40,8 +40,7 @@ export const boxComponent = (element, scrollTarget, effects = []) => {
 		},
 
 		/**
-		 * Returns an object containing the progress value of the scroll effects 
-		 * and the top position of the header.
+		 * Returns an object containing the progress value of the scroll effects.
 		 * @return {Object}
 		 */
 		getScrollState () {
@@ -53,9 +52,9 @@ export const boxComponent = (element, scrollTarget, effects = []) => {
 		_setupBackgrounds () {
 			let bgNode = document.createElement('DIV')
 			this.element.insertBefore(bgNode, this.element.childNodes[0])
-			bgNode.classList.add(ELEMENT_BG.substr(1))
+			bgNode.classList.add(BG.substr(1))
 
-			const bgLayerClassNames = [ELEMENT_BG_FRONT_LAYER.substr(1), ELEMENT_BG_REAR_LAYER.substr(1)]
+			const bgLayerClassNames = [FRONT_LAYER.substr(1), REAR_LAYER.substr(1)]
 			bgLayerClassNames.map(className => {
 				let bgNodeLayer = document.createElement('DIV')
 				bgNode.appendChild(bgNodeLayer)

@@ -1,0 +1,34 @@
+.mdk-header-layout {
+	position: relative;
+	z-index: 0;
+
+	> .mdk-header {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 1;
+	}
+
+	&[has-scrolling-region] {
+		height: 100%;
+		
+		> .mdk-header {
+			position: absolute;
+		}
+	}
+}
+.mdk-header-layout__content {
+	position: relative;
+	z-index: 0;
+
+	[has-scrolling-region] > & {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		overflow-y: auto;
+		-webkit-overflow-scrolling: touch;
+	}
+}

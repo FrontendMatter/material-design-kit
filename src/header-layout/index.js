@@ -1,0 +1,1 @@
+export { headerLayoutComponent } from './header-layout'
