@@ -1,4 +1,4 @@
-import { watch } from 'watch-object'
+import { watch, unwatch } from 'watch-object'
 
 /**
  * A navigation drawer that can slide in from the left or right
@@ -217,6 +217,9 @@ export const drawerComponent = (element) => {
       }
     },
 
+    /**
+     * Initialize component
+     */
     init () {
       watch(this, 'align', this._resetPosition)
       watch(this, ['opened', 'persistent', 'align', 'position'], this._fireChange)
@@ -229,11 +232,28 @@ export const drawerComponent = (element) => {
         this._setTransitionDuration('')
         this._resetDrawerState()
 
-        this.element.addEventListener('transitionend', this._onTransitionend.bind(this))
+        this.element.addEventListener('transitionend', this._onTransitionend)
       }, 0)
+    },
+
+    /**
+     * Destroy component
+     */
+    destroy () {
+      unwatch(this, 'align', this._resetPosition)
+      unwatch(this, ['opened', 'persistent', 'align', 'position'], this._fireChange)
+      unwatch(this, '_drawerState', this._onChangedState)
+
+      this.scrim.removeEventListener('click', this._onClickScrim)
+      this.element.removeEventListener('transitionend', this._onTransitionend)
     }
   }
 
+  // Event handlers bindings
+  component._onClickScrim = component._onClickScrim.bind(component)
+  component._onTransitionend = component._onTransitionend.bind(component)
+
+  // Initialize component
   component.init()
 
   return component

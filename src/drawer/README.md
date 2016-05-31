@@ -127,6 +127,18 @@ Initialize the drawer component by adding the `mdk-js-drawer` class.
       <td><code>getWidth()</code></td>
       <td>Get the width of the drawer.</td>
     </tr>
+    <tr>
+      <td><code>init()</code></td>
+      <td>
+        Initializes the drawer.
+      </td>
+    </tr>
+    <tr>
+      <td><code>destroy()</code></td>
+      <td>
+        Destroys the drawer.
+      </td>
+    </tr>
   </tbody>
 </table>
 
@@ -142,7 +154,9 @@ var drawer = require('material-design-kit').drawers[0]
 // ES6
 import { drawers } from 'material-design-kit'
 let drawer = drawers[0]
+```
 
+```js
 // Set the opened state directly via property
 drawer.opened = true
 

@@ -1,6 +1,6 @@
 import { transform } from '../util'
 import { mediaQuery } from '../media-query'
-import { watch } from 'watch-object'
+import { watch, unwatch } from 'watch-object'
 
 /**
  * A wrapper element that positions a Drawer and other content.
@@ -10,12 +10,26 @@ import { watch } from 'watch-object'
  */
 export const drawerLayoutComponent = (element, drawer) => {
   let component = {
+
+    // HTMLElement
     element,
+
+    // drawerComponent
     drawer,
+
+    // mediaQuery utility
     _mediaQuery: null,
+
+    // The default maximum width for auto changing to narrow layout
     _responsiveWidth: '554px',
+
+    // The default `narrow` value
     _narrow: null,
 
+    /**
+     * The mediaQuery listener
+     * @return {Object}
+     */
     get mediaQuery () {
       if (this._mediaQuery) {
         return this._mediaQuery
@@ -24,22 +38,42 @@ export const drawerLayoutComponent = (element, drawer) => {
       return this._mediaQuery
     },
 
+    /**
+     * If true, ignore `responsiveWidth` setting and always force the narrow layout.
+     * @return {Boolean}
+     */
     get forceNarrow () {
       return this.element.hasAttribute('force-narrow')
     },
     
+    /**
+     * Returns true if the narrow layout is enabled.
+     * @return {Boolean}
+     */
     get narrow () {
       return this.forceNarrow ? true : this._narrow
     },
 
+    /**
+     * Toggle the narrow layout.
+     * @param  {Boolean} value
+     */
     set narrow (value) {
       this._narrow = !value && this.forceNarrow ? true : value
     },
 
+    /**
+     * Returns true if the layout has the push effect enabled.
+     * @return {Boolean}
+     */
     get push () {
       return this.element.hasAttribute('push')
     },
 
+    /**
+     * The maximum width for auto changing to narrow layout.
+     * @return {String}
+     */
     get responsiveWidth () {
       if (this.element.hasAttribute('responsive-width')) {
         return this.element.getAttribute('responsive-width')
@@ -47,15 +81,23 @@ export const drawerLayoutComponent = (element, drawer) => {
       return this._responsiveWidth
     },
 
+    /**
+     * The HTMLElement for the layout content
+     * @return {HTMLElement}
+     */
     get contentContainer () {
       return this.element.querySelector('.mdk-drawer-layout__content')
     },
 
+    /**
+     * Computed media query value passed to the mediaQuery listener
+     * @return {String}
+     */
     get responsiveMediaQuery () {
       return this.forceNarrow ? '(min-width: 0px)' : `(max-width: ${ this.responsiveWidth })`
     },
 
-    resetLayout () {
+    _resetLayout () {
       this.drawer.opened = this.drawer.persistent = !this.narrow
       this._onDrawerChange()
     },
@@ -126,23 +168,46 @@ export const drawerLayoutComponent = (element, drawer) => {
       }
     },
 
+    _onQueryMatches (value) {
+      this.narrow = value
+    },
+
+    /**
+     * Initialize component
+     */
     init () {
       // Initial render
       this._setContentTransitionDuration('0s')
       setTimeout(() => this._setContentTransitionDuration(''), 0)
 
       // Reactivity
-      watch(this, 'narrow', this.resetLayout)
-      watch(this.mediaQuery, 'queryMatches', (value) => this.narrow = value)
+      watch(this, 'narrow', this._resetLayout)
+      watch(this.mediaQuery, 'queryMatches', this._onQueryMatches)
       
       // Initialize media query
       this.mediaQuery.resetMediaQuery()
 
       // Drawer change
-      this.drawer.element.addEventListener('change.mdk.drawer', () => this._onDrawerChange())
+      this.drawer.element.addEventListener('change.mdk.drawer', this._onDrawerChange)
+    },
+
+    /**
+     * Destroy component
+     */
+    destroy () {
+      unwatch(this, 'narrow', this._resetLayout)
+      unwatch(this.mediaQuery, 'queryMatches', this._onQueryMatches)
+      this.drawer.element.removeEventListener('change.mdk.drawer', this._onDrawerChange)
     }
   }
 
+  // Watch handlers bindings
+  component._onQueryMatches = component._onQueryMatches.bind(component)
+
+  // Event handlers bindings
+  component._onDrawerChange = component._onDrawerChange.bind(component)
+
+  // Initialize component
   component.init()
 
   return component
