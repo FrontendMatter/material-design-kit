@@ -70,7 +70,7 @@ Initialize the drawer component by adding the `mdk-js-drawer` class.
 
 ## Options
 
-<table width="100%">
+<table>
   <thead>
     <tr>
       <th>Property</th>
@@ -101,7 +101,7 @@ Initialize the drawer component by adding the `mdk-js-drawer` class.
 
 ## Methods
 
-<table width="100%">
+<table>
   <thead>
     <tr>
       <th>Method</th>
@@ -158,3 +158,8 @@ button.addEventListener('click', function () {
 	drawer.toggle()
 })
 ```
+
+---
+
+## Get help
+Get help directly from our team via our Slack channel. [Request invite](http://themekit-slack-invite.stamplayapp.com/)

@@ -30,6 +30,19 @@ A container element for generic content with (optional) visual effects based on 
 - [Blend background color box demo](http://mdk-demo.themekit.io/box-blend.html) - Changes the box background color to an interpolated color between the background and foreground when scrolling
 - [Fade background color box demo](http://mdk-demo.themekit.io/box-fade.html) - Fades the box background color when scrolling past a threshold
 
+### [Drawer](https://github.com/themekit/material-design-kit/tree/master/src/drawer)
+
+A navigation drawer that can slide in from the left or right.
+
+- [Left drawer demo](http://mdk-demo.themekit.io/drawer-left.html) - Slides in from the left
+- [Right drawer demo](http://mdk-demo.themekit.io/drawer-right.html) - Slides in from the right
+
+### [Drawer Layout](https://github.com/themekit/material-design-kit/tree/master/src/drawer-layout)
+
+A wrapper element that positions a Drawer and other content.
+
+- [Left drawer layout demo](http://mdk-demo.themekit.io/drawer-layout-left.html)
+
 ---
 
 ## Get help
