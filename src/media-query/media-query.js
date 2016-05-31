@@ -1,22 +1,18 @@
-import { watch } from '../util'
+import { watch } from 'watch-object'
 
 export const mediaQuery = (query, isFullQuery) => {
 	let mediaQuery = {
 		query,
 		isFullQuery,
-		_queryMatches: null,
+		queryMatches: null,
 
 		get _boundMQhandler () {
 			return this._MQHandler.bind(this)
 		},
 
-		get queryMatches () {
-			return this._queryMatches
-		},
-
 		resetMediaQuery () {
 			this._removeMQListener()
-			this._queryMatches = null
+			this.queryMatches = null
 			let query = this.query
 			if (!query) {
 				return
@@ -30,7 +26,7 @@ export const mediaQuery = (query, isFullQuery) => {
 		},
 
 		_MQHandler (mq) {
-			this._queryMatches = mq.matches
+			this.queryMatches = mq.matches
 		},
 
 		_addMQListener () {
@@ -44,12 +40,15 @@ export const mediaQuery = (query, isFullQuery) => {
 				this._mediaQueryList.removeListener(this._boundMQhandler)
 			}
 			this._mediaQueryList = null
+		},
+
+		init () {
+			watch(mediaQuery, 'query', mediaQuery.resetMediaQuery.bind(mediaQuery))
+			mediaQuery.resetMediaQuery()
 		}
 	}
 
-	watch(mediaQuery, 'query', mediaQuery.resetMediaQuery.bind(mediaQuery))
-
-	mediaQuery.resetMediaQuery()
+	mediaQuery.init()
 
 	return mediaQuery
 }

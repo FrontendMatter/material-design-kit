@@ -1,10 +1,6 @@
 // STYLING
 import './style'
 
-// BEHAVIORS
-import { scrollTargetBehavior } from './scroll-target-behavior'
-import { scrollEffectBehavior } from './scroll-effect-behavior'
-
 // COMPONENTS
 import { headerComponent } from './header'
 import { headerLayoutComponent } from './header-layout'
@@ -87,24 +83,6 @@ headerLayouts = headerLayouts.map(layout => {
 
 // EXPORT SELF INITIALIZED COMPONENTS
 export { 
-	headers,
-	headerLayouts,
-	boxes,
-	drawers,
-	drawerLayouts
-}
-
-// EXPORT DEFAULT
-export default { 
-	scrollTargetBehavior, 
-	scrollEffectBehavior, 
-	headerComponent,
-	headerLayoutComponent,
-	boxComponent,
-	drawerComponent,
-	drawerLayoutComponent,
-	SCROLL_EFFECTS,
-	HEADER_SCROLL_EFFECTS,
 	headers,
 	headerLayouts,
 	boxes,

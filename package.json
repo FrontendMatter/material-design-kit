@@ -33,7 +33,9 @@
     "url-loader": "^0.5.7",
     "webpack": "^1.12.11"
   },
-  "dependencies": {},
+  "dependencies": {
+    "watch-object": "^1.1.0"
+  },
   "keywords": [
     "material-design",
     "material",

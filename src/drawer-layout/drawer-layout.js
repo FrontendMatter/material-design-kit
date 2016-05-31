@@ -1,6 +1,13 @@
-import { transform, watch } from '../util'
+import { transform } from '../util'
 import { mediaQuery } from '../media-query'
+import { watch } from 'watch-object'
 
+/**
+ * A wrapper element that positions a Drawer and other content.
+ * @param  {HTMLElement} element
+ * @param  {drawerComponent} drawer
+ * @return {Object}
+ */
 export const drawerLayoutComponent = (element, drawer) => {
 	let component = {
 		element,
@@ -23,6 +30,10 @@ export const drawerLayoutComponent = (element, drawer) => {
 		
 		get narrow () {
 			return this.forceNarrow ? true : this._narrow
+		},
+
+		set narrow (value) {
+			this._narrow = !value && this.forceNarrow ? true : value
 		},
 
 		get push () {
@@ -115,15 +126,15 @@ export const drawerLayoutComponent = (element, drawer) => {
 			}
 		},
 
-		_init () {
+		init () {
 			// Initial render
 			this._setContentTransitionDuration('0s')
 			setTimeout(() => this._setContentTransitionDuration(''), 0)
 
 			// Reactivity
-			watch(this, '_narrow', this.resetLayout)
-			watch(this.mediaQuery, '_queryMatches', (value) => this._narrow = value)
-
+			watch(this, 'narrow', this.resetLayout)
+			watch(this.mediaQuery, 'queryMatches', (value) => this.narrow = value)
+			
 			// Initialize media query
 			this.mediaQuery.resetMediaQuery()
 
@@ -132,7 +143,7 @@ export const drawerLayoutComponent = (element, drawer) => {
 		}
 	}
 
-	component._init()
+	component.init()
 
 	return component
 }

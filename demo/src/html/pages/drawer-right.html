@@ -52,11 +52,10 @@ title: Right drawer
 
 {% block footer %}
   <script>
-    var mdk = MDK.default;
     var drawerNode = document.querySelector('.mdk-drawer');
     var drawer = null;
 
-    mdk.drawers.forEach(function (d) {
+    MDK.drawers.forEach(function (d) {
       if (d.element === drawerNode) {
         drawer = d
       }
