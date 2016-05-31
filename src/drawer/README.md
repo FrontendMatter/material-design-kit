@@ -80,21 +80,21 @@ Initialize the drawer component by adding the `mdk-js-drawer` class.
   </thead>
   <tbody>
     <tr>
-      <td>`align`</td>
+      <td><code>align</code></td>
       <td>
-        The alignment of the drawer on the screen (`left`, `right`, `start` or `end`). `start` computes to left and `end` to right in LTR and RTL layouts.
+        The alignment of the drawer on the screen (<code>left</code>, <code>right</code>, <code>start</code> or <code>end</code>). <code>start</code> computes to left and <code>end</code> to right in LTR and RTL layouts.
       </td>
-      <td>`left`</td>
+      <td><code>left</code></td>
     </tr>
     <tr>
-      <td>`persistent`</td>
+      <td><code>persistent</code></td>
       <td>The drawer does not have a scrim</td>
-      <td>`false`</td>
+      <td><code>false</code></td>
     </tr>
     <tr>
-      <td>`opened`</td>
+      <td><code>opened</code></td>
       <td>The opened state of the drawer</td>
-      <td>`false`</td>
+      <td><code>false</code></td>
     </tr>
   </tbody>
 </table>
@@ -110,21 +110,21 @@ Initialize the drawer component by adding the `mdk-js-drawer` class.
   </thead>
   <tbody>
     <tr>
-      <td>`open()`</td>
+      <td><code>open()</code></td>
       <td>
         Opens the drawer.
       </td>
     </tr>
     <tr>
-      <td>`close()`</td>
+      <td><code>close()</code></td>
       <td>Closes the drawer.</td>
     </tr>
     <tr>
-      <td>`toggle()`</td>
+      <td><code>toggle()</code></td>
       <td>Toggles the opened state of the drawer.</td>
     </tr>
     <tr>
-      <td>`getWidth()`</td>
+      <td><code>getWidth()</code></td>
       <td>Get the width of the drawer.</td>
     </tr>
   </tbody>
