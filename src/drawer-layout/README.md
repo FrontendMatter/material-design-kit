@@ -45,9 +45,11 @@ With a Header Layout, a custom scrolling region for the main content and a push 
     <div class="mdk-header-layout mdk-js-header-layout" has-scrolling-region>
 
       <!-- header -->
-      <div class="mdk-header mdk-js-header">
+      <div class="mdk-header mdk-js-header"
+        effects="waterfall condenses fixed">
         <div class="mdk-header__content">
           <!-- header content -->
+          <button type="button">Toggle</button>
         </div>
       </div>
       
@@ -68,7 +70,7 @@ With a Header Layout, a custom scrolling region for the main content and a push 
 </div>
 ```
 
-Customize the maximum viewport width for narrow layout.
+Customize the maximum viewport width for enabling the narrow layout.
 
 ```html
 <div class="mdk-drawer-layout mdk-js-drawer-layout" responsive-width="768px">
@@ -107,12 +109,12 @@ The drawer layout options can be used programatically (see [Programmatic usage](
   <tbody>
     <tr>
       <td><code>responsiveWidth</code></td>
-      <td>The maximum viewport width for the narrow layout</td>
+      <td>The maximum viewport width for enabling the narrow layout.</td>
       <td><code>554px</code></td>
     </tr>
     <tr>
       <td><code>forceNarrow</code></td>
-      <td>Ignore the <code>responsiveWidth</code> option and force the narrow layout on any screen size</td>
+      <td>Ignore the <code>responsiveWidth</code> option and force the narrow layout on any screen size.</td>
       <td><code>false</code></td>
     </tr>
     <tr>
@@ -135,15 +137,11 @@ The drawer layout options can be used programatically (see [Programmatic usage](
   <tbody>
     <tr>
       <td><code>destroy()</code></td>
-      <td>
-        Destroys the drawer layout.
-      </td>
+      <td>Destroys the drawer layout.</td>
     </tr>
     <tr>
       <td><code>init()</code></td>
-      <td>
-        (Re)Initializes the drawer layout (only needs to be called after using <code>destroy</code>).
-      </td>
+      <td>(Re)Initializes the drawer layout (only needs to be called after using <code>destroy</code>).</td>
     </tr>
   </tbody>
 </table>
@@ -157,7 +155,7 @@ Get a reference to an initialized drawer layout.
 var drawerLayout = MDK.drawerLayouts[0]
 
 // CommonJS
-var drawerLayout = require('material-design-kit').drawerLayout[0]
+var drawerLayout = require('material-design-kit').drawerLayouts[0]
 
 // ES6
 import { drawerLayouts } from 'material-design-kit'
