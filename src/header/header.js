@@ -25,25 +25,11 @@ export const headerComponent = (element, scrollTarget, effects = []) => {
 
   let component = {
 
-    get condenses () {
-      return this.element.hasAttribute('condenses')
-    },
+    // HTMLElement
+    element,
 
-    get reveals () {
-      return this.element.hasAttribute('reveals')
-    },
-
-    get fixed () {
-      return this.element.hasAttribute('fixed')
-    },
-
-    get disabled () {
-      return this.element.hasAttribute('disabled')
-    },
-
-    get transformDisabled () {
-      return this.disabled || this.element.hasAttribute('transform-disabled')
-    },
+    // The scroll target HTMLElement
+    scrollTarget,
 
     // A cached offsetHeight of the element
     _height: 0,
@@ -68,6 +54,66 @@ export const headerComponent = (element, scrollTarget, effects = []) => {
     _initTimestamp: 0,
     _lastTimestamp: 0,
     _lastScrollTop: 0,
+
+    get condenses () {
+      return this.element.hasAttribute('condenses')
+    },
+
+    /**
+     * Update `condenses` attribute on `element`
+     * @param  {Boolean}  value
+     */
+    set condenses (value) {
+      this.element[value ? 'setAttribute' : 'removeAttribute']('condenses', 'condenses')
+    },
+
+    get reveals () {
+      return this.element.hasAttribute('reveals')
+    },
+
+    /**
+     * Update `reveals` attribute on `element`
+     * @param  {Boolean}  value
+     */
+    set reveals (value) {
+      this.element[value ? 'setAttribute' : 'removeAttribute']('reveals', 'reveals')
+    },
+
+    get fixed () {
+      return this.element.hasAttribute('fixed')
+    },
+
+    /**
+     * Update `fixed` attribute on `element`
+     * @param  {Boolean}  value
+     */
+    set fixed (value) {
+      this.element[value ? 'setAttribute' : 'removeAttribute']('fixed', 'fixed')
+    },
+
+    get disabled () {
+      return this.element.hasAttribute('disabled')
+    },
+
+    /**
+     * Update `disabled` attribute on `element`
+     * @param  {Boolean}  value
+     */
+    set disabled (value) {
+      this.element[value ? 'setAttribute' : 'removeAttribute']('disabled', 'disabled')
+    },
+
+    get transformDisabled () {
+      return this.disabled || this.element.hasAttribute('transform-disabled')
+    },
+
+    /**
+     * Update `transform-disabled` attribute on `element`
+     * @param  {Boolean}  value
+     */
+    set transformDisabled (value) {
+      this.element[value ? 'setAttribute' : 'removeAttribute']('transform-disabled', 'transform-disabled')
+    },
 
     /**
      * The distance the header is allowed to move away.
@@ -296,27 +342,35 @@ export const headerComponent = (element, scrollTarget, effects = []) => {
      */
     _mayMove () {
       return this.condenses || !this.fixed
+    },
+
+    /**
+     * Initialize component
+     */
+    init () {
+      // Attach to scrollTarget
+      this.attachToScrollTarget(scrollTarget)
+
+      // Handle fixed positioned scroll
+      this._setUpFixedPositionedScroll()
+
+      // Setup backgrounds
+      this._setupBackgrounds()
+
+      // Setup layout
+      this._setUpLayout()
     }
   }
 
   // Merge behaviors
-  let componentWithBehavior = assign(
+  component = assign(
     {},
     scrollEffectBehavior(element, scrollTarget, effects),
     component
   )
 
-  // Attach to scrollTarget
-  componentWithBehavior.attachToScrollTarget(scrollTarget)
+  // Initialize component
+  component.init()
 
-  // Handle fixed positioned scroll
-  componentWithBehavior._setUpFixedPositionedScroll()
-
-  // Setup backgrounds
-  componentWithBehavior._setupBackgrounds()
-
-  // Setup layout
-  componentWithBehavior._setUpLayout()
-
-  return componentWithBehavior
+  return component
 }
