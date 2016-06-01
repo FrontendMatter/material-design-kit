@@ -75,6 +75,8 @@ Initialize the drawer component by adding the `mdk-js-drawer` class.
 
 ## Options
 
+The drawer options can be used programatically (see [Programmatic usage](#programmatic-usage) below) or via attributes on the HTML element.
+
 <table>
   <thead>
     <tr>
@@ -170,6 +172,13 @@ Initialize the drawer component by adding the `mdk-js-drawer` class.
   </tbody>
 </table>
 
+```js
+var drawerNode = document.querySelector('.mdk-js-drawer')
+drawerNode.addEventListener('change.mdk.drawer', function () {
+  // do something
+})
+```
+
 ## Programmatic usage
 
 Get a reference to an initialized drawer.
@@ -205,7 +214,7 @@ button.addEventListener('click', function () {
 })
 ```
 
-Sometimes you need to initialize a drawer dynamically, for example when using libraries like Vue.js or Angular2 where you need to hook into lifecycle callbacks.
+Sometimes you need to initialize a drawer dynamically, for example when using libraries like Vue.js or Angular2 where you need to hook into the application lifecycle.
 
 ```js
 // Global
@@ -228,6 +237,10 @@ drawer.open()
 // You can also destroy the drawer before removing it from the DOM
 drawer.destroy()
 ```
+
+## Reactivity
+
+The drawer options are reactive, which means that when assigning options programatically (i.e. `drawer.opened = true`) or calling component methods which themselves are assigning options (i.e. `drawer.open()`), the component will update itself to reflect the new option value and trigger events and DOM changes.
 
 ## CSS
 

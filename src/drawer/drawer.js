@@ -221,6 +221,8 @@ export const drawerComponent = (element) => {
      * Initialize component
      */
     init () {
+      this._resetPosition()
+      
       watch(this, 'align', this._resetPosition)
       watch(this, ['opened', 'persistent', 'align', 'position'], this._fireChange)
       watch(this, '_drawerState', this._onChangedState)
