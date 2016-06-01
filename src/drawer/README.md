@@ -1,6 +1,11 @@
 # Drawer
 
-A navigation drawer that can slide in from the left or right.
+A navigation drawer that can slide in from the left or right. Based on Polymer's [app-drawer](https://elements.polymer-project.org/elements/app-layout?active=app-drawer) element using vanilla web technologies (CSS, JavaScript and HTML).
+
+## Demos
+
+- [Left drawer demo](http://mdk-demo.themekit.io/drawer-left.html) - Slides in from the left
+- [Right drawer demo](http://mdk-demo.themekit.io/drawer-right.html) - Slides in from the right
 
 ## Examples
 
@@ -128,21 +133,23 @@ Initialize the drawer component by adding the `mdk-js-drawer` class.
       <td>Get the width of the drawer.</td>
     </tr>
     <tr>
-      <td><code>init()</code></td>
-      <td>
-        Initializes the drawer.
-      </td>
-    </tr>
-    <tr>
       <td><code>destroy()</code></td>
       <td>
         Destroys the drawer.
+      </td>
+    </tr>
+    <tr>
+      <td><code>init()</code></td>
+      <td>
+        (Re)Initializes the drawer (only needs to be called after using <code>destroy</code>).
       </td>
     </tr>
   </tbody>
 </table>
 
 ## Programmatic usage
+
+Get a reference to an initialized drawer.
 
 ```js
 // Global
@@ -155,6 +162,8 @@ var drawer = require('material-design-kit').drawers[0]
 import { drawers } from 'material-design-kit'
 let drawer = drawers[0]
 ```
+
+Interact with an initialized drawer.
 
 ```js
 // Set the opened state directly via property
@@ -171,6 +180,51 @@ var button = document.querySelector('.some-button')
 button.addEventListener('click', function () {
 	drawer.toggle()
 })
+```
+
+Sometimes you need to initialize a drawer dynamically, for example when using libraries like Vue.js or Angular2 where you need to hook into lifecycle callbacks.
+
+```js
+// Global
+var drawerComponent = MDK.drawerComponent
+
+// CommonJS
+var drawerComponent = require('material-design-kit').drawerComponent
+
+// ES6
+import { drawerComponent } from 'material-design-kit'
+```
+
+```js
+var drawerNode = document.querySelector('.mdk-js-drawer')
+var drawer = drawerComponent(drawerNode)
+
+// Use the drawer
+drawer.open()
+
+// You can also destroy the drawer before removing it from the DOM
+drawer.destroy()
+```
+
+## CSS
+
+Customize the drawer width via CSS overrides.
+
+```css
+.mdk-drawer__content {
+  width: 200px;
+}
+```
+
+## Sass
+
+Customize the drawer width using Sass.
+
+```sass
+$drawer-width: 200px !default;
+
+@import 'node_modules/material-design-kit/src/variables';
+@import 'node_modules/material-design-kit/src/drawer/drawer';
 ```
 
 ---
