@@ -147,6 +147,29 @@ Initialize the drawer component by adding the `mdk-js-drawer` class.
   </tbody>
 </table>
 
+## Events
+
+<table>
+  <thead>
+    <tr>
+      <th>Event</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>change.mdk.drawer</code></td>
+      <td>
+        Fires when any of the drawer properties change (<code>align</code>, <code>position</code>, <code>persistent</code> or <code>opened</code>).
+      </td>
+    </tr>
+    <tr>
+      <td><code>changed.mdk.drawer</code></td>
+      <td>Fires after the drawer state has changed (after the CSS transition is complete)</td>
+    </tr>
+  </tbody>
+</table>
+
 ## Programmatic usage
 
 Get a reference to an initialized drawer.
@@ -213,6 +236,30 @@ Customize the drawer width via CSS overrides.
 ```css
 .mdk-drawer__content {
   width: 200px;
+}
+```
+
+Customize the drawer background color.
+
+```css
+.mdk-drawer__content {
+  background-color: #eee;
+}
+```
+
+Customize the drawer based on position.
+
+```css
+[position=left] .mdk-drawer__content {
+  border-right: 1px solid #eee;
+}
+```
+
+Customize the drawer scrim.
+
+```css
+.mdk-drawer__scrim {
+  background-color: rgba(0, 0, 0, .7);
 }
 ```
 
