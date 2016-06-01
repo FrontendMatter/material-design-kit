@@ -181,28 +181,34 @@ button.addEventListener('click', function () {
 })
 ```
 
-Sometimes you need to initialize a drawer layout dynamically, for example when using libraries like Vue.js or Angular2 where you need to hook into the application lifecycle.
+Sometimes you need to initialize a drawer layout dynamically, for example when using libraries like Vue.js or Angular2 where you need to hook into the application lifecycle. Note that you will also need to initialize the drawer and assign it to the drawer layout.
 
 ```js
 // Global
 var drawerLayoutComponent = MDK.drawerLayoutComponent
+var drawerComponent = MDK.drawerComponent
 
 // CommonJS
-var drawerLayoutComponent = require('material-design-kit').drawerLayoutComponent
+var MDK = require('material-design-kit')
+var drawerLayoutComponent = MDK.drawerLayoutComponent
+var drawerComponent = MDK.drawerComponent
 
 // ES6
-import { drawerLayoutComponent } from 'material-design-kit'
+import { drawerLayoutComponent, drawerComponent } from 'material-design-kit'
 ```
 
 ```js
+var drawerNode = document.querySelector('.mdk-js-drawer')
+var drawer = drawerComponent(drawerNode)
+
 var drawerLayoutNode = document.querySelector('.mdk-js-drawer-layout')
-var drawerLayout = drawerLayoutComponent(drawerLayoutNode)
+var drawerLayout = drawerLayoutComponent(drawerLayoutNode, drawer)
 
 // Use the drawer layout
 drawerLayout.forceNarrow = true
 
 // You can also destroy the drawer layout before removing it from the DOM
-drawerLayout.destroy()
+drawerLayout.destroy() // it also calls `destroy` on the associated drawer
 ```
 
 ## Reactivity
