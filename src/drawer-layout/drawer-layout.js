@@ -20,7 +20,7 @@ export const drawerLayoutComponent = (element, drawer) => {
     // mediaQuery utility
     _mediaQuery: null,
 
-    // The default maximum width for auto changing to narrow layout
+    // The default maximum viewport width for the narrow layout
     _responsiveWidth: '554px',
 
     // The default `narrow` value
@@ -39,7 +39,7 @@ export const drawerLayoutComponent = (element, drawer) => {
     },
 
     /**
-     * If true, ignore `responsiveWidth` setting and always force the narrow layout.
+     * If true, ignore the `responsiveWidth` option and force the narrow layout on any screen size.
      * @return {Boolean}
      */
     get forceNarrow () {
