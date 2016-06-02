@@ -7,21 +7,29 @@ const REAR_LAYER = '[class*="__bg-rear"]'
 export const SCROLL_EFFECT_BLEND_BACKGROUND = {
   name: 'blend-background',
   setUp () {
-    let bgFrontLayer = this.element.querySelector(FRONT_LAYER)
-    let bgRearLayer = this.element.querySelector(REAR_LAYER)
+    let frontLayer = this.element.querySelector(FRONT_LAYER)
+    let rearLayer = this.element.querySelector(REAR_LAYER)
+    const layers = [ frontLayer, rearLayer ]
 
-    bgFrontLayer.style.willChange = 'opacity'
-    bgFrontLayer.style.webkitTransform = 'translateZ(0)'
-    
-    bgRearLayer.style.willChange = 'opacity'
-    bgRearLayer.style.webkitTransform = 'translateZ(0)'
-    bgRearLayer.style.opacity = 0
+    layers.map(layer => {
+      if (layer) {
+        let willChange = layer.style.willChange.split(',').map(c => c.trim()).filter(c => c.length)
+        willChange.push('opacity', 'transform')
+        layer.style.willChange = [...new Set(willChange)].join(', ')
+
+        if (layer.style.transform === '') {
+          this._transform('translateZ(0)', layer)
+        }
+      }
+    })
+
+    rearLayer.style.opacity = 0
   },
   run (progress, top) {
-    let bgFrontLayer = this.element.querySelector(FRONT_LAYER)
-    let bgRearLayer = this.element.querySelector(REAR_LAYER)
+    let frontLayer = this.element.querySelector(FRONT_LAYER)
+    let rearLayer = this.element.querySelector(REAR_LAYER)
 
-    bgFrontLayer.style.opacity = 1 - progress
-    bgRearLayer.style.opacity = progress
+    frontLayer.style.opacity = (1 - progress).toFixed(5)
+    rearLayer.style.opacity = progress.toFixed(5)
   }
 }

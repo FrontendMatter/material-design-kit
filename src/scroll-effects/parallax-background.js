@@ -12,6 +12,8 @@ export const SCROLL_EFFECT_PARALLAX_BACKGROUND = {
     
     let container = this.element.querySelector(CONTAINER)
     let frontLayer = this.element.querySelector(FRONT_LAYER)
+    let rearLayer = this.element.querySelector(REAR_LAYER)
+    let layers = [ frontLayer, rearLayer ]
 
     let scalar = parseFloat(config.scalar ? config.scalar : 1.5)
     let distance = frontLayer.offsetHeight - container.offsetHeight
@@ -29,22 +31,44 @@ export const SCROLL_EFFECT_PARALLAX_BACKGROUND = {
     }
 
     this._parallaxBackgroundDelta = distance * scalar
+    
+    let transform = (this._parallaxBackgroundDelta * Math.min(1, this._progress)).toFixed(5)
+    let margin = (-1 * offset).toFixed(5)
 
-    if (frontLayer) {
-      let transform = (this._parallaxBackgroundDelta * Math.min(1, this._progress)).toFixed(5)
-      let margin = (-1 * offset).toFixed(5)
-      
-      frontLayer.style[scalar > 1 || !this._isPositionedFixed ? 'marginTop' : 'marginBottom'] = `${ margin }px`
-      this._transform(`translate3d(0, ${ transform }px, 0)`, frontLayer)
-    }
+    layers.map(layer => {
+      if (layer) {
+        let willChange = layer.style.willChange.split(',').map(c => c.trim()).filter(c => c.length)
+        willChange.push('transform')
+        layer.style.willChange = [...new Set(willChange)].join(', ')
+
+        layer.style[scalar > 1 || !this._isPositionedFixed ? 'marginTop' : 'marginBottom'] = `${ margin }px`
+        this._transform(`translate3d(0, ${ transform }px, 0)`, layer)
+      }
+    })
   },
   tearDown () {
     delete this._parallaxBackgroundDelta
+    
+    let layers = [ 
+      this.element.querySelector(FRONT_LAYER), 
+      this.element.querySelector(REAR_LAYER)
+    ]
+
+    let props = ['marginTop', 'marginBottom']
+
+    layers.map(layer => {
+      if (layer) {
+        this._transform('translate3d(0, 0, 0)', layer)
+        props.forEach((prop) => layer.style[prop] = '')
+      }
+    })
   },
   run (progress, top) {
-    let frontLayer = this.element.querySelector(FRONT_LAYER)
-    let rearLayer = this.element.querySelector(REAR_LAYER)
-    let layers = [ frontLayer, rearLayer, this.element.querySelector('[parallax-layer]') ]
+    let layers = [ 
+      this.element.querySelector(FRONT_LAYER), 
+      this.element.querySelector(REAR_LAYER)
+    ]
+    
     let transform = (this._parallaxBackgroundDelta * Math.min(1, progress)).toFixed(5)
 
     layers.map(layer => {

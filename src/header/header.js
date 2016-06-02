@@ -1,5 +1,6 @@
 import { assign } from '../util'
 import { scrollEffectBehavior } from '../scroll-effect-behavior'
+import { watch, unwatch } from 'watch-object'
 
 const MODULE = 'mdk-header'
 const CONTENT = `.${ MODULE }__content`
@@ -12,24 +13,14 @@ const MODIFIER_FIXED = `${ MODULE }--fixed`
  * A container element for navigation and other content at the top 
  * of the screen with visual effects based on scroll position
  * 
- * @param  {HTMLElement}    element       The component DOM element
- * @param  {string|HTMLElement} scrollTarget  The scroll target (optional)
- * @param  {Array}        effects     The effect names to run
+ * @param  {HTMLElement} element
  * @return {Object}
  */
-export const headerComponent = (element, scrollTarget, effects = []) => {
-
-  // ScrollEffectBehavior options
-  scrollTarget = element.hasAttribute('scroll-target') ? element.getAttribute('scroll-target') : scrollTarget
-  effects = element.hasAttribute('effects') ? (element.getAttribute('effects') || '').split(' ') : effects
-
+export const headerComponent = (element) => {
   let component = {
 
     // HTMLElement
     element,
-
-    // The scroll target HTMLElement
-    scrollTarget,
 
     // A cached offsetHeight of the element
     _height: 0,
@@ -55,6 +46,11 @@ export const headerComponent = (element, scrollTarget, effects = []) => {
     _lastTimestamp: 0,
     _lastScrollTop: 0,
 
+    /**
+     * Collapse the header when scrolling down, leaving only the `[primary]` element visible.
+     * If there is no `[primary]` element, the first child remains visibile.
+     * @return {[type]} [description]
+     */
     get condenses () {
       return this.element.hasAttribute('condenses')
     },
@@ -65,8 +61,15 @@ export const headerComponent = (element, scrollTarget, effects = []) => {
      */
     set condenses (value) {
       this.element[value ? 'setAttribute' : 'removeAttribute']('condenses', 'condenses')
+      if (!value) {
+        this.reveals = value
+      }
     },
 
+    /**
+     * Slides back the header when scrolling back up.
+     * @return {Boolean}
+     */
     get reveals () {
       return this.element.hasAttribute('reveals')
     },
@@ -79,6 +82,10 @@ export const headerComponent = (element, scrollTarget, effects = []) => {
       this.element[value ? 'setAttribute' : 'removeAttribute']('reveals', 'reveals')
     },
 
+    /**
+     * Mantains the header fixed at the top.
+     * @return {Boolean}
+     */
     get fixed () {
       return this.element.hasAttribute('fixed')
     },
@@ -91,6 +98,10 @@ export const headerComponent = (element, scrollTarget, effects = []) => {
       this.element[value ? 'setAttribute' : 'removeAttribute']('fixed', 'fixed')
     },
 
+    /**
+     * Disables all scroll effects
+     * @return {Boolean}
+     */
     get disabled () {
       return this.element.hasAttribute('disabled')
     },
@@ -103,8 +114,12 @@ export const headerComponent = (element, scrollTarget, effects = []) => {
       this.element[value ? 'setAttribute' : 'removeAttribute']('disabled', 'disabled')
     },
 
+    /**
+     * Disables transform effects
+     * @return {Boolean}
+     */
     get transformDisabled () {
-      return this.disabled || this.element.hasAttribute('transform-disabled')
+      return this.disabled || this.element.hasAttribute('transform-disabled') || !this._isPositionedFixed
     },
 
     /**
@@ -179,13 +194,15 @@ export const headerComponent = (element, scrollTarget, effects = []) => {
       })
     },
 
-    _setUpLayout () {
-      if (this._isPositionedFixed) {
-        this.element.classList.add(MODIFIER_FIXED)
-      }
-
+    _resetLayout () {
       if (this.element.offsetWidth === 0 && this.element.offsetHeight === 0) {
         return
+      }
+
+      this.element.classList[this._isPositionedFixed ? 'add' : 'remove'](MODIFIER_FIXED)
+      this._transform('translate3d(0, 0, 0)')
+      if (this._primaryElement) {
+        this._transform('translate3d(0, 0, 0)', this._primaryElement)
       }
 
       let scrollTop = this._clampedScrollTop
@@ -204,12 +221,15 @@ export const headerComponent = (element, scrollTarget, effects = []) => {
       this._setUpEffects()
     },
 
-    // Pass MouseWheel events from `scrollTarget` with `position: fixed`
-    _setUpFixedPositionedScroll () {
+    /**
+     * Pass MouseWheel events from the scroll target
+     * when the header is fixed and the scroll target is not the document
+     */
+    _handleFixedPositionedScroll () {
       if (this._fixedPositionedScrollHandler !== undefined) {
         this.element.removeEventListener('wheel', this._fixedPositionedScrollHandler)
       }
-      if (this._isPositionedFixed && this.scrollTarget !== this._doc) {
+      if (this._isValidScrollTarget() && this._isPositionedFixed && this.scrollTarget !== this._doc) {
         this._fixedPositionedScrollHandler = (e) => {
           let passMouseEvent = new WheelEvent(e.type, e)
           this.scrollTarget.dispatchEvent(passMouseEvent)
@@ -314,9 +334,7 @@ export const headerComponent = (element, scrollTarget, effects = []) => {
       if (forceUpdate || progress !== this._progress || lastTop !== top || scrollTop === 0) {
         this._progress = progress
         this._runEffects(progress, top)
-        if (!this.transformDisabled) {
-          this._transformHeader(top)
-        }
+        this._transformHeader(top)
       }
     },
 
@@ -325,6 +343,9 @@ export const headerComponent = (element, scrollTarget, effects = []) => {
      * @param  {number} top
      */
     _transformHeader (top) {
+      if (this.transformDisabled) {
+        return
+      }
       this._transform(`translate3d(0, ${ -top }px, 0)`)
 
       if (this._primaryElement && this.condenses && top >= this._primaryElementTop) {
@@ -345,27 +366,47 @@ export const headerComponent = (element, scrollTarget, effects = []) => {
     },
 
     /**
+     * Handle the resize event every 50ms
+     */
+    _debounceResize () {
+      clearTimeout(this._onResizeTimeout)
+      this._onResizeTimeout = setTimeout(() => this._resetLayout(), 50)
+    },
+
+    /**
      * Initialize component
      */
     init () {
-      // Attach to scrollTarget
-      this.attachToScrollTarget(scrollTarget)
+      watch(this, 'scrollTargetSelector', this._handleFixedPositionedScroll)
+      watch(this, ['condenses', 'reveals', 'fixed'], this._resetLayout)
 
-      // Handle fixed positioned scroll
-      this._setUpFixedPositionedScroll()
+      this._boundResizeHandler = this._debounceResize.bind(this)
+      window.addEventListener('resize', this._boundResizeHandler)
 
-      // Setup backgrounds
+      this.attachToScrollTarget()
+      this._handleFixedPositionedScroll()
       this._setupBackgrounds()
+      this._resetLayout()
+    },
 
-      // Setup layout
-      this._setUpLayout()
+    /**
+     * Destroy component
+     */
+    destroy () {
+      unwatch(this, 'scrollTargetSelector', this._handleFixedPositionedScroll)
+      unwatch(this, ['condenses', 'reveals', 'fixed'], this._resetLayout)
+
+      clearTimeout(this._onResizeTimeout)
+      window.removeEventListener('resize', this._boundResizeHandler)
+
+      this.detachFromScrollTarget()
     }
   }
 
-  // Merge behaviors
+  // Merge with scrollEffectBehavior
   component = assign(
     {},
-    scrollEffectBehavior(element, scrollTarget, effects),
+    scrollEffectBehavior(element),
     component
   )
 

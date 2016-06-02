@@ -40,14 +40,7 @@ export const headerLayoutComponent = (element, header) => {
     },
 
     _updateScroller () {
-      if (this.header) {
-        const scrollTarget = this.hasScrollingRegion 
-          ? this.contentContainer 
-          : this.element.ownerDocument.documentElement
-
-        this.header.attachToScrollTarget(scrollTarget)
-        this.header._setUpFixedPositionedScroll()
-      }
+      this.header.scrollTargetSelector = this.hasScrollingRegion ? this.contentContainer : null
     },
 
     _updateContentPosition () {

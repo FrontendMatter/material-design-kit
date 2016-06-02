@@ -7,25 +7,20 @@ const FRONT_LAYER = `${ BG }-front`
 const REAR_LAYER = `${ BG }-rear`
 
 /**
- * A container element for generic content with 
- * visual effects based on scroll position
- * 
- * @param  {HTMLElement}    element       The component DOM element
- * @param  {string|HTMLElement} scrollTarget  The scroll target (optional)
- * @param  {Array}        effects     The effect names to run
+ * A container element for generic content with visual effects based on scroll position
+ * @param  {HTMLElement} element
  * @return {Object}
  */
-export const boxComponent = (element, scrollTarget, effects = []) => {
-
-  // ScrollEffectBehavior options
-  scrollTarget = element.hasAttribute('scroll-target') ? element.getAttribute('scroll-target') : scrollTarget
-  effects = element.hasAttribute('effects') ? (element.getAttribute('effects') || '').split(' ') : effects
-  
+export const boxComponent = (element) => {
   let component = {
 
     // The current scroll progress
     _progress: 0,
 
+    /**
+     * Disables effects
+     * @return {Boolean}
+     */
     get disabled () {
       return this.element.hasAttribute('disabled')
     },
@@ -62,7 +57,7 @@ export const boxComponent = (element, scrollTarget, effects = []) => {
       })
     },
 
-    _setUpLayout () {
+    _resetLayout () {
       if (this.element.offsetWidth === 0 && this.element.offsetHeight === 0) {
         return
       }
@@ -103,24 +98,48 @@ export const boxComponent = (element, scrollTarget, effects = []) => {
         this._progress = progress
         this._runEffects(this._progress, scrollTop)
       }
+    },
+
+    /**
+     * Handle the resize event every 50ms
+     */
+    _debounceResize () {
+      clearTimeout(this._onResizeTimeout)
+      this._onResizeTimeout = setTimeout(() => this._resetLayout(), 50)
+    },
+
+    /**
+     * Initialize component
+     */
+    init () {
+      this._boundResizeHandler = this._debounceResize.bind(this)
+      window.addEventListener('resize', this._boundResizeHandler)
+
+      this.attachToScrollTarget()
+      this._setupBackgrounds()
+      this._resetLayout()
+    },
+
+    /**
+     * Destroy component
+     */
+    destroy () {
+      clearTimeout(this._onResizeTimeout)
+      window.removeEventListener('resize', this._boundResizeHandler)
+      
+      this.detachFromScrollTarget()
     }
   }
 
   // Merge behaviors
-  let componentWithBehavior = assign(
+  component = assign(
     {},
-    scrollEffectBehavior(element, scrollTarget, effects),
+    scrollEffectBehavior(element),
     component
   )
 
-  // Attach to scrollTarget
-  componentWithBehavior.attachToScrollTarget(scrollTarget)
+  // Initialize component
+  component.init()
 
-  // Setup backgrounds
-  componentWithBehavior._setupBackgrounds()
-
-  // Setup layout
-  componentWithBehavior._setUpLayout()
-
-  return componentWithBehavior
+  return component
 }

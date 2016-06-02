@@ -2,31 +2,16 @@ import { assign, transform } from '../util'
 import { scrollTargetBehavior } from '../scroll-target-behavior'
 
 /**
- * Allows a ScrollTargetBehavior element to use scroll effects
- * @param  {HTMLElement}    element       The element which should respond to scroll events
- * @param  {string|HTMLElement} scrollTarget  The scroll target (optional)
- * @param  {Array}        effects     The effect names to run
- * @param  {Object}       effectsConfig   Optional effects configuration object
+ * Allows a scrollTargetBehavior consumer to use scroll effects
+ * @param  {HTMLElement} element The element which should respond to scroll events
  * @return {Object}
  */
-export const scrollEffectBehavior = (element, scrollTarget, effects = [], effectsConfig = {}) => {
-
-  if (element.hasAttribute('effects-config')) {
-    try {
-      effectsConfig = JSON.parse(element.getAttribute('effects-config'))
-    }
-    catch (e) {
-      console.warn(`scrollEffectBehavior: Invalid [effects-config] value. Error: ${ e }`)
-    }
-  }
+export const scrollEffectBehavior = (element) => {
 
   let behavior = {
 
-    // List of effect names to run
-    effects,
-
-    // Optional effects config object
-    effectsConfig,
+    // HTMLElement which should respond to scroll events
+    element,
 
     // List of registered scroll effects
     _scrollEffects: {},
@@ -36,6 +21,52 @@ export const scrollEffectBehavior = (element, scrollTarget, effects = [], effect
 
     // List of the effects definitions
     _effects: [],
+
+    // Effects config
+    _effectsConfig: null,
+
+    /**
+     * Get the list of effect names to run
+     * @return {Array}
+     */
+    get effects () {
+      return this.element.hasAttribute('effects') 
+        ? (this.element.getAttribute('effects') || '').split(' ') 
+        : []
+    },
+
+    /**
+     * Get the effects config object
+     * @return {Object}
+     */
+    get effectsConfig () {
+      if (this._effectsConfig) {
+        return this._effectsConfig
+      }
+      if (this.element.hasAttribute('effects-config')) {
+        try {
+          return JSON.parse(this.element.getAttribute('effects-config'))
+        }
+        catch (e) {}
+      }
+      return {}
+    },
+
+    /**
+     * Set the effects config object
+     * @param  {Object} value
+     */
+    set effectsConfig (value) {
+      this._effectsConfig = value
+    },
+
+    /**
+     * The clamped value of `_scrollTop`.
+     * @return {number}
+     */
+    get _clampedScrollTop () {
+      return Math.max(0, this._scrollTop)
+    },
 
     /**
      * Registers a scroll effect
@@ -82,7 +113,7 @@ export const scrollEffectBehavior = (element, scrollTarget, effects = [], effect
     createEffect (effectName, effectConfig = {}) {
       const effectDef = this._scrollEffects[effectName]
       if (typeof effectDef === undefined) {
-        throw new ReferenceError(this._getUndefinedMessage(effectName))
+        throw new ReferenceError(`Scroll effect ${ effectName } was not registered`)
       }
       const prop = this._boundEffect(effectDef, effectConfig)
       prop.setUp()
@@ -108,23 +139,6 @@ export const scrollEffectBehavior = (element, scrollTarget, effects = [], effect
         run: effectDef.run ? runFn.bind(this) : noop,
         tearDown: effectDef.tearDown ? effectDef.tearDown.bind(this) : noop
       }
-    },
-
-    /**
-     * The clamped value of `_scrollTop`.
-     * @return {number}
-     */
-    get _clampedScrollTop () {
-      return Math.max(0, this._scrollTop)
-    },
-
-    /**
-     * Gets the unregistered effect error message
-     * @param  {string} effectName The effect name
-     * @return {string}
-     */
-    _getUndefinedMessage (effectName) {
-      return `Scroll effect ${ effectName } was not registered`
     },
 
     /**
@@ -168,14 +182,15 @@ export const scrollEffectBehavior = (element, scrollTarget, effects = [], effect
     },
 
     /**
-     * Overrides the `_scrollHandler`
+     * Overrides `scrollTargetBehavior._scrollHandler`
      */
     _scrollHandler () {
       this._updateScrollState(this._clampedScrollTop)
     },
 
     /**
-     * Updates the scroll state.
+     * Updates the scroll state. 
+     * Should be overriden from the consumer of the behavior.
      * @param  {number} scrollTop
      */
     _updateScrollState (scrollTop) {},
@@ -194,7 +209,7 @@ export const scrollEffectBehavior = (element, scrollTarget, effects = [], effect
   // Merge behaviors
   return assign(
     {},
-    scrollTargetBehavior(element, scrollTarget),
+    scrollTargetBehavior(element),
     behavior
   )
 }

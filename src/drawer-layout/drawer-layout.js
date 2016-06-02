@@ -45,6 +45,14 @@ export const drawerLayoutComponent = (element, drawer) => {
     get forceNarrow () {
       return this.element.hasAttribute('force-narrow')
     },
+
+    /**
+     * Update `force-narrow` attribute on `element`
+     * @param  {Boolean}  value
+     */
+    set forceNarrow (value) {
+      this.element[value ? 'setAttribute' : 'removeAttribute']('force-narrow', 'force-narrow')
+    },
     
     /**
      * Returns true if the narrow layout is enabled.
@@ -181,7 +189,7 @@ export const drawerLayoutComponent = (element, drawer) => {
       setTimeout(() => this._setContentTransitionDuration(''), 0)
 
       // Reactivity
-      watch(this, 'narrow', this._resetLayout)
+      watch(this, ['narrow', 'forceNarrow'], this._resetLayout)
       watch(this.mediaQuery, 'queryMatches', this._onQueryMatches)
       
       // Initialize media query
@@ -195,8 +203,9 @@ export const drawerLayoutComponent = (element, drawer) => {
      * Destroy component
      */
     destroy () {
-      unwatch(this, 'narrow', this._resetLayout)
+      unwatch(this, ['narrow', 'forceNarrow'], this._resetLayout)
       unwatch(this.mediaQuery, 'queryMatches', this._onQueryMatches)
+
       this.drawer.element.removeEventListener('change.mdk.drawer', this._onDrawerChange)
     }
   }

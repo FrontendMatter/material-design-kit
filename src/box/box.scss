@@ -1,6 +1,7 @@
 .mdk-box {
 	position: relative;
 	margin-bottom: $spacer;
+	max-height: 100vh;
 	
 	:last-child {
 		margin-bottom: 0;

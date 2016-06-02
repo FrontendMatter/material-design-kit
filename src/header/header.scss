@@ -25,6 +25,11 @@
 	:last-child {
 		margin-bottom: 0;
 	}
+
+	&[condenses],
+	&[reveals] {
+		will-change: transform;
+	}
 }
 
 .mdk-header__title {
