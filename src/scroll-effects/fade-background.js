@@ -19,7 +19,7 @@ export const SCROLL_EFFECT_FADE_BACKGROUND = {
         let willChange = layer.style.willChange.split(',').map(c => c.trim()).filter(c => c.length)
         willChange.push('opacity', 'transform')
         layer.style.willChange = [...new Set(willChange)].join(', ')
-        
+
         if (layer.style.transform === '') {
           this._transform('translateZ(0)', layer)
         }
@@ -28,7 +28,9 @@ export const SCROLL_EFFECT_FADE_BACKGROUND = {
       }
     })
 
-    this._fadeBackgroundThreshold = threshold + (this._progress * threshold)
+    this._fadeBackgroundThreshold = !this._isPositionedFixed 
+      ? threshold + (this._progress * threshold) 
+      : threshold
   },
   tearDown () {
     delete this._fadeBackgroundThreshold
