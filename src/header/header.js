@@ -8,6 +8,7 @@ const BG = `.${ MODULE }__bg`
 const FRONT_LAYER = `${ BG }-front`
 const REAR_LAYER = `${ BG }-rear`
 const MODIFIER_FIXED = `${ MODULE }--fixed`
+const MODIFIER_SHADOW = `${ MODULE }--shadow`
 
 /**
  * A container element for navigation and other content at the top 
@@ -96,6 +97,22 @@ export const headerComponent = (element) => {
      */
     set fixed (value) {
       this.element[value ? 'setAttribute' : 'removeAttribute']('fixed', 'fixed')
+    },
+
+    /**
+     * Displays a shadow under the header.
+     * @return {Boolean}
+     */
+    get shadow () {
+      return this.element.classList.contains(MODIFIER_SHADOW)
+    },
+
+    /**
+     * Toggle `shadow` modifier class
+     * @param  {Boolean}  value
+     */
+    set shadow (value) {
+      this.element.classList[value ? 'add' : 'remove'](MODIFIER_SHADOW)
     },
 
     /**
@@ -217,8 +234,8 @@ export const headerComponent = (element) => {
         this._dHeight = this._primaryElement ? this._height - this._primaryElement.offsetHeight : 0
       }
       
-      this._updateScrollState(firstSetup ? scrollTop : this._lastScrollTop, true)
       this._setUpEffects()
+      this._updateScrollState(firstSetup ? scrollTop : this._lastScrollTop, true)
     },
 
     /**
@@ -281,7 +298,7 @@ export const headerComponent = (element) => {
       let isScrollingDown = scrollTop > lastScrollTop
       let now = Date.now()
 
-      if (scrollTop === lastScrollTop) {
+      if (!forceUpdate && scrollTop === lastScrollTop) {
         return
       }
 
@@ -370,7 +387,12 @@ export const headerComponent = (element) => {
      */
     _debounceResize () {
       clearTimeout(this._onResizeTimeout)
-      this._onResizeTimeout = setTimeout(() => this._resetLayout(), 50)
+      if (this._resizeWidth !== window.innerWidth) {
+        this._onResizeTimeout = setTimeout(() => {
+          this._resizeWidth = window.innerWidth
+          this._resetLayout()
+        }, 50)
+      }
     },
 
     /**
@@ -380,6 +402,7 @@ export const headerComponent = (element) => {
       watch(this, 'scrollTargetSelector', this._handleFixedPositionedScroll)
       watch(this, ['condenses', 'reveals', 'fixed'], this._resetLayout)
 
+      this._resizeWidth = window.innerWidth
       this._boundResizeHandler = this._debounceResize.bind(this)
       window.addEventListener('resize', this._boundResizeHandler)
 

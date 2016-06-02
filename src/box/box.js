@@ -105,13 +105,19 @@ export const boxComponent = (element) => {
      */
     _debounceResize () {
       clearTimeout(this._onResizeTimeout)
-      this._onResizeTimeout = setTimeout(() => this._resetLayout(), 50)
+      if (this._resizeWidth !== window.innerWidth) {
+        this._onResizeTimeout = setTimeout(() => {
+          this._resizeWidth = window.innerWidth
+          this._resetLayout()
+        }, 50)
+      }
     },
 
     /**
      * Initialize component
      */
     init () {
+      this._resizeWidth = window.innerWidth
       this._boundResizeHandler = this._debounceResize.bind(this)
       window.addEventListener('resize', this._boundResizeHandler)
 
