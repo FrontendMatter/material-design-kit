@@ -30,11 +30,14 @@
 	&[reveals] {
 		will-change: transform;
 	}
-}
 
-.mdk-header__title {
-	transform-origin: left top;
-	white-space: nowrap;
+	[fx-condenses] {
+		transform-origin: left top;
+		opacity: 0;
+		&[fx-id] {
+			opacity: 1;
+		}
+	}
 }
 
 .mdk-header__bg {
