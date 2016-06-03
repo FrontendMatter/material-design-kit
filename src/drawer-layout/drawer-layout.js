@@ -192,8 +192,8 @@ export const drawerLayoutComponent = (element, drawer) => {
       watch(this, ['narrow', 'forceNarrow'], this._resetLayout)
       watch(this.mediaQuery, 'queryMatches', this._onQueryMatches)
       
-      // Initialize media query
-      this.mediaQuery.resetMediaQuery()
+      // Initialize mediaQuery
+      this.mediaQuery.init()
 
       // Drawer change
       this.drawer.element.addEventListener('change.mdk.drawer', this._onDrawerChange)
@@ -206,6 +206,7 @@ export const drawerLayoutComponent = (element, drawer) => {
       unwatch(this, ['narrow', 'forceNarrow'], this._resetLayout)
       unwatch(this.mediaQuery, 'queryMatches', this._onQueryMatches)
 
+      this.mediaQuery.destroy()
       this.drawer.element.removeEventListener('change.mdk.drawer', this._onDrawerChange)
     }
   }

@@ -1,53 +1,70 @@
-import { watch } from 'watch-object'
+import { watch, unwatch } from 'watch-object'
 
-export const mediaQuery = (query, isFullQuery) => {
+/**
+ * Bind to a CSS media query
+ * @param  {String} query The CSS media query
+ * @return {Object}
+ */
+export const mediaQuery = (query) => {
   let mediaQuery = {
+
+    // The CSS media query
     query,
-    isFullQuery,
+
+    // CSS media query matches
     queryMatches: null,
 
-    get _boundMQhandler () {
-      return this._MQHandler.bind(this)
-    },
-
-    resetMediaQuery () {
-      this._removeMQListener()
+    _reset () {
+      this._removeListener()
       this.queryMatches = null
-      let query = this.query
-      if (!query) {
+      if (!this.query) {
         return
       }
-      if (!this.isFullQuery && query[0] !== '(') {
-        query = `(${ query })`
-      }
-      this._mediaQueryList = window.matchMedia(query)
-      this._addMQListener()
-      this._MQHandler(this._mediaQueryList)
+      this._mq = window.matchMedia(this.query)
+      this._addListener()
+      this._handler(this._mq)
     },
 
-    _MQHandler (mq) {
+    _handler (mq) {
       this.queryMatches = mq.matches
     },
 
-    _addMQListener () {
-      if (this._mediaQueryList) {
-        this._mediaQueryList.addListener(this._boundMQhandler)
+    _addListener () {
+      if (this._mq) {
+        this._mq.addListener(this._handler)
       }
     },
 
-    _removeMQListener () {
-      if (this._mediaQueryList) {
-        this._mediaQueryList.removeListener(this._boundMQhandler)
+    _removeListener () {
+      if (this._mq) {
+        this._mq.removeListener(this._handler)
       }
-      this._mediaQueryList = null
+      this._mq = null
     },
 
+    /**
+     * Initialize mediaQuery
+     */
     init () {
-      watch(mediaQuery, 'query', mediaQuery.resetMediaQuery.bind(mediaQuery))
-      mediaQuery.resetMediaQuery()
+      watch(this, 'query', this._reset)
+      this._reset()
+    },
+
+    /**
+     * Destroy mediaQuery
+     * @return {[type]} [description]
+     */
+    destroy () {
+      unwatch(this, 'query', this._reset)
+      this._removeListener()
     }
   }
 
+  // Bind handlers
+  mediaQuery._reset = mediaQuery._reset.bind(mediaQuery)
+  mediaQuery._handler = mediaQuery._handler.bind(mediaQuery)
+
+  // Initialize mediaQuery
   mediaQuery.init()
 
   return mediaQuery
