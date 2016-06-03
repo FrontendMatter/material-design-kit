@@ -9,11 +9,8 @@ Interactive web components that provide a [Material Design](https://www.google.c
 - Supports ES5-compliant browsers (IE9+)
 - Requires no dependencies or polyfills
 - Compatible with projects using (or not using) jQuery, Bootstrap and MDL
-- Compatible with Vue.js and Angular2 applications
 
 ## Components
-
-Based on Polymer's [app-header](https://elements.polymer-project.org/elements/app-layout?active=app-header), [app-header-layout](https://elements.polymer-project.org/elements/app-layout?active=app-header-layout), [app-box](https://elements.polymer-project.org/elements/app-layout?active=app-box), [app-drawer](https://elements.polymer-project.org/elements/app-layout?active=app-drawer) and [app-drawer-layout](https://elements.polymer-project.org/elements/app-layout?active=app-drawer-layout) elements using vanilla web technologies (CSS, JavaScript and HTML).
 
 - [Drawer](https://github.com/themekit/material-design-kit/tree/master/src/drawer) - A navigation drawer that can slide in from the left or right.
 - [Drawer Layout](https://github.com/themekit/material-design-kit/tree/master/src/drawer-layout) - A wrapper element that positions a Drawer and other content.
