@@ -4,7 +4,11 @@ A wrapper element that positions a Drawer and other content. Based on Polymer's 
 
 ## Demos
 
-- [Left drawer layout demo](http://mdk-demo.themekit.io/drawer-layout-left.html)
+- [Basic drawer layout demo](http://mdk-demo.themekit.io/drawer-layout.html)
+- [Push drawer layout demo](http://mdk-demo.themekit.io/drawer-layout-push.html) - Enables a push effect on the layout content when toggling the drawer
+- [Right drawer layout demo](http://mdk-demo.themekit.io/drawer-layout-right.html) - Aligns the drawer on the right
+- [Force narrow drawer layout demo](http://mdk-demo.themekit.io/drawer-layout-force-narrow.html) - Ignores the responsiveWidth option and uses the narrow layout on any screen size
+- [Drawer layout with header layout demo](http://mdk-demo.themekit.io/drawer-layout-with-header-layout.html) - Uses a Header Layout with a custom scrolling region
 
 ## Examples
 
