@@ -5,30 +5,6 @@
 
 Interactive web components that provide a [Material Design](https://www.google.com/design/spec/material-design/introduction.html) experience using vanilla Web technologies like CSS, JavaScript and HTML. Material Design Kit has no dependencies and can be used with or without external libraries such as jQuery, Bootstrap and MDL.
 
-## Header
-
-A container element for navigation and other content at the top of the screen with (optional) visual effects based on scroll position.
-
-- [Basic header demo #1](index.html) - Scrolls with the page (transform disabled)
-- [Basic header demo #2](header-transform-disabled-blend.html) - Scrolls with the page (transform disabled and blend blackground)
-- [Basic header demo #3](header-transform-disabled-parallax.html) - Scrolls with the page (transform disabled and parallax blackground)
-- [Disabled header demo](header-disabled.html) - Scrolls with the page (all scroll effects disabled)
-- [Condenses header demo](header-condenses.html) - Shrinks when scrolling down
-- [Reveals header demo](header-reveals.html) - Slides back the header when scrolling up
-- [Fixed header demo](header-fixed.html) - Stays at the top of the visible viewport when scrolling
-- [Blend background color header demo](header-blend-color.html) - Changes the header background color when scrolling
-- [Blend background image header demo](header-blend-image.html) - Changes the header background image when scrolling
-- [Parallax background header demo](header-parallax.html) - Moves the header background image at a different rate than the foreground when scrolling
-- [Parallax and blend background header demo](header-parallax-blend.html)
-
-## Box
-
-A container element for generic content with (optional) visual effects based on scroll position.
-
-- [Parallax box demo](box-parallax.html) - Moves a background image at a different rate than the foreground when scrolling
-- [Blend background color box demo](box-blend.html) - Changes the box background color to an interpolated color between the background and foreground when scrolling
-- [Fade background color box demo](box-fade.html) - Fades the box background color when scrolling past a threshold
-
 ## Drawer
 
 A navigation drawer that can slide in from the left or right.
@@ -40,7 +16,42 @@ A navigation drawer that can slide in from the left or right.
 
 A wrapper element that positions a Drawer and other content.
 
-- [Left drawer layout demo](drawer-layout-left.html)
+- [Basic drawer layout demo](drawer-layout.html)
+- [Push drawer layout demo](drawer-layout-push.html) - Enables a push effect on the layout content when toggling the drawer
+- [Right drawer layout demo](drawer-layout-right.html) - Aligns the drawer on the right
+- [Force narrow drawer layout demo](drawer-layout-force-narrow.html) - Ignores the responsiveWidth option and uses the narrow layout on any screen size
+- [Drawer layout with header layout demo](drawer-layout-with-header-layout.html) - Uses a Header Layout with a custom scrolling region
+
+## Header
+
+A container element for navigation and other content at the top of the screen with (optional) visual effects based on scroll position.
+
+- [Basic header demo #1](index.html) - Scrolls with the page
+- [Basic header blend demo #2](header-blend.html) - Scrolls with the page and changes the header background color when scrolling
+- [Basic parallax header demo #3](header-parallax.html) - Scrolls with the page and moves the header background image at a different rate than the foreground when scrolling
+- [Condenses header demo](header-condenses.html) - Shrinks when scrolling down
+- [Reveals header demo](header-reveals.html) - Slides back the header when scrolling up
+- [Fixed header demo](header-fixed.html) - Stays at the top of the visible viewport when scrolling
+- [Blend background color header demo](header-blend-color.html) - Changes the header background color when scrolling
+- [Blend background image header demo](header-blend-image.html) - Changes the header background image when scrolling
+- [Parallax and fade background header demo](header-parallax-fade.html) - Moves the header background image at a different rate than the foreground when scrolling and fades the background image into a background color after the header condenses
+- [Parallax and blend background header demo](header-parallax-blend.html)
+
+## Header Layout
+
+A wrapper element that positions a Header and other content.
+
+- [Basic header layout](header-layout.html) - Positions a header and other content in a custom scrolling region
+- [Header layout within drawer](header-layout-drawer.html) - Positions a header and other content within a drawer
+- [Header layout within drawer with header transform effects](header-layout-drawer-transform-fx.html) - Positions a header and other content within a drawer and use transform effects on header elements based on scroll position
+
+## Box
+
+A container element for generic content with (optional) visual effects based on scroll position.
+
+- [Parallax box demo](box-parallax.html) - Moves a background image at a different rate than the foreground when scrolling
+- [Blend background color box demo](box-blend.html) - Changes the box background color to an interpolated color between the background and foreground when scrolling
+- [Fade background color box demo](box-fade.html) - Fades the box background color when scrolling past a threshold
 
 ---
 

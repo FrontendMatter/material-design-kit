@@ -1,0 +1,191 @@
+---
+title: Header layout within drawer with header transform effects
+---
+{% extends "layouts/demo.html" %}
+{% block page %}
+
+  <style>
+    /* General */
+    .container {
+      padding: 2rem;
+    }
+    .drawer-toggler {
+      margin-bottom: 2rem;
+    }
+
+    /* Drawer */
+    .mdk-drawer__content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 290px;
+    }
+    .mdk-drawer__inner > :first-child {
+      margin-top: 1.25rem;
+    }
+    .mdk-drawer__inner > * {
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+
+    /* Header */
+    .mdk-header {
+      height: auto;
+    }
+    .mdk-header__content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* User */
+    .user-avatar,
+    .user-meta {
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+    .user-meta--condensed {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    .user-avatar {
+      height: 120px;
+    }
+    .user-meta {
+      height: 70px;
+    }
+    .user-meta .h5 {
+      margin: 0;
+    }
+    .user-avatar img,
+    .user-meta--condensed img {
+      border-radius: 50%;
+      border: 2px solid #fff;
+    }
+    .user-meta a {
+      color: #fff;
+      text-decoration: none;
+    }
+    .user-meta small {
+      color: rgba(255,255,255,.8);
+    }
+    .user-meta--condensed a {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+    .user-meta--condensed img {
+      margin-right: 1rem;
+    }
+    .user-meta--condensed .meta {
+      flex: 1;
+    }
+  </style>
+
+  <div class="mdk-drawer mdk-js-drawer" opened>
+    <div class="mdk-drawer__content">
+
+      <!-- header-layout -->
+      <div class="mdk-header-layout mdk-js-header-layout" has-scrolling-region>
+
+        <!-- header -->
+        <div class="mdk-header mdk-js-header bg-primary"
+          effects="waterfall fx-condenses" 
+          condenses fixed>
+          <div class="mdk-header__content">
+
+            <!-- user -->
+            <div class="user-meta user-meta--condensed">
+              <a href="#">
+                <img fx-condenses id="fx-avatar" src="https://api.adorable.io/avatars/40/abott@adorable.io.png" alt="avatar">
+                <span class="meta">
+                  <span class="h5" fx-condenses id="fx-name">Thomas Vaughn</span>
+                  <small fx-condenses id="fx-email">thomas.vaughn@gmail.com</small>
+                </span>
+              </a>
+            </div>
+            <div class="user-avatar">
+              <a href="#" fx-condenses fx-id="fx-avatar">
+                <img src="https://api.adorable.io/avatars/70/abott@adorable.io.png" alt="avatar">
+              </a>
+            </div>
+            <div class="user-meta user-meta--expanded">
+              <a href="#">
+                <span class="h5" fx-condenses fx-id="fx-name">Thomas Vaughn</span>
+                <small fx-condenses fx-id="fx-email">thomas.vaughn@gmail.com</small>
+              </a>
+            </div>
+            <!-- // END user -->
+
+          </div>
+        </div>
+        <!-- // END header -->
+        
+        <!-- content -->
+        <div class="mdk-header-layout__content">
+          <div class="mdk-drawer__inner">
+            <h4>Hello World</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum nisi, aspernatur esse ea velit, possimus quod labore doloremque perspiciatis veniam amet fuga incidunt, beatae saepe assumenda quia laudantium ut qui!</p>
+            {% for item in [1,2,3,4,5,6,7,8,9,10] %}
+            <h4>Sample content</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam praesentium excepturi suscipit sequi facilis magni, ut blanditiis pariatur repellat unde similique natus nostrum iure alias nesciunt omnis eveniet ex! Vero!</p>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <button class="btn btn-primary drawer-toggler" type="button">Toggle drawer</button>
+    {% include '_sample-content.html' %}
+  </div>
+
+{% endblock %}
+
+{% block footer %}
+  <script>
+    var drawerNode = document.querySelector('.mdk-drawer')
+    var drawer = null
+
+    MDK.drawers.forEach(function (d) {
+      if (d.element === drawerNode) {
+        drawer = d
+      }
+    })
+
+    var headerNode = document.querySelector('.mdk-header')
+    var header = null
+
+    MDK.headers.forEach(function (h) {
+      if (h.element === headerNode) {
+        header = h
+      }
+    })
+
+    if (drawer) {
+      var button = document.querySelector('.drawer-toggler')
+      button.addEventListener('click', function () {
+        drawer.toggle()
+      })
+    }
+
+    if (header && drawer) {
+      drawerNode.addEventListener('changed.mdk.drawer', function () {
+        if (drawer.opened) {
+          header._resetLayout()
+        }
+      })
+
+      window.addEventListener('load', function () {
+        header._resetLayout()
+      })
+    }
+  </script>
+{% endblock %}

@@ -1,0 +1,58 @@
+---
+title: Basic header layout
+---
+{% extends "layouts/demo.html" %}
+{% block page %}
+
+  <style>
+    .container {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+    body {
+      display: flex;
+      flex-direction: row;
+      position: relative;
+      overflow: hidden;
+      padding: 2rem;
+      height: 100vh;
+      background-color: #ddd;
+    }
+    #custom {
+      flex: 1;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      background-color: #fff;
+    }
+  </style>
+
+  <div id="custom">
+
+    <!-- header-layout -->
+    <div class="mdk-header-layout mdk-js-header-layout" has-scrolling-region>
+
+      <!-- header -->
+      <div class="mdk-header mdk-js-header bg-primary"
+        effects="waterfall" 
+        condenses fixed>
+        <div class="mdk-header__content">
+          <button class="navbar-toggler" type="button">
+            <span class="material-icons">menu</span>
+          </button>
+        </div>
+      </div>
+      
+      <!-- content -->
+      <div class="mdk-header-layout__content">
+        <div class="container">
+          <div class="content">
+            {% include '_sample-content.html' %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+{% endblock %}

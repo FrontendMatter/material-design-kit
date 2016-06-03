@@ -1,5 +1,5 @@
 ---
-title: Parallax header
+title: Basic header with parallax effect
 ---
 {% extends "layouts/demo.html" %}
 {% block page %}
@@ -11,9 +11,6 @@ title: Parallax header
     .mdk-header__bg-front {
       background-image: url('assets/images/photo-1463580009491-9111ca5c3f84.jpg');
     }
-    .container {
-      padding-top: 700px;
-    }
     @media (max-width: 768px) {
       .mdk-header__bg-front {
         background-position: bottom;
@@ -22,8 +19,7 @@ title: Parallax header
   </style>
 
   <div class="mdk-header mdk-js-header bg-primary" 
-    effects="waterfall parallax-background fade-background"
-    condenses fixed>
+    effects="parallax-background">
     <div class="mdk-header__content">
       <button class="navbar-toggler" type="button">
         <span class="material-icons">menu</span>

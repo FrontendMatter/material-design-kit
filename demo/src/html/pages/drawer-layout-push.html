@@ -1,13 +1,15 @@
 ---
-title: Left drawer layout
+title: Push drawer layout
 ---
 {% extends "layouts/demo.html" %}
 {% block page %}
 
   <style>
     .container {
-      padding-left: 2rem;
-      padding-right: 2rem;
+      padding: 2rem;
+    }
+    button {
+      margin-bottom: 2rem;
     }
     [position=left] .mdk-drawer__content {
       border-right: 1px solid #eee;
@@ -27,35 +29,15 @@ title: Left drawer layout
     }
   </style>
 
-  <div class="mdk-drawer-layout mdk-js-drawer-layout" fullbleed push>
+  <div class="mdk-drawer-layout mdk-js-drawer-layout" push>
+
+    <!-- content -->
     <div class="mdk-drawer-layout__content">
-
-      <!-- header-layout -->
-      <div class="mdk-header-layout mdk-js-header-layout" has-scrolling-region>
-
-        <!-- header -->
-        <div class="mdk-header mdk-js-header bg-primary"
-          effects="waterfall" 
-          condenses fixed>
-          <div class="mdk-header__content">
-            <button class="navbar-toggler" type="button">
-              <span class="material-icons">menu</span>
-            </button>
-          </div>
-        </div>
-        
-        <!-- content -->
-        <div class="mdk-header-layout__content">
-          <div class="container">
-            <div class="content">
-              {% include '_sample-content.html' %}
-            </div>
-          </div>
-        </div>
+      <div class="container">
+        <button class="btn btn-primary" type="button">Toggle drawer</button>
+        {% include '_sample-content.html' %}
       </div>
-
     </div>
-    <!-- // END drawer-layout__content -->
 
     <!-- drawer -->
     <div class="mdk-drawer mdk-js-drawer">
@@ -66,7 +48,6 @@ title: Left drawer layout
         </div>
       </div>
     </div>
-    <!-- // END drawer -->
 
   </div>
   <!-- // END drawer-layout -->
@@ -85,7 +66,7 @@ title: Left drawer layout
     })
 
     if (drawer) {
-      var button = document.querySelector('.navbar-toggler')
+      var button = document.querySelector('button')
       button.addEventListener('click', function () {
         drawer.toggle()
       })
