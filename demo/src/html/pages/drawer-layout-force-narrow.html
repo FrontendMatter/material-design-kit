@@ -53,20 +53,8 @@ title: Force narrow drawer layout
 
 {% block footer %}
   <script>
-    var drawerNode = document.querySelector('.mdk-drawer');
-    var drawer = null;
-
-    MDK.drawers.forEach(function (d) {
-      if (d.element === drawerNode) {
-        drawer = d
-      }
+    document.querySelector('button').addEventListener('click', function () {
+      document.querySelector('.mdk-drawer').mdkDrawer.toggle()
     })
-
-    if (drawer) {
-      var button = document.querySelector('button')
-      button.addEventListener('click', function () {
-        drawer.toggle()
-      })
-    }
   </script>
 {% endblock %}
