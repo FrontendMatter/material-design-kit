@@ -4,9 +4,9 @@
 export const HEADER_SCROLL_EFFECT_WATERFALL = {
   name: 'waterfall',
   run (progress, top) {
-    this.shadow = this.isOnScreen() && this.isContentBelow()
+    this.element.classList[this.isOnScreen() && this.isContentBelow() ? 'add' : 'remove']('mdk-header--shadow')
   },
   tearDown () {
-    this.shadow = false
+    this.element.classList.remove('mdk-header--shadow')
   }
 }

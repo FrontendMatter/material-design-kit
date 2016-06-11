@@ -56,24 +56,15 @@ title: Right drawer layout
 
 {% block footer %}
   <script>
-    var drawerNode = document.querySelector('.mdk-drawer');
-    var drawer = null;
+    var drawerNode = document.querySelector('.mdk-drawer')
+    var button = document.querySelector('button')
 
-    MDK.drawers.forEach(function (d) {
-      if (d.element === drawerNode) {
-        drawer = d
-      }
+    button.addEventListener('click', function () {
+      drawerNode.mdkDrawer.toggle()
     })
 
-    if (drawer) {
-      var button = document.querySelector('button')
-      button.addEventListener('click', function () {
-        drawer.toggle()
-      })
-
-      drawerNode.addEventListener('changed.mdk.drawer', function () {
-        button.classList[drawer.opened ? 'add' : 'remove']('active')
-      })
-    }
+    drawerNode.addEventListener('mdk-drawer-change', function () {
+      button.classList[drawerNode.mdkDrawer.opened ? 'add' : 'remove']('active')
+    })
   </script>
 {% endblock %}

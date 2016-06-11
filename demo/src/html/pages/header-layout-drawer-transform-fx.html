@@ -152,40 +152,20 @@ title: Header layout within drawer with header transform effects
 {% block footer %}
   <script>
     var drawerNode = document.querySelector('.mdk-drawer')
-    var drawer = null
-
-    MDK.drawers.forEach(function (d) {
-      if (d.element === drawerNode) {
-        drawer = d
-      }
-    })
-
     var headerNode = document.querySelector('.mdk-header')
-    var header = null
+    var button = document.querySelector('.drawer-toggler')
 
-    MDK.headers.forEach(function (h) {
-      if (h.element === headerNode) {
-        header = h
-      }
+    button.addEventListener('click', function () {
+      drawerNode.mdkDrawer.toggle()
     })
 
-    if (drawer) {
-      var button = document.querySelector('.drawer-toggler')
-      button.addEventListener('click', function () {
-        drawer.toggle()
-      })
-    }
-
-    if (header && drawer) {
-      drawerNode.addEventListener('changed.mdk.drawer', function () {
-        if (drawer.opened) {
-          header._resetLayout()
-        }
-      })
-
-      window.addEventListener('load', function () {
-        header._resetLayout()
-      })
-    }
+    drawerNode.addEventListener('mdk-drawer-changed', function () {
+      if (drawerNode.mdkDrawer.opened) {
+        headerNode.mdkHeader._resetLayout()
+      }
+    })
+    window.addEventListener('load', function () {
+      headerNode.mdkHeader._resetLayout()
+    })
   </script>
 {% endblock %}

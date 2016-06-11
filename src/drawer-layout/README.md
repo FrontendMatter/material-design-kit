@@ -4,11 +4,11 @@ A wrapper element that positions a Drawer and other content. Based on Polymer's 
 
 ## Demos
 
-- [Basic drawer layout demo](http://mdk-demo.themekit.io/drawer-layout.html)
-- [Push drawer layout demo](http://mdk-demo.themekit.io/drawer-layout-push.html) - Enables a push effect on the layout content when toggling the drawer
-- [Right drawer layout demo](http://mdk-demo.themekit.io/drawer-layout-right.html) - Aligns the drawer on the right
-- [Force narrow drawer layout demo](http://mdk-demo.themekit.io/drawer-layout-force-narrow.html) - Ignores the responsiveWidth option and uses the narrow layout on any screen size
-- [Drawer layout with header layout demo](http://mdk-demo.themekit.io/drawer-layout-with-header-layout.html) - Uses a Header Layout with a custom scrolling region
+- [Basic drawer layout](http://mdk-demo.themekit.io/drawer-layout.html)
+- [Push drawer layout](http://mdk-demo.themekit.io/drawer-layout-push.html) - Enables a push effect on the layout content when toggling the drawer
+- [Right drawer layout](http://mdk-demo.themekit.io/drawer-layout-right.html) - Aligns the drawer on the right
+- [Force narrow drawer layout](http://mdk-demo.themekit.io/drawer-layout-force-narrow.html) - Ignores the responsiveWidth option and uses the narrow layout on any screen size
+- [Drawer layout with header layout](http://mdk-demo.themekit.io/drawer-layout-with-header-layout.html) - Uses a Header Layout with a custom scrolling region
 
 ## Examples
 
@@ -152,23 +152,12 @@ The drawer layout options can be used programatically (see [Programmatic usage](
 
 ## Programmatic usage
 
-Get a reference to an initialized drawer layout.
+Get a reference to a drawer layout component and interact with the API.
 
 ```js
-// Global
-var drawerLayout = MDK.drawerLayouts[0]
+var drawerLayoutNode = document.querySelector('.mdk-js-drawer-layout')
+var drawerLayout = drawerLayoutNode.mdkDrawerLayout
 
-// CommonJS
-var drawerLayout = require('material-design-kit').drawerLayouts[0]
-
-// ES6
-import { drawerLayouts } from 'material-design-kit'
-let drawerLayout = drawerLayouts[0]
-```
-
-Interact with an initialized drawer layout.
-
-```js
 // Set the `responsiveWidth` option via property assignment
 drawerLayout.responsiveWidth = '768px'
 
@@ -185,28 +174,18 @@ button.addEventListener('click', function () {
 })
 ```
 
-Sometimes you need to initialize a drawer layout dynamically, for example when using libraries like Vue.js or Angular2 where you need to hook into the application lifecycle. Note that you will also need to initialize the drawer and assign it to the drawer layout.
+Sometimes you need to initialize a drawer layout dynamically, for example when using libraries like Vue.js or Angular2 where you need to hook into the application lifecycle.
+
+> Note that you will most likely have to initialize the [Drawer](https://github.com/themekit/material-design-kit/tree/master/src/drawer) as well.
 
 ```js
-// Global
-var drawerLayoutComponent = MDK.drawerLayoutComponent
-var drawerComponent = MDK.drawerComponent
-
-// CommonJS
-var MDK = require('material-design-kit')
-var drawerLayoutComponent = MDK.drawerLayoutComponent
-var drawerComponent = MDK.drawerComponent
-
-// ES6
-import { drawerLayoutComponent, drawerComponent } from 'material-design-kit'
-```
-
-```js
-var drawerNode = document.querySelector('.mdk-js-drawer')
-var drawer = drawerComponent(drawerNode)
-
 var drawerLayoutNode = document.querySelector('.mdk-js-drawer-layout')
-var drawerLayout = drawerLayoutComponent(drawerLayoutNode, drawer)
+
+// Initialize drawer layout
+domFactory.handler.upgradeElement(drawerLayoutNode, 'mdk-drawer-layout')
+
+// Get a reference to the drawer layout component
+var drawerLayout = drawerLayoutNode.mdkDrawerLayout
 
 // Use the drawer layout
 drawerLayout.forceNarrow = true

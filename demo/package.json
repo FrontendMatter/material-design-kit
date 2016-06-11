@@ -9,7 +9,8 @@
   "license": "ISC",
   "dependencies": {
     "bootstrap": "4.0.0-alpha.2",
-    "material-design-kit": "1.0.0-alpha.1",
+    "dom-factory": "^1.0.0-alpha.2",
+    "material-design-kit": "^1.0.0-alpha.4",
     "sass-md-colors": "^1.0.0"
   },
   "devDependencies": {

@@ -1,2 +1,2 @@
-// MDK
-window.MDK = require('material-design-kit')
+window.domFactory = require('dom-factory')
+require('material-design-kit')

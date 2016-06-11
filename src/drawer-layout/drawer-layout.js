@@ -1,224 +1,218 @@
 import { transform } from '../util'
 import { mediaQuery } from '../media-query'
-import { watch, unwatch } from 'watch-object'
+import { handler } from 'dom-factory'
 
 /**
  * A wrapper element that positions a Drawer and other content.
  * @param  {HTMLElement} element
- * @param  {drawerComponent} drawer
  * @return {Object}
  */
-export const drawerLayoutComponent = (element, drawer) => {
-  let component = {
+export const drawerLayoutComponent = (element) => ({
+  
+  // HTMLElement
+  element,
 
-    // HTMLElement
-    element,
-
-    // drawerComponent
-    drawer,
-
-    // mediaQuery utility
-    _mediaQuery: null,
-
-    // The default maximum viewport width for the narrow layout
-    _responsiveWidth: '554px',
-
-    // The default `narrow` value
-    _narrow: null,
+  /**
+   * Public properties.
+   * @type {Object}
+   */
+  properties: {
 
     /**
-     * The mediaQuery listener
-     * @return {Object}
+     * Ignore the `responsiveWidth` option and force the narrow layout on any screen size.
+     * @type {Object}
      */
-    get mediaQuery () {
-      if (this._mediaQuery) {
-        return this._mediaQuery
-      }
-      this._mediaQuery = mediaQuery(this.responsiveMediaQuery)
-      return this._mediaQuery
+    forceNarrow: {
+      type: Boolean,
+      reflectToAttribute: true
     },
 
     /**
-     * If true, ignore the `responsiveWidth` option and force the narrow layout on any screen size.
-     * @return {Boolean}
+     * Enable a push effect on the layout.
+     * @type {Object}
      */
-    get forceNarrow () {
-      return this.element.hasAttribute('force-narrow')
+    push: {
+      type: Boolean,
+      reflectToAttribute: true
     },
 
     /**
-     * Update `force-narrow` attribute on `element`
-     * @param  {Boolean}  value
+     * The maximum viewport width for which the narrow layout is enabled.
+     * @type {Object}
      */
-    set forceNarrow (value) {
-      this.element[value ? 'setAttribute' : 'removeAttribute']('force-narrow', 'force-narrow')
-    },
-    
-    /**
-     * Returns true if the narrow layout is enabled.
-     * @return {Boolean}
-     */
-    get narrow () {
-      return this.forceNarrow ? true : this._narrow
-    },
+    responsiveWidth: {
+      reflectToAttribute: true,
+      value: '554px'
+    }
+  },
 
-    /**
-     * Toggle the narrow layout.
-     * @param  {Boolean} value
-     */
-    set narrow (value) {
-      this._narrow = !value && this.forceNarrow ? true : value
-    },
+  /**
+   * Property change observers.
+   * @type {Array}
+   */
+  observers: [
+    '_resetLayout(narrow, forceNarrow)',
+    '_onQueryMatches(mediaQuery.queryMatches)'
+  ],
+  
+  /**
+   * Event listeners.
+   * @type {Array}
+   */
+  listeners: [
+    'drawer._onDrawerChange(mdk-drawer-change)'
+  ],
 
-    /**
-     * Returns true if the layout has the push effect enabled.
-     * @return {Boolean}
-     */
-    get push () {
-      return this.element.hasAttribute('push')
-    },
+  // The default `narrow` value
+  _narrow: null,
 
-    /**
-     * The maximum width for auto changing to narrow layout.
-     * @return {String}
-     */
-    get responsiveWidth () {
-      if (this.element.hasAttribute('responsive-width')) {
-        return this.element.getAttribute('responsive-width')
-      }
-      return this._responsiveWidth
-    },
+  /**
+   * The mediaQuery listener
+   * @return {Object}
+   */
+  get mediaQuery () {
+    if (!this._mediaQuery) {
+      this._mediaQuery = mediaQuery(this.responsiveMediaQuery) 
+    }
+    return this._mediaQuery
+  },
 
-    /**
-     * The HTMLElement for the layout content
-     * @return {HTMLElement}
-     */
-    get contentContainer () {
-      return this.element.querySelector('.mdk-drawer-layout__content')
-    },
+  /**
+   * Returns true if the narrow layout is enabled.
+   * @return {Boolean}
+   */
+  get narrow () {
+    return this.forceNarrow ? true : this._narrow
+  },
 
-    /**
-     * Computed media query value passed to the mediaQuery listener
-     * @return {String}
-     */
-    get responsiveMediaQuery () {
-      return this.forceNarrow ? '(min-width: 0px)' : `(max-width: ${ this.responsiveWidth })`
-    },
+  /**
+   * Toggle the narrow layout.
+   * @param  {Boolean} value
+   */
+  set narrow (value) {
+    this._narrow = !value && this.forceNarrow ? true : value
+  },
 
-    _resetLayout () {
-      this.drawer.opened = this.drawer.persistent = !this.narrow
-      this._onDrawerChange()
-    },
+  /**
+   * The HTMLElement for the layout content
+   * @return {HTMLElement}
+   */
+  get contentContainer () {
+    return this.element.querySelector('.mdk-drawer-layout__content')
+  },
 
-    _resetContent () {
-      let drawer = this.drawer
-      let drawerWidth = this.drawer.getWidth()
-      let contentContainer = this.contentContainer
+  /**
+   * The drawerComponent
+   * @return {Object} A reference to the drawer component.
+   */
+  get drawer () {
+    const drawerNode = this.element.querySelector(':scope > .mdk-drawer')
+    if (drawerNode) {
+      return drawerNode.mdkDrawer
+    }
+  },
 
-      if (!drawer.opened) {
-        contentContainer.style.marginLeft = ''
-        contentContainer.style.marginRight = ''
-        return
-      }
+  /**
+   * Computed media query value passed to the mediaQuery listener
+   * @return {String}
+   */
+  get responsiveMediaQuery () {
+    return this.forceNarrow ? '(min-width: 0px)' : `(max-width: ${ this.responsiveWidth })`
+  },
 
-      if (drawer.position === 'right') {
-        contentContainer.style.marginLeft = ''
-        contentContainer.style.marginRight = `${ drawerWidth }px`
-      }
-      else {
+  _resetLayout () {
+    this.drawer.opened = this.drawer.persistent = !this.narrow
+    this._onDrawerChange()
+  },
+
+  _resetContent () {
+    let drawer = this.drawer
+    let drawerWidth = this.drawer.getWidth()
+    let contentContainer = this.contentContainer
+
+    if (!drawer.opened) {
+      contentContainer.style.marginLeft = ''
+      contentContainer.style.marginRight = ''
+      return
+    }
+
+    if (drawer.position === 'right') {
+      contentContainer.style.marginLeft = ''
+      contentContainer.style.marginRight = `${ drawerWidth }px`
+    }
+    else {
+      contentContainer.style.marginLeft = `${ drawerWidth }px`
+      contentContainer.style.marginRight = ''
+    }
+  },
+
+  _resetPush () {
+    let drawer = this.drawer
+    let drawerWidth = this.drawer.getWidth()
+    let contentContainer = this.contentContainer
+
+    if (!drawer.opened) {
+      transform('translate3d(0, 0, 0)', contentContainer)
+
+      contentContainer.style.marginLeft = ''
+      contentContainer.style.marginRight = ''
+      return
+    }
+
+    if (drawer.position === 'right') {
+      transform(`translate3d(${ -1 * drawerWidth }px, 0, 0)`, contentContainer)
+
+      if (!this.narrow) {
         contentContainer.style.marginLeft = `${ drawerWidth }px`
         contentContainer.style.marginRight = ''
       }
-    },
-
-    _resetPush () {
-      let drawer = this.drawer
-      let drawerWidth = this.drawer.getWidth()
-      let contentContainer = this.contentContainer
-
-      if (!drawer.opened) {
-        transform('translate3d(0, 0, 0)', contentContainer)
-
-        contentContainer.style.marginLeft = ''
-        contentContainer.style.marginRight = ''
-        return
-      }
-
-      if (drawer.position === 'right') {
-        transform(`translate3d(${ -1 * drawerWidth }px, 0, 0)`, contentContainer)
-
-        if (!this.narrow) {
-          contentContainer.style.marginLeft = `${ drawerWidth }px`
-          contentContainer.style.marginRight = ''
-        }
-      }
-      else {
-        transform(`translate3d(${ drawerWidth }px, 0, 0)`, contentContainer)
-
-        if (!this.narrow) {
-          contentContainer.style.marginLeft = ''
-          contentContainer.style.marginRight = `${ drawerWidth }px`
-        }
-      }
-    },
-
-    _setContentTransitionDuration (duration) {
-      this.contentContainer.style.transitionDuration = duration
-    },
-
-    _onDrawerChange () {
-      if (this.push) {
-        return this._resetPush()
-      }
+    }
+    else {
+      transform(`translate3d(${ drawerWidth }px, 0, 0)`, contentContainer)
 
       if (!this.narrow) {
-        this._resetContent()
+        contentContainer.style.marginLeft = ''
+        contentContainer.style.marginRight = `${ drawerWidth }px`
       }
-    },
-
-    _onQueryMatches (value) {
-      this.narrow = value
-    },
-
-    /**
-     * Initialize component
-     */
-    init () {
-      // Initial render
-      this._setContentTransitionDuration('0s')
-      setTimeout(() => this._setContentTransitionDuration(''), 0)
-
-      // Reactivity
-      watch(this, ['narrow', 'forceNarrow'], this._resetLayout)
-      watch(this.mediaQuery, 'queryMatches', this._onQueryMatches)
-      
-      // Initialize mediaQuery
-      this.mediaQuery.init()
-
-      // Drawer change
-      this.drawer.element.addEventListener('change.mdk.drawer', this._onDrawerChange)
-    },
-
-    /**
-     * Destroy component
-     */
-    destroy () {
-      unwatch(this, ['narrow', 'forceNarrow'], this._resetLayout)
-      unwatch(this.mediaQuery, 'queryMatches', this._onQueryMatches)
-
-      this.mediaQuery.destroy()
-      this.drawer.element.removeEventListener('change.mdk.drawer', this._onDrawerChange)
     }
+  },
+
+  _setContentTransitionDuration (duration) {
+    this.contentContainer.style.transitionDuration = duration
+  },
+
+  _onDrawerChange () {
+    if (this.push) {
+      return this._resetPush()
+    }
+
+    if (!this.narrow) {
+      this._resetContent()
+    }
+  },
+
+  _onQueryMatches (value) {
+    this.narrow = value
+  },
+
+  /**
+   * Initialize component
+   */
+  init () {
+    // Initial render
+    this._setContentTransitionDuration('0s')
+    setTimeout(() => this._setContentTransitionDuration(''), 0)
+
+    // Initialize mediaQuery
+    this.mediaQuery.init()
+  },
+
+  /**
+   * Destroy component
+   */
+  destroy () {
+    this.mediaQuery.destroy()
   }
+})
 
-  // Watch handlers bindings
-  component._onQueryMatches = component._onQueryMatches.bind(component)
-
-  // Event handlers bindings
-  component._onDrawerChange = component._onDrawerChange.bind(component)
-
-  // Initialize component
-  component.init()
-
-  return component
-}
+handler.register('mdk-drawer-layout', drawerLayoutComponent)

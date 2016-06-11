@@ -4,8 +4,8 @@ A navigation drawer that can slide in from the left or right. Based on Polymer's
 
 ## Demos
 
-- [Left drawer demo](http://mdk-demo.themekit.io/drawer-left.html) - Slides in from the left
-- [Right drawer demo](http://mdk-demo.themekit.io/drawer-right.html) - Slides in from the right
+- [Left drawer](http://mdk-demo.themekit.io/drawer-left.html) - Slides in from the left
+- [Right drawer](http://mdk-demo.themekit.io/drawer-right.html) - Slides in from the right
 
 ## Examples
 
@@ -160,13 +160,13 @@ The drawer options can be used programatically (see [Programmatic usage](#progra
   </thead>
   <tbody>
     <tr>
-      <td><code>change.mdk.drawer</code></td>
+      <td><code>mdk-drawer-change</code></td>
       <td>
         Fires when any of the drawer properties change (<code>align</code>, <code>position</code>, <code>persistent</code> or <code>opened</code>).
       </td>
     </tr>
     <tr>
-      <td><code>changed.mdk.drawer</code></td>
+      <td><code>mdk-drawer-changed</code></td>
       <td>Fires after the drawer state has changed (after the CSS transition is complete)</td>
     </tr>
   </tbody>
@@ -174,30 +174,19 @@ The drawer options can be used programatically (see [Programmatic usage](#progra
 
 ```js
 var drawerNode = document.querySelector('.mdk-js-drawer')
-drawerNode.addEventListener('change.mdk.drawer', function () {
+drawerNode.addEventListener('mdk-drawer-change', function () {
   // do something
 })
 ```
 
 ## Programmatic usage
 
-Get a reference to an initialized drawer.
+Get a reference to a drawer component and interact with the API.
 
 ```js
-// Global
-var drawer = MDK.drawers[0]
+var drawerNode = document.querySelector('.mdk-js-drawer')
+var drawer = drawerNode.mdkDrawer
 
-// CommonJS
-var drawer = require('material-design-kit').drawers[0]
-
-// ES6
-import { drawers } from 'material-design-kit'
-let drawer = drawers[0]
-```
-
-Interact with an initialized drawer.
-
-```js
 // Set the opened state directly via property
 drawer.opened = true
 
@@ -217,21 +206,15 @@ button.addEventListener('click', function () {
 Sometimes you need to initialize a drawer dynamically, for example when using libraries like Vue.js or Angular2 where you need to hook into the application lifecycle.
 
 ```js
-// Global
-var drawerComponent = MDK.drawerComponent
-
-// CommonJS
-var drawerComponent = require('material-design-kit').drawerComponent
-
-// ES6
-import { drawerComponent } from 'material-design-kit'
-```
-
-```js
 var drawerNode = document.querySelector('.mdk-js-drawer')
-var drawer = drawerComponent(drawerNode)
 
-// Use the drawer
+// Initialize drawer
+domFactory.handler.upgradeElement(drawerNode, 'mdk-drawer')
+
+// Get a reference to the drawer component
+var drawer = drawerNode.mdkDrawer
+
+// Use the drawer API
 drawer.open()
 
 // You can also destroy the drawer before removing it from the DOM

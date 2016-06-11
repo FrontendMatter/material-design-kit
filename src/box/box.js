@@ -1,5 +1,9 @@
 import { assign } from '../util'
 import { scrollEffectBehavior } from '../scroll-effect-behavior'
+import { handler } from 'dom-factory'
+
+// SCROLL EFFECTS
+import { SCROLL_EFFECTS } from '../scroll-effects'
 
 const MODULE = 'mdk-box'
 const BG = `.${ MODULE }__bg`
@@ -14,16 +18,23 @@ const REAR_LAYER = `${ BG }-rear`
 export const boxComponent = (element) => {
   let component = {
 
+    /**
+     * Public properties.
+     * @type {Object}
+     */
+    properties: {
+
+      /**
+       * Disables effects
+       */
+      disabled: {
+        type: Boolean,
+        reflectToAttribute: true
+      }
+    },
+
     // The current scroll progress
     _progress: 0,
-
-    /**
-     * Disables effects
-     * @return {Boolean}
-     */
-    get disabled () {
-      return this.element.hasAttribute('disabled')
-    },
 
     /**
      * Returns true if the element is visible in the current viewport.
@@ -124,6 +135,8 @@ export const boxComponent = (element) => {
       this.attachToScrollTarget()
       this._setupBackgrounds()
       this._resetLayout()
+
+      SCROLL_EFFECTS.map(effect => this.registerEffect(effect.name, effect))
     },
 
     /**
@@ -144,8 +157,7 @@ export const boxComponent = (element) => {
     component
   )
 
-  // Initialize component
-  component.init()
-
   return component
 }
+
+handler.register(MODULE, boxComponent)

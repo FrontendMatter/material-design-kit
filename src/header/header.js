@@ -1,6 +1,12 @@
 import { assign } from '../util'
 import { scrollEffectBehavior } from '../scroll-effect-behavior'
-import { watch, unwatch } from 'watch-object'
+import { handler } from 'dom-factory'
+
+// SCROLL EFFECTS
+import { SCROLL_EFFECTS } from '../scroll-effects'
+
+// HEADER SCROLL EFFECTS
+import { HEADER_SCROLL_EFFECTS } from '../header-scroll-effects'
 
 const MODULE = 'mdk-header'
 const CONTENT = `.${ MODULE }__content`
@@ -8,7 +14,6 @@ const BG = `.${ MODULE }__bg`
 const FRONT_LAYER = `${ BG }-front`
 const REAR_LAYER = `${ BG }-rear`
 const MODIFIER_FIXED = `${ MODULE }--fixed`
-const MODIFIER_SHADOW = `${ MODULE }--shadow`
 
 /**
  * A container element for navigation and other content at the top 
@@ -22,6 +27,59 @@ export const headerComponent = (element) => {
 
     // HTMLElement
     element,
+
+    /**
+     * Public properties.
+     * @type {Object}
+     */
+    properties: {
+
+      /**
+       * Collapse the header when scrolling down, leaving only the `[primary]` element visible.
+       * If there is no `[primary]` element, the first child remains visibile.
+       * @type {Object}
+       */
+      condenses: {
+        type: Boolean,
+        reflectToAttribute: true
+      },
+
+      /**
+       * Slides back the header when scrolling back up.
+       * @type {Object}
+       */
+      reveals: {
+        type: Boolean,
+        reflectToAttribute: true
+      },
+
+      /**
+       * Mantains the header fixed at the top.
+       * @type {Object}
+       */
+      fixed: {
+        type: Boolean,
+        reflectToAttribute: true
+      },
+
+      /**
+       * Disables all scroll effects.
+       * @type {Object}
+       */
+      disabled: {
+        type: Boolean,
+        reflectToAttribute: true
+      }
+    },
+
+    /**
+     * Property change observers.
+     * @type {Array}
+     */
+    observers: [
+      '_handleFixedPositionedScroll(scrollTargetSelector)',
+      '_resetLayout(condenses, reveals, fixed)'
+    ],
 
     // A cached offsetHeight of the element
     _height: 0,
@@ -46,90 +104,6 @@ export const headerComponent = (element) => {
     _initTimestamp: 0,
     _lastTimestamp: 0,
     _lastScrollTop: 0,
-
-    /**
-     * Collapse the header when scrolling down, leaving only the `[primary]` element visible.
-     * If there is no `[primary]` element, the first child remains visibile.
-     * @return {[type]} [description]
-     */
-    get condenses () {
-      return this.element.hasAttribute('condenses')
-    },
-
-    /**
-     * Update `condenses` attribute on `element`
-     * @param  {Boolean}  value
-     */
-    set condenses (value) {
-      this.element[value ? 'setAttribute' : 'removeAttribute']('condenses', 'condenses')
-      if (!value) {
-        this.reveals = value
-      }
-    },
-
-    /**
-     * Slides back the header when scrolling back up.
-     * @return {Boolean}
-     */
-    get reveals () {
-      return this.element.hasAttribute('reveals')
-    },
-
-    /**
-     * Update `reveals` attribute on `element`
-     * @param  {Boolean}  value
-     */
-    set reveals (value) {
-      this.element[value ? 'setAttribute' : 'removeAttribute']('reveals', 'reveals')
-    },
-
-    /**
-     * Mantains the header fixed at the top.
-     * @return {Boolean}
-     */
-    get fixed () {
-      return this.element.hasAttribute('fixed')
-    },
-
-    /**
-     * Update `fixed` attribute on `element`
-     * @param  {Boolean}  value
-     */
-    set fixed (value) {
-      this.element[value ? 'setAttribute' : 'removeAttribute']('fixed', 'fixed')
-    },
-
-    /**
-     * Displays a shadow under the header.
-     * @return {Boolean}
-     */
-    get shadow () {
-      return this.element.classList.contains(MODIFIER_SHADOW)
-    },
-
-    /**
-     * Toggle `shadow` modifier class
-     * @param  {Boolean}  value
-     */
-    set shadow (value) {
-      this.element.classList[value ? 'add' : 'remove'](MODIFIER_SHADOW)
-    },
-
-    /**
-     * Disables all scroll effects
-     * @return {Boolean}
-     */
-    get disabled () {
-      return this.element.hasAttribute('disabled')
-    },
-
-    /**
-     * Update `disabled` attribute on `element`
-     * @param  {Boolean}  value
-     */
-    set disabled (value) {
-      this.element[value ? 'setAttribute' : 'removeAttribute']('disabled', 'disabled')
-    },
 
     /**
      * Disables transform effects
@@ -187,7 +161,7 @@ export const headerComponent = (element) => {
     },
 
     /**
-     * Returns an object containing the progress value of the scroll effects 
+     * Returns an object containing the progress value of the scroll
      * and the top position of the header.
      * @return {Object}
      */
@@ -399,9 +373,6 @@ export const headerComponent = (element) => {
      * Initialize component
      */
     init () {
-      watch(this, 'scrollTargetSelector', this._handleFixedPositionedScroll)
-      watch(this, ['condenses', 'reveals', 'fixed'], this._resetLayout)
-
       this._resizeWidth = window.innerWidth
       this._boundResizeHandler = this._debounceResize.bind(this)
       window.addEventListener('resize', this._boundResizeHandler)
@@ -410,15 +381,16 @@ export const headerComponent = (element) => {
       this._handleFixedPositionedScroll()
       this._setupBackgrounds()
       this._resetLayout()
+
+      SCROLL_EFFECTS.concat(HEADER_SCROLL_EFFECTS).map(effect => {
+        this.registerEffect(effect.name, effect)
+      })
     },
 
     /**
      * Destroy component
      */
     destroy () {
-      unwatch(this, 'scrollTargetSelector', this._handleFixedPositionedScroll)
-      unwatch(this, ['condenses', 'reveals', 'fixed'], this._resetLayout)
-
       clearTimeout(this._onResizeTimeout)
       window.removeEventListener('resize', this._boundResizeHandler)
 
@@ -433,8 +405,7 @@ export const headerComponent = (element) => {
     component
   )
 
-  // Initialize component
-  component.init()
-
   return component
 }
+
+handler.register(MODULE, headerComponent)
