@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/material-design-kit.svg)](https://badge.fury.io/js/material-design-kit)
 
-Interactive web components that provide a [Material Design](https://www.google.com/design/spec/material-design/introduction.html) experience using vanilla Web technologies like CSS, JavaScript and HTML.
+Interactive web components inspired from [Material Design](https://www.google.com/design/spec/material-design/introduction.html), using vanilla CSS, JavaScript and HTML.
 
 ## Demos
 
@@ -26,6 +26,7 @@ Interactive web components that provide a [Material Design](https://www.google.c
 - [Header](https://github.com/themekit/material-design-kit/tree/master/src/header) - A container element for navigation and other content at the top of the screen with visual effects based on scroll position.
 - [Header Layout](https://github.com/themekit/material-design-kit/tree/master/src/header-layout) - A wrapper element that positions a Header and other content.
 - [Box](https://github.com/themekit/material-design-kit/tree/master/src/box) - A container element for generic content with visual effects based on scroll position.
+- [Reveal](https://github.com/themekit/material-design-kit/tree/master/src/reveal) - A content area that reveals on user interaction.
 
 ## Installation
 

@@ -1,0 +1,36 @@
+.mdk-reveal {
+	z-index: 0;
+	position: relative;
+	transform: translateZ(0);
+
+	&[force-reveal],
+	&[opened],
+	&--hover:hover {
+		.mdk-reveal__content {
+			transform: translate3d(0, 0, 0) !important;
+		}
+		.mdk-reveal__partial {
+			opacity: 0;
+		}
+	}
+}
+.mdk-reveal__content {
+	margin-top: $mdk-reveal-content-offset-top;
+	transition: transform .2s;
+	transform: translate3d(0, 100%, 0);
+	background-color: $mdk-reveal-content-bg;
+	position: relative;
+	z-index: 0;
+}
+.mdk-reveal__partial {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	content: '';
+	background: $mdk-reveal-partial-mask-bg;
+	opacity: 1;
+	z-index: 1;
+	transition: .2s opacity;
+	pointer-events: none;
+}

@@ -1,6 +1,3 @@
-// STYLE
-import './style'
-
 // EXPORT BEHAVIORS
 export { scrollTargetBehavior } from './scroll-target-behavior'
 export { scrollEffectBehavior } from './scroll-effect-behavior'
@@ -11,6 +8,7 @@ export { headerLayoutComponent } from './header-layout'
 export { boxComponent } from './box'
 export { drawerComponent } from './drawer'
 export { drawerLayoutComponent } from './drawer-layout'
+export { revealComponent } from './reveal'
 
 // EXPORT SCROLL EFFECTS
 export { SCROLL_EFFECTS } from './scroll-effects'

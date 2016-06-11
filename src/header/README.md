@@ -4,7 +4,7 @@ A container element for navigation and other content at the top of the screen wi
 
 ## Demos
 
-- [Scrolling header](http://mdk-demo.themekit.io/index.html) - Scrolls with the page
+- [Scrolling header](http://mdk-demo.themekit.io/header.html) - Scrolls with the page
 - [Scrolling header with blend background color effect](http://mdk-demo.themekit.io/header-blend.html) - Scrolls with the page and changes the header background color when scrolling
 - [Scrolling header with parallax background effect](http://mdk-demo.themekit.io/header-parallax.html) - Scrolls with the page and moves the header background image at a different rate than the foreground when scrolling
 - [Condenses header](http://mdk-demo.themekit.io/header-condenses.html) - Shrinks when scrolling down

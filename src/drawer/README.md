@@ -264,7 +264,7 @@ Customize the drawer scrim.
 Customize the drawer width using Sass.
 
 ```sass
-$drawer-width: 200px !default;
+$mdk-drawer-width: 200px !default;
 
 @import 'node_modules/material-design-kit/src/variables';
 @import 'node_modules/material-design-kit/src/drawer/drawer';

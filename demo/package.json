@@ -10,7 +10,7 @@
   "dependencies": {
     "bootstrap": "4.0.0-alpha.2",
     "dom-factory": "^1.0.0-alpha.2",
-    "material-design-kit": "^1.0.0-alpha.4",
+    "material-design-kit": "^1.0.0-alpha.5",
     "sass-md-colors": "^1.0.0"
   },
   "devDependencies": {

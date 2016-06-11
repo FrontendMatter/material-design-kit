@@ -1,19 +1,93 @@
 ---
-title: Basic header
+title: MDK
 ---
 {% extends "layouts/demo.html" %}
 {% block page %}
 
-  <div class="mdk-header mdk-js-header navbar-dark bg-primary">
-    <div class="mdk-header__content">
-      <button class="navbar-toggler" type="button">
-        <span class="material-icons">menu</span>
-      </button>
-    </div>
-  </div>
+  <style>
+    body {
+      background-color: #eee;
+    }
+    .container {
+      max-width: 992px;
+    }
+    h2 {
+      margin: 2rem 0 1rem;
+    }
+    .card-title {
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin: 0 0 .95rem;
+      line-height: 1;
+    }
+    @media (min-width: 554px) {
+      .card-columns {
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        column-count: 2;
+      }
+    }
+    @media (min-width: 768px) {
+      body {
+        padding: 2rem;
+      }
+    }
+    @media (min-width: 992px) {
+      .card-columns {
+        -webkit-column-count: 3;
+        -moz-column-count: 3;
+        column-count: 3;
+      }
+    }
+  </style>
 
   <div class="container content">
-    {% include '_sample-content.html' %}
+    <h1>Material Design Kit</h1>
+
+    <p><a href="https://badge.fury.io/js/material-design-kit"><img src="https://badge.fury.io/js/material-design-kit.svg" alt="npm version"></a></p>
+
+    <p>Interactive web components inspired from <a href="https://www.google.com/design/spec/material-design/introduction.html">Material Design</a> using vanilla CSS, JavaScript and HTML. Material Design Kit can be used with or without external libraries such as jQuery, Bootstrap and MDL.</p>
+
+    <h2>Components</h2>
+
+    <div class="card-columns">
+      <div class="card card-block">
+        <h4 class="card-title">Drawer</h4>
+        <p>A navigation drawer that can slide in from the left or right.</p>
+        <a class="btn btn-primary" href="drawer-left.html">Demos</a>
+        <a class="btn btn-link" href="https://github.com/themekit/material-design-kit/tree/master/src/drawer" target="_blank">Documentation</a>
+      </div>
+      <div class="card card-block">
+        <h4 class="card-title">Drawer Layout</h4>
+        <p>A wrapper element that positions a Drawer and other content.</p>
+        <a class="btn btn-primary" href="drawer-layout.html">Demos</a>
+        <a class="btn btn-link" href="https://github.com/themekit/material-design-kit/tree/master/src/drawer-layout" target="_blank">Documentation</a>
+      </div>
+      <div class="card card-block">
+        <h4 class="card-title">Header</h4>
+        <p>A container element for navigation and other content at the top of the screen with (optional) visual effects based on scroll position.</p>
+        <a class="btn btn-primary" href="header.html">Demos</a>
+        <a class="btn btn-link" href="https://github.com/themekit/material-design-kit/tree/master/src/header" target="_blank">Documentation</a>
+      </div>
+      <div class="card card-block">
+        <h4 class="card-title">Header Layout</h4>
+        <p>A wrapper element that positions a Header and other content.</p>
+        <a class="btn btn-primary" href="header-layout.html">Demos</a>
+        <a class="btn btn-link" href="https://github.com/themekit/material-design-kit/tree/master/src/header-layout" target="_blank">Documentation</a>
+      </div>
+      <div class="card card-block">
+        <h4 class="card-title">Box</h4>
+        <p>A container element for generic content with (optional) visual effects based on scroll position.</p>
+        <a class="btn btn-primary" href="box-parallax.html">Demos</a>
+        <a class="btn btn-link" href="https://github.com/themekit/material-design-kit/tree/master/src/box" target="_blank">Documentation</a>
+      </div>
+      <div class="card card-block">
+        <h4 class="card-title">Reveal</h4>
+        <p>A content area that reveals on user interaction.</p>
+        <a class="btn btn-primary" href="reveal.html">Demos</a>
+        <a class="btn btn-link" href="https://github.com/themekit/material-design-kit/tree/master/src/reveal" target="_blank">Documentation</a>
+      </div>
+    </div>
   </div>
 
 {% endblock %}

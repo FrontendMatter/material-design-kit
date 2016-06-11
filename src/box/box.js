@@ -41,7 +41,7 @@ export const boxComponent = (element) => {
      * @return {Boolean}
      */
     isOnScreen () {
-      return this._elementTop < this._scrollTop + this._cachedScrollTargetHeight && 
+      return this._elementTop < this._scrollTop + this._scrollTargetHeight && 
         this._elementTop + this._elementHeight > this._scrollTop
     },
 
@@ -76,7 +76,9 @@ export const boxComponent = (element) => {
       let scrollTop = this._clampedScrollTop
       this._elementTop = this._getElementTop()
       this._elementHeight = this.element.offsetHeight
-      this._cachedScrollTargetHeight = this._scrollTargetHeight
+      
+      let viewportTop = this._elementTop - scrollTop
+      this._progressTarget = Math.min(this._scrollTargetHeight, viewportTop + this._elementHeight)
 
       this._setUpEffects()
       this._updateScrollState(scrollTop)
@@ -104,7 +106,7 @@ export const boxComponent = (element) => {
 
       if (this.isOnScreen()) {
         let viewportTop = this._elementTop - scrollTop
-        let progress = 1 - (viewportTop + this._elementHeight) / this._cachedScrollTargetHeight
+        let progress = 1 - (viewportTop + this._elementHeight) / this._progressTarget
 
         this._progress = progress
         this._runEffects(this._progress, scrollTop)
@@ -129,8 +131,8 @@ export const boxComponent = (element) => {
      */
     init () {
       this._resizeWidth = window.innerWidth
-      this._boundResizeHandler = this._debounceResize.bind(this)
-      window.addEventListener('resize', this._boundResizeHandler)
+      this._debounceResize = this._debounceResize.bind(this)
+      window.addEventListener('resize', this._debounceResize)
 
       this.attachToScrollTarget()
       this._setupBackgrounds()
@@ -144,20 +146,17 @@ export const boxComponent = (element) => {
      */
     destroy () {
       clearTimeout(this._onResizeTimeout)
-      window.removeEventListener('resize', this._boundResizeHandler)
+      window.removeEventListener('resize', this._debounceResize)
       
       this.detachFromScrollTarget()
     }
   }
 
-  // Merge behaviors
-  component = assign(
+  return assign(
     {},
     scrollEffectBehavior(element),
     component
   )
-
-  return component
 }
 
 handler.register(MODULE, boxComponent)

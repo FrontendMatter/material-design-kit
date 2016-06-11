@@ -1,0 +1,164 @@
+---
+title: Reveal
+---
+{% extends "layouts/demo.html" %}
+{% block page %}
+
+  <style>
+    body {
+      background-color: #ddd;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    @media (min-width: 768px) {
+      body {
+        padding: 2rem;
+      }
+    }
+    .card {
+      background-color: #fff;
+      max-width: 500px;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+    .card__title {
+      font-size: 2rem;
+      font-weight: 300;
+      margin: 0 0 .95rem;
+      line-height: 1;
+    }
+    .card__title--raised {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: transform .2s;
+      transform: translate3d(0, -100%, 0);
+      color: #fff;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, .5);
+      margin: 0;
+      padding: 1.25rem;
+    }
+    .card__image {
+      background-size: cover;
+      background-position: center;
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      transform: translateZ(0);
+    }
+    .card__image--overlay::after {
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      content: '';
+      background-color: rgba(0, 0, 0, .4);
+    }
+    .card__block {
+      padding: 1.25rem;
+    }
+  </style>
+
+  <div class="container content">
+    <h1>Reveal</h1>
+    <p>A content area that reveals on user interaction.</p>
+    <hr>
+
+    <h3>Mouse or touch interaction</h3>
+
+    <div class="card mdk-reveal mdk-js-reveal" hover-reveal>
+      <div class="card__image" style="background-image: url('https://unsplash.it/500?image=967');"></div>
+      <div class="mdk-reveal__content">
+        <div class="card__block">
+          <h4 class="card__title">Reveal card effect</h4>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam molestias iusto, ut reiciendis eius esse dignissimos et dicta, officia dolores excepturi, dolorem quaerat iure. Perspiciatis illum molestiae doloribus aliquam reprehenderit!
+        </div>
+      </div>
+    </div>
+
+    <p>Raised card title</p>
+    <div class="card mdk-reveal mdk-js-reveal card-raised" hover-reveal>
+      <div class="card__image card__image--overlay" style="background-image: url('https://unsplash.it/500?image=974');"></div>
+      <div class="mdk-reveal__content">
+        <div class="card__block">
+          <h4 class="card__title card__title--raised">Reveal card effect</h4>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam molestias iusto, ut reiciendis eius esse dignissimos et dicta, officia dolores excepturi, dolorem quaerat iure. Perspiciatis illum molestiae doloribus aliquam reprehenderit!
+        </div>
+      </div>
+    </div>
+
+    <p>Partially revealed</p>
+    <div class="card mdk-reveal mdk-js-reveal" partial-height="60" hover-reveal>
+      <div class="card__image card__image--overlay" style="background-image: url('https://unsplash.it/500?image=901');"></div>
+      <div class="mdk-reveal__content">
+        <div class="card__block">
+          <h4 class="card__title card__title--raised">Reveal card effect</h4>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam molestias iusto, ut reiciendis eius esse dignissimos et dicta, officia dolores excepturi, dolorem quaerat iure. Perspiciatis illum molestiae doloribus aliquam reprehenderit!
+        </div>
+      </div>
+    </div>
+
+    <h3>Static</h3>
+
+    <div class="card mdk-reveal mdk-js-reveal" force-reveal hover-reveal>
+      <div class="card__image card__image--overlay" style="background-image: url('https://unsplash.it/500?image=857');"></div>
+      <div class="mdk-reveal__content">
+        <div class="card__block">
+          <h4 class="card__title card__title--raised">Reveal card effect</h4>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam molestias iusto, ut reiciendis eius esse dignissimos et dicta, officia dolores excepturi, dolorem quaerat iure. Perspiciatis illum molestiae doloribus aliquam reprehenderit!
+        </div>
+      </div>
+    </div>
+
+    <h3>JavaScript API</h3>
+
+    <p>
+      <a href="#" id="open">open</a> | 
+      <a href="#" id="close">close</a> | 
+      <a href="#" id="toggle">toggle</a>
+    </p>
+
+    <div class="card mdk-reveal mdk-js-reveal" id="api">
+      <div class="card__image card__image--overlay" style="background-image: url('https://unsplash.it/500?image=857');"></div>
+      <div class="mdk-reveal__content">
+        <div class="card__block">
+          <h4 class="card__title card__title--raised">Reveal card effect</h4>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam molestias iusto, ut reiciendis eius esse dignissimos et dicta, officia dolores excepturi, dolorem quaerat iure. Perspiciatis illum molestiae doloribus aliquam reprehenderit!
+        </div>
+      </div>
+    </div>
+
+    <h3>CSS only</h3>
+
+    <div class="card mdk-reveal mdk-reveal--hover">
+      <div class="card__image card__image--overlay" style="background-image: url('https://unsplash.it/500?image=1067');"></div>
+      <div class="mdk-reveal__content">
+        <div class="card__block">
+          <h4 class="card__title card__title--raised">Reveal card effect</h4>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam molestias iusto, ut reiciendis eius esse dignissimos et dicta, officia dolores excepturi, dolorem quaerat iure. Perspiciatis illum molestiae doloribus aliquam reprehenderit!
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block footer %}
+  <script>
+    var api = document.querySelector('#api')
+    var methods = ['open', 'close', 'toggle']
+
+    methods.forEach(function (method) {
+      document.querySelector('#' + method).addEventListener('click', function (e) {
+        e.preventDefault()
+        api.mdkReveal[method]()
+      })
+    })
+  </script>
+{% endblock %}

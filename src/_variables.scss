@@ -1,2 +1,19 @@
-$spacer: 1.25rem !default;
-$drawer-width: 256px !default;
+/////////////
+// GENERAL //
+/////////////
+
+$mdk-spacer: 1.25rem !default;
+
+////////////
+// DRAWER //
+////////////
+
+$mdk-drawer-width: 256px !default;
+
+////////////
+// REVEAL //
+////////////
+
+$mdk-reveal-partial-mask-bg: linear-gradient(to bottom, rgba(255,255,255,0) 60%,rgba(255,255,255,.95) 80%,rgba(255,255,255,1) 100%) !default;
+$mdk-reveal-content-bg: #ffffff !default;
+$mdk-reveal-content-offset-top: 150px !default;
