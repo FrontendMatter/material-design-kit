@@ -11,11 +11,47 @@ Interactive web components inspired from [Material Design](https://www.google.co
 - [x] [Header](https://github.com/themekit/material-design-kit/tree/master/src/header) - A container element for navigation and other content at the top of the screen with visual effects based on scroll position.
 - [x] [Header Layout](https://github.com/themekit/material-design-kit/tree/master/src/header-layout) - A wrapper element that positions a Header and other content.
 - [x] [Box](https://github.com/themekit/material-design-kit/tree/master/src/box) - A container element for generic content with visual effects based on scroll position.
+- [ ] *Tabs*
+- [ ] *Footer*
 
 ## Media components
 
 - [x] [Reveal](https://github.com/themekit/material-design-kit/tree/master/src/reveal) - A content area that reveals on user interaction.
 - [x] [Carousel](https://github.com/themekit/material-design-kit/tree/master/src/carousel) - A component for cycling through elements with Mouse Grab (desktop) and Touch support.
+- [ ] *Overlay*
+
+## Form components
+
+- [ ] *Text Fields*
+- [ ] *Slider*
+- [ ] *Toggle*
+
+## Informative
+
+- [ ] *Tooltip*
+- [ ] *Progress*
+
+## Notifications
+
+- [ ] *Snackbar*
+
+## Style guide
+
+- [ ] *Browser resets - (normalize.css)*
+- [ ] *Responsive breakpoints*
+- [ ] *Flexbox layout*
+- [ ] *Colors*
+- [ ] *Typography*
+- [ ] *Shadow*
+- [ ] *Grid*
+- [ ] *Button*
+- [ ] *Card*
+- [ ] *List*
+
+## Compatibility
+
+- [ ] Supports ES5-compliant browsers (IE9+) - **currently IE10+**
+- [x] Compatible with projects using (or not using) jQuery, Bootstrap and MDL
 
 ## Demos
 
@@ -26,11 +62,6 @@ Interactive web components inspired from [Material Design](https://www.google.co
 - [Header layout within drawer](http://mdk-demo.themekit.io/header-layout-drawer.html) - Positions a header and other content within a drawer
 - [Header layout within drawer with transform effects](http://mdk-demo.themekit.io/header-layout-drawer-transform-fx.html) - Positions a header and other content within a drawer and use transform effects on header elements based on scroll position
 - [Header with parallax and blend background effects](http://mdk-demo.themekit.io/header-parallax-blend.html)
-
-## Compatibility
-
-- Supports ES5-compliant browsers (IE9+)
-- Compatible with projects using (or not using) jQuery, Bootstrap and MDL
 
 ## Installation
 
