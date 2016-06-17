@@ -35,6 +35,13 @@ Interactive web components inspired from [Material Design](https://www.google.co
 
 - [ ] *Snackbar*
 
+## Behaviors
+
+- [x] [Scroll Target](https://github.com/themekit/material-design-kit/tree/master/src/scroll-target-behavior) - Allows an element to respond to scroll events from a designated scroll target.
+- [x] [Scroll Effects](https://github.com/themekit/material-design-kit/tree/master/src/scroll-target-behavior) - Allows a consumer of the Scroll Target behavior to use scroll effects.
+- [ ] *Ripple*
+- [ ] *Swipe Dismiss*
+
 ## Style guide
 
 - [ ] *Browser resets - (normalize.css)*
@@ -50,18 +57,21 @@ Interactive web components inspired from [Material Design](https://www.google.co
 
 ## Compatibility
 
-- [ ] Supports ES5-compliant browsers (IE9+) - **currently IE10+**
-- [x] Compatible with projects using (or not using) jQuery, Bootstrap and MDL
+- [ ] Supports ES5-compliant browsers (IE9+) - **currently IE10+**.
+- [x] Compatible with projects using (or not using) jQuery, Bootstrap and MDL.
+- [x] UMD library format - supports AMD, CommonJS (browserify), ES6 imports and global namespace.
 
 ## Demos
 
-> Note there are many more demos included with each component below.
+> Note there are many more demos included with the source of each component.
 
 - [Left drawer](http://mdk-demo.themekit.io/drawer-left.html) - Slides in from the left
 - [Drawer layout with header layout](http://mdk-demo.themekit.io/drawer-layout-with-header-layout.html) - Uses a Header Layout with a custom scrolling region
 - [Header layout within drawer](http://mdk-demo.themekit.io/header-layout-drawer.html) - Positions a header and other content within a drawer
 - [Header layout within drawer with transform effects](http://mdk-demo.themekit.io/header-layout-drawer-transform-fx.html) - Positions a header and other content within a drawer and use transform effects on header elements based on scroll position
 - [Header with parallax and blend background effects](http://mdk-demo.themekit.io/header-parallax-blend.html)
+- [Reveal](http://mdk-demo.themekit.io/reveal.html)
+- [Carousel](http://mdk-demo.themekit.io/carousel.html)
 
 ## Installation
 
