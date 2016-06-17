@@ -5,10 +5,7 @@ import { handler } from 'dom-factory'
  * @param  {HTMLElement} element
  * @return {Object}
  */
-export const drawerComponent = (element) => ({
-
-  // HTMLElement
-  element,
+export const drawerComponent = () => ({
 
   /**
    * Public properties.

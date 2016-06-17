@@ -4,6 +4,19 @@
 
 Interactive web components inspired from [Material Design](https://www.google.com/design/spec/material-design/introduction.html), using vanilla CSS, JavaScript and HTML.
 
+## Layout components
+
+- [x] [Drawer](https://github.com/themekit/material-design-kit/tree/master/src/drawer) - A navigation drawer that can slide in from the left or right.
+- [x] [Drawer Layout](https://github.com/themekit/material-design-kit/tree/master/src/drawer-layout) - A wrapper element that positions a Drawer and other content.
+- [x] [Header](https://github.com/themekit/material-design-kit/tree/master/src/header) - A container element for navigation and other content at the top of the screen with visual effects based on scroll position.
+- [x] [Header Layout](https://github.com/themekit/material-design-kit/tree/master/src/header-layout) - A wrapper element that positions a Header and other content.
+- [x] [Box](https://github.com/themekit/material-design-kit/tree/master/src/box) - A container element for generic content with visual effects based on scroll position.
+
+## Media components
+
+- [x] [Reveal](https://github.com/themekit/material-design-kit/tree/master/src/reveal) - A content area that reveals on user interaction.
+- [x] [Carousel](https://github.com/themekit/material-design-kit/tree/master/src/carousel) - A component for cycling through elements with Mouse Grab (desktop) and Touch support.
+
 ## Demos
 
 > Note there are many more demos included with each component below.
@@ -18,15 +31,6 @@ Interactive web components inspired from [Material Design](https://www.google.co
 
 - Supports ES5-compliant browsers (IE9+)
 - Compatible with projects using (or not using) jQuery, Bootstrap and MDL
-
-## Components
-
-- [Drawer](https://github.com/themekit/material-design-kit/tree/master/src/drawer) - A navigation drawer that can slide in from the left or right.
-- [Drawer Layout](https://github.com/themekit/material-design-kit/tree/master/src/drawer-layout) - A wrapper element that positions a Drawer and other content.
-- [Header](https://github.com/themekit/material-design-kit/tree/master/src/header) - A container element for navigation and other content at the top of the screen with visual effects based on scroll position.
-- [Header Layout](https://github.com/themekit/material-design-kit/tree/master/src/header-layout) - A wrapper element that positions a Header and other content.
-- [Box](https://github.com/themekit/material-design-kit/tree/master/src/box) - A container element for generic content with visual effects based on scroll position.
-- [Reveal](https://github.com/themekit/material-design-kit/tree/master/src/reveal) - A content area that reveals on user interaction.
 
 ## Installation
 

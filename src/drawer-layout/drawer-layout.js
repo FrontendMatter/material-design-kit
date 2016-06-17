@@ -1,17 +1,13 @@
-import { transform } from '../util'
 import { mediaQuery } from '../media-query'
-import { handler } from 'dom-factory'
+import { handler, util } from 'dom-factory'
 
 /**
  * A wrapper element that positions a Drawer and other content.
  * @param  {HTMLElement} element
  * @return {Object}
  */
-export const drawerLayoutComponent = (element) => ({
+export const drawerLayoutComponent = () => ({
   
-  // HTMLElement
-  element,
-
   /**
    * Public properties.
    * @type {Object}
@@ -43,6 +39,15 @@ export const drawerLayoutComponent = (element) => ({
     responsiveWidth: {
       reflectToAttribute: true,
       value: '554px'
+    },
+
+    /**
+     * If true, defines it's own scrolling region, otherwise uses the document scroll.
+     * @type {Object}
+     */
+    hasScrollingRegion: {
+      type: Boolean,
+      reflectToAttribute: true
     }
   },
 
@@ -52,7 +57,8 @@ export const drawerLayoutComponent = (element) => ({
    */
   observers: [
     '_resetLayout(narrow, forceNarrow)',
-    '_onQueryMatches(mediaQuery.queryMatches)'
+    '_onQueryMatches(mediaQuery.queryMatches)',
+    '_updateScroller(hasScrollingRegion)'
   ],
   
   /**
@@ -65,6 +71,9 @@ export const drawerLayoutComponent = (element) => ({
 
   // The default `narrow` value
   _narrow: null,
+
+  // The mediaQuery listener
+  _mediaQuery: null,
 
   /**
    * The mediaQuery listener
@@ -120,6 +129,17 @@ export const drawerLayoutComponent = (element) => ({
     return this.forceNarrow ? '(min-width: 0px)' : `(max-width: ${ this.responsiveWidth })`
   },
 
+  _updateScroller () {
+    const docElements = [...document.querySelectorAll('html, body')]
+    if (this.hasScrollingRegion) {
+      docElements.forEach(el => {
+        el.style.overflow = 'hidden'
+        el.style.position = 'relative'
+        el.style.height = '100%'
+      })
+    }
+  },
+
   _resetLayout () {
     this.drawer.opened = this.drawer.persistent = !this.narrow
     this._onDrawerChange()
@@ -152,7 +172,7 @@ export const drawerLayoutComponent = (element) => ({
     let contentContainer = this.contentContainer
 
     if (!drawer.opened) {
-      transform('translate3d(0, 0, 0)', contentContainer)
+      util.transform('translate3d(0, 0, 0)', contentContainer)
 
       contentContainer.style.marginLeft = ''
       contentContainer.style.marginRight = ''
@@ -160,7 +180,7 @@ export const drawerLayoutComponent = (element) => ({
     }
 
     if (drawer.position === 'right') {
-      transform(`translate3d(${ -1 * drawerWidth }px, 0, 0)`, contentContainer)
+      util.transform(`translate3d(${ -1 * drawerWidth }px, 0, 0)`, contentContainer)
 
       if (!this.narrow) {
         contentContainer.style.marginLeft = `${ drawerWidth }px`
@@ -168,7 +188,7 @@ export const drawerLayoutComponent = (element) => ({
       }
     }
     else {
-      transform(`translate3d(${ drawerWidth }px, 0, 0)`, contentContainer)
+      util.transform(`translate3d(${ drawerWidth }px, 0, 0)`, contentContainer)
 
       if (!this.narrow) {
         contentContainer.style.marginLeft = ''
@@ -186,9 +206,7 @@ export const drawerLayoutComponent = (element) => ({
       return this._resetPush()
     }
 
-    if (!this.narrow) {
-      this._resetContent()
-    }
+    this._resetContent()
   },
 
   _onQueryMatches (value) {
@@ -202,6 +220,8 @@ export const drawerLayoutComponent = (element) => ({
     // Initial render
     this._setContentTransitionDuration('0s')
     setTimeout(() => this._setContentTransitionDuration(''), 0)
+
+    this._updateScroller()
 
     // Initialize mediaQuery
     this.mediaQuery.init()

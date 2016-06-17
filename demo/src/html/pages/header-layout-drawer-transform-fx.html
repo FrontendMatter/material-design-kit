@@ -153,19 +153,15 @@ title: Header layout within drawer with header transform effects
   <script>
     var drawerNode = document.querySelector('.mdk-drawer')
     var headerNode = document.querySelector('.mdk-header')
-    var button = document.querySelector('.drawer-toggler')
 
-    button.addEventListener('click', function () {
+    document.querySelector('.drawer-toggler').addEventListener('click', function () {
       drawerNode.mdkDrawer.toggle()
     })
 
     drawerNode.addEventListener('mdk-drawer-changed', function () {
       if (drawerNode.mdkDrawer.opened) {
-        headerNode.mdkHeader._resetLayout()
+        headerNode.mdkHeader._reset()
       }
-    })
-    window.addEventListener('load', function () {
-      headerNode.mdkHeader._resetLayout()
     })
   </script>
 {% endblock %}

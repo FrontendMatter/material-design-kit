@@ -37,10 +37,9 @@ export const SCROLL_EFFECT_PARALLAX_BACKGROUND = {
 
     layers.map(layer => {
       if (layer) {
-        let willChange = layer.style.willChange.split(',').map(c => c.trim()).filter(c => c.length)
-        willChange.push('transform')
-        layer.style.willChange = [...new Set(willChange)].join(', ')
-
+        if (layer.style.transform === '') {
+          layer.style.willChange = 'transform'
+        }
         layer.style[scalar > 1 || !this._isPositionedFixed ? 'marginTop' : 'marginBottom'] = `${ margin }px`
         this._transform(`translate3d(0, ${ transform }px, 0)`, layer)
       }

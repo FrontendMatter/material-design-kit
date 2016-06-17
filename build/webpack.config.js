@@ -8,6 +8,7 @@ var entries = [
 	'header/index',
 	'header-layout/index',
 	'reveal/index',
+	'carousel/index'
 ]
 
 module.exports = entries.map(function (entry, index) {

@@ -1,0 +1,12 @@
+.mdk-carousel__content {
+	transition: transform .4s;
+	transform: translate3d(0, 0, 0);
+	touch-action: pan-x;
+}
+.mdk-carousel__item {
+	float: left;
+	user-select: none;
+	cursor: move;
+	cursor: grab;
+	-webkit-touch-callout: none;
+}

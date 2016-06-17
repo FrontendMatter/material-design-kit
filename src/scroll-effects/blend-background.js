@@ -13,12 +13,9 @@ export const SCROLL_EFFECT_BLEND_BACKGROUND = {
 
     layers.map(layer => {
       if (layer) {
-        let willChange = layer.style.willChange.split(',').map(c => c.trim()).filter(c => c.length)
-        willChange.push('opacity', 'transform')
-        layer.style.willChange = [...new Set(willChange)].join(', ')
-
         if (layer.style.transform === '') {
           this._transform('translateZ(0)', layer)
+          layer.style.willChange = 'opacity'
         }
       }
     })

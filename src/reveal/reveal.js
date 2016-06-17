@@ -1,18 +1,12 @@
-import { transform } from '../util'
-import { handler } from 'dom-factory'
-
-const isTouch = () => ('ontouchstart' in window)
+import { handler, util } from 'dom-factory'
 
 /**
  * A content area that reveals on user interaction.
  * @param  {HTMLElement} element
  * @return {Object}
  */
-export const revealComponent = (element) => ({
+export const revealComponent = () => ({
   
-  // HTMLElement
-  element,
-
   /**
    * Public properties.
    * @type {Object}
@@ -70,7 +64,8 @@ export const revealComponent = (element) => ({
    */
   listeners: [
     '_onEnter(mouseenter, touchstart)',
-    '_onLeave(mouseleave, touchend)'
+    '_onLeave(mouseleave, touchend)',
+    'window._debounceResize(resize)'
   ],
 
   /**
@@ -116,6 +111,10 @@ export const revealComponent = (element) => ({
     this.opened = !this.opened
   },
 
+  /**
+   * Set the initial state.
+   * Gets called automatically on `window.load`
+   */
   _reset () {
     const revealOffsetTop = parseInt(window.getComputedStyle(this.reveal)['margin-top'], 10)
     const revealHeight = this.reveal.offsetHeight
@@ -128,29 +127,38 @@ export const revealComponent = (element) => ({
       this.partial.style.height = this.partialHeight + 'px'
     }
     this.reveal.style.transitionDuration = '0s'
-    transform(translate, this.reveal)
+    util.transform(translate, this.reveal)
     this.element.style.height = revealOffsetTop + revealHeight + 'px'
     setTimeout(() => this.reveal.style.transitionDuration = '', 0)
   },
 
   _onChange () {
-    transform(this.opened || this.forceReveal ? 'translate3d(0, 0, 0)' : this._translateReveal, this.reveal)
+    util.transform(this.opened || this.forceReveal ? 'translate3d(0, 0, 0)' : this._translateReveal, this.reveal)
   },
 
-  _onEnter (event) {
-    const skipMouseEvent = isTouch() && event.type === 'mouseenter'
-    if (this.hoverReveal && !this.forceReveal && !skipMouseEvent) {
+  /**
+   * Handle `mouseenter` and `touchstart` events.
+   * @param  {MouseEvent|TouchEvent} event
+   */
+  _onEnter () {
+    if (this.hoverReveal && !this.forceReveal) {
       this.open()
     }
   },
 
-  _onLeave (event) {
-    const skipMouseEvent = isTouch() && event.type === 'mouseleave'
-    if (this.hoverReveal && !this.forceReveal && !skipMouseEvent) {
+  /**
+   * Handle `mouseleave` and `touchend` events.
+   * @param  {MouseEvent|TouchEvent} event
+   */
+  _onLeave () {
+    if (this.hoverReveal && !this.forceReveal) {
       this.close()
     }
   },
 
+  /**
+   * Debounce `window.resize` handler.
+   */
   _debounceResize () {
     clearTimeout(this._debounceResizeTimer)
     this._debounceResizeTimer = setTimeout(() => {
@@ -167,15 +175,13 @@ export const revealComponent = (element) => ({
   init () {
     this._reset()
     this._resizeWidth = window.innerWidth
-    this._debounceResize = this._debounceResize.bind(this)
-    window.addEventListener('resize', this._debounceResize)
   },
 
   /**
    * Destroy component.
    */
-  destroy: function () {
-    window.removeEventListener('resize', this._debounceResize)
+  destroy () {
+    clearTimeout(this._debounceResizeTimer)
   }
 })
 

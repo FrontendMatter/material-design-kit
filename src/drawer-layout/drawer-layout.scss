@@ -1,10 +1,21 @@
 .mdk-drawer-layout {
+	height: 100%;
+	position: relative;
 	&[fullbleed] {
 		position: absolute;
 		top: 0;
 		left: 0;
 		right: 0;
 		bottom: 0;
+	}
+	&[has-scrolling-region] {
+		.mdk-drawer-layout__content {
+			overflow-y: auto;
+  			-webkit-overflow-scrolling: touch;
+		}
+		.mdk-drawer {
+			position: absolute;
+		}
 	}
 }
 .mdk-drawer-layout__content {

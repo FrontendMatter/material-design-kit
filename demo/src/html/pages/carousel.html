@@ -1,0 +1,137 @@
+---
+title: Carousel
+---
+{% extends "layouts/demo.html" %}
+{% block page %}
+
+  <style>
+    body {
+      background-color: #ddd;
+      padding: 1rem 0;
+    }
+    @media (min-width: 768px) {
+      body {
+        padding: 2rem 0;
+      }
+    }
+    .card {
+      background-color: #fff;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+    .card__title {
+      font-size: 1.5rem;
+      font-weight: 300;
+      margin: 0;
+      line-height: 1;
+    }
+    .card__title--raised {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: transform .2s;
+      transform: translate3d(0, -100%, 0);
+      color: #fff;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, .5);
+      margin: 0;
+      padding: 1.25rem;
+      font-size: 2rem;
+    }
+    .card__block {
+      padding: 1rem;
+      position: relative;
+    }
+    .card-image--overlay {
+      position: relative;
+      z-index: 0;
+    }
+    .card-image--overlay::after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      content: '';
+      background-color: rgba(0, 0, 0, .5);
+    }
+    .avatar {
+      margin-right: 1rem;
+    }
+    @media (max-width: 554px) {
+      .avatar img {
+        max-width: 40px;
+      }
+    }
+    blockquote {
+      margin-bottom: 0;
+      display: flex;
+    }
+    blockquote p {
+      flex: 1;
+    }
+    .img-fluid {
+      max-width: none;
+      width: 100%;
+    }
+  </style>
+
+  
+  <div class="container">
+    <h1>Carousel</h1>
+    <p>A component for cycling through elements with Mouse Grab (desktop) and Touch support.</p>
+    <hr>
+    <div class="row mdk-js-carousel">
+      <div class="mdk-carousel__content">
+        {% for item in [1,2,3] %}
+        <div class="col-xs-12 col-md-6">
+          <div class="card card__block">
+            <blockquote>
+              <div class="avatar">
+                <img src="https://api.adorable.io/avatars/80/dude{{ item }}%40adorable.io" alt="avatar" class="img-circle">
+              </div>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia distinctio reiciendis iusto id, doloribus optio soluta laborum nobis dolor tempore velit porro maiores eveniet voluptas officia ipsa magnam aliquam. Perferendis?</p>
+            </blockquote>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="row mdk-js-carousel">
+      <div class="mdk-carousel__content">
+        {% for item in [1,2,3,4,5,6,7,8] %}
+        <div class="col-xs-12 col-sm-6 col-md-4 col-xl-3">
+          <div class="card">
+            <img class="img-fluid card-img-top" src="https://unsplash.it/500/300?random&amp;{{ item }}" alt="Image">
+            <div class="card__block">
+              <h4 class="card__title">Card title</h4>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div style="max-width: 500px; margin: 0 auto;">
+      <div class="row mdk-js-carousel">
+        <div class="mdk-carousel__content">
+          {% for item in [4,5,6] %}
+          <div class="col-xs-12">
+            <div class="card">
+              <div class="card-img card-image--overlay">
+                <img class="img-fluid" src="https://unsplash.it/500/300?random&amp;{{ item }}" alt="Image">
+              </div>
+              <div class="card__block" style="padding-top: 0;
+              padding-bottom: 0;">
+                <h4 class="card__title card__title--raised">Card title</h4>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

@@ -9,6 +9,7 @@ export { boxComponent } from './box'
 export { drawerComponent } from './drawer'
 export { drawerLayoutComponent } from './drawer-layout'
 export { revealComponent } from './reveal'
+export { carouselComponent } from './carousel'
 
 // EXPORT SCROLL EFFECTS
 export { SCROLL_EFFECTS } from './scroll-effects'
