@@ -38,7 +38,7 @@ Interactive web components inspired from [Material Design](https://www.google.co
 ## Behaviors
 
 - [x] [Scroll Target](https://github.com/themekit/material-design-kit/tree/master/src/scroll-target-behavior) - Allows an element to respond to scroll events from a designated scroll target.
-- [x] [Scroll Effects](https://github.com/themekit/material-design-kit/tree/master/src/scroll-target-behavior) - Allows a consumer of the Scroll Target behavior to use scroll effects.
+- [x] [Scroll Effect](https://github.com/themekit/material-design-kit/tree/master/src/scroll-effect-behavior) - Allows a consumer of the Scroll Target behavior to use scroll effects.
 - [ ] *Ripple*
 - [ ] *Swipe Dismiss*
 
