@@ -1,14 +1,25 @@
 import { util } from 'dom-factory'
 
 /**
- * Allows a scrollTargetBehavior consumer to use scroll effects
+ * Allows a scrollTargetBehavior consumer to use scroll effects.
+ * Use from a consumer via dom-factory mixins i.e. 
+ * 
+ * import { 
+ *   scrollTargetBehavior, 
+ *   scrollEffectBehavior 
+ * } from 'material-design-kit'
+ * 
+ * const anotherComponent = () => ({
+ *   mixins: [
+ *     scrollTargetBehavior,
+ *     scrollEffectBehavior
+ *   ]
+ * })
+ * 
  * @param  {HTMLElement} element The element which should respond to scroll events
  * @return {Object}
  */
-export const scrollEffectBehavior = (element) => ({
-
-  // HTMLElement which should respond to scroll events
-  element,
+export const scrollEffectBehavior = () => ({
 
   // List of registered scroll effects
   _scrollEffects: {},

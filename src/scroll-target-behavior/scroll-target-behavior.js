@@ -1,14 +1,18 @@
 import { watch, unwatch } from 'watch-object'
 
 /**
- * Allows an element to respond to scroll events from a designated scroll target
+ * Allows an element to respond to scroll events from a designated scroll target.
+ * Use from a consumer via dom-factory mixins i.e. 
+ * 
+ * import { scrollTargetBehavior } from 'material-design-kit'
+ * const anotherComponent = () => ({
+ *   mixins: [ scrollTargetBehavior ]
+ * })
+ * 
  * @param  {HTMLElement} element The element which should respond to scroll events
  * @return {Object}
  */
-export const scrollTargetBehavior = (element) => ({
-
-  // The element which should respond to scroll events
-  element,
+export const scrollTargetBehavior = () => ({
 
   // The scroll target selector
   _scrollTargetSelector: null,

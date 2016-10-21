@@ -1,83 +1,83 @@
 @import './variables';
 
 pre {
-	background: rgba(0, 0, 0, 0.03);
-	padding: 10px;
+  background: rgba(0, 0, 0, 0.03);
+  padding: 10px;
 }
 blockquote {
-	color: #888;
-	padding: ($spacer / 2) $spacer;
-	margin-bottom: $spacer;
-	border-left: .25rem solid $blockquote-border-color;
-	:last-child {
-		margin-bottom: 0;
-	}
+  color: #888;
+  padding: ($spacer / 2) $spacer;
+  margin-bottom: $spacer;
+  border-left: .25rem solid $blockquote-border-color;
+  :last-child {
+    margin-bottom: 0;
+  }
 }
 h2 {
-	margin-top: 30px;
+  margin-top: 30px;
 }
 h3 {
-	color: #555;
-	font-weight: normal;
-	font-size: 1.5rem;
+  color: #555;
+  font-weight: normal;
+  font-size: 1.5rem;
 }
 .card + h3 {
-	margin-top: 30px;
+  margin-top: 30px;
 }
 h4 {
-	font-size: 1.2rem;
+  font-size: 1.2rem;
 }
 img {
-	max-width: 100%;
+  max-width: 100%;
 }
 hr {
-	margin: $spacer * 1.5 0;
+  margin: $spacer * 1.5 0;
 }
 hr + * {
-	margin-top: 0;
+  margin-top: 0;
 }
 .nav-pills {
-	margin-bottom: $spacer;
+  margin-bottom: $spacer;
 }
 .card-block {
-	.table-responsive {
-		margin-bottom: $spacer;
-	}
-	*:last-child {
-		margin-bottom: 0;
-	}
-	hr {
-		margin: $spacer 0;
-	}
+  .table-responsive {
+    margin-bottom: $spacer;
+  }
+  *:last-child {
+    margin-bottom: 0;
+  }
+  hr {
+    margin: $spacer 0;
+  }
 }
 .hljs-selector-tag {
-	color: $body-color;
+  color: $body-color;
 }
 .table th, 
 .table td {
-	vertical-align: middle;
+  vertical-align: middle;
 }
 h1, h2, h3 {
-	& + .card {
-		margin-top: $spacer;
-	}
+  & + .card {
+    margin-top: $spacer;
+  }
 }
 
 .navbar-toggler {
-	padding: 0 $spacer;
-	line-height: 55px;
-	.material-icons {
-		vertical-align: top;
-		line-height: 53px;
-	}
+  padding: 0 $spacer;
+  line-height: 55px;
+  .material-icons {
+    vertical-align: top;
+    line-height: 53px;
+  }
 }
 
 .content {
-	padding-top: $spacer * 2;
-	padding-bottom: $spacer * 2;
-	h1, h2, h3 {
-		&:first-of-type {
-			margin-top: 0;
-		}
-	}
+  padding-top: $spacer * 2;
+  padding-bottom: $spacer * 2;
+  h1, h2, h3 {
+    &:first-of-type {
+      margin-top: 0;
+    }
+  }
 }
