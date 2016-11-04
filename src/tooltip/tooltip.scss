@@ -1,0 +1,23 @@
+.mdk-tooltip {
+  transform: scale(0);
+  transition: transform .2s;
+  transform-origin: top center;
+  will-change: transform;
+  display: inline-block;
+  background: rgba(0, 0, 0, .7);
+  color: #fff;
+  font-size: 13px;
+  z-index: 999;
+  font-weight: 500;
+  text-align: center;
+  position: fixed;
+  line-height: 1;
+  max-width: 200px;
+  padding: .4rem;
+  border-radius: .25rem;
+  pointer-events: none;
+  
+  &[opened] {
+    transform: scale(1);
+  }
+}

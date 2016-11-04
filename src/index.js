@@ -10,6 +10,7 @@ export { drawerComponent } from './drawer'
 export { drawerLayoutComponent } from './drawer-layout'
 export { revealComponent } from './reveal'
 export { carouselComponent } from './carousel'
+export { tooltipComponent } from './tooltip'
 
 // EXPORT SCROLL EFFECTS
 export { SCROLL_EFFECTS } from './scroll-effects'
