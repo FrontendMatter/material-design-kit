@@ -2,6 +2,8 @@ import { scrollTargetBehavior } from '../scroll-target-behavior'
 import { scrollEffectBehavior } from '../scroll-effect-behavior'
 import { handler } from 'dom-factory'
 
+import { RetargetMouseScroll } from 'retarget-mouse-scroll'
+
 // SCROLL EFFECTS
 import { SCROLL_EFFECTS } from '../scroll-effects'
 
@@ -73,7 +75,7 @@ export const headerComponent = (element) => ({
    * @type {Array}
    */
   observers: [
-    '_handleFixedPositionedScroll(scrollTargetSelector)',
+    '_handleFixedPositionedScroll(scrollTarget)',
     '_reset(condenses, reveals, fixed)'
   ],
 
@@ -123,7 +125,7 @@ export const headerComponent = (element) => ({
    * @return {Boolean}
    */
   get transformDisabled () {
-    return this.disabled || this.element.hasAttribute('transform-disabled') || !this._isPositionedFixed
+    return this.disabled || this.element.hasAttribute('transform-disabled') || !this._isPositionedFixedEmulated
   },
 
   /**
@@ -142,8 +144,12 @@ export const headerComponent = (element) => ({
     return this.fixed ? this._dHeight : this._height + 5
   },
 
-  get _isPositionedFixed () {
+  get _isPositionedFixedEmulated () {
     return this.fixed || this.condenses || this.reveals
+  },
+
+  get _isPositionedAbsolute () {
+    return window.getComputedStyle(this.element).position === 'absolute'
   },
 
   /**
@@ -203,7 +209,7 @@ export const headerComponent = (element) => ({
       return
     }
 
-    this.element.classList[this._isPositionedFixed ? 'add' : 'remove'](MODIFIER_FIXED)
+    this.element.classList[this._isPositionedFixedEmulated ? 'add' : 'remove'](MODIFIER_FIXED)
     this._transform('translate3d(0, 0, 0)')
     if (this._primaryElement) {
       this._transform('translate3d(0, 0, 0)', this._primaryElement)
@@ -231,14 +237,10 @@ export const headerComponent = (element) => ({
    */
   _handleFixedPositionedScroll () {
     if (this._fixedPositionedScrollHandler !== undefined) {
-      this.element.removeEventListener('wheel', this._fixedPositionedScrollHandler)
+      this._fixedPositionedScrollHandler.restore()
     }
-    if (this._isValidScrollTarget() && this._isPositionedFixed && this.scrollTarget !== this._doc) {
-      this._fixedPositionedScrollHandler = (e) => {
-        let passMouseEvent = new WheelEvent(e.type, e)
-        this.scrollTarget.dispatchEvent(passMouseEvent)
-      }
-      this.element.addEventListener('wheel', this._fixedPositionedScrollHandler)
+    if (this._isValidScrollTarget() && this._isPositionedFixedEmulated && this.scrollTarget !== this._doc) {
+      this._fixedPositionedScrollHandler = RetargetMouseScroll(this.element, this.scrollTarget)
     }
   },
 
@@ -353,6 +355,9 @@ export const headerComponent = (element) => ({
       return
     }
     this._transform(`translate3d(0, ${ -top }px, 0)`)
+    if (this._isPositionedAbsolute && this.scrollTarget === this._doc) {
+      this.element.style.marginTop = `${ top }px`
+    }
 
     if (this._primaryElement && this.condenses && top >= this._primaryElementTop) {
       this._transform(`translate3d(0, ${ Math.min(top, this._dHeight) - this._primaryElementTop }px, 0)`, this._primaryElement)

@@ -38,7 +38,7 @@ export const drawerComponent = () => ({
      */
     align: {
       reflectToAttribute: true,
-      value: 'left'
+      value: 'start'
     },
 
     /**

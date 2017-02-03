@@ -35,6 +35,7 @@
     "webpack": "^1.12.11"
   },
   "dependencies": {
+    "retarget-mouse-scroll": "github:lazabogdan/RetargetMouseScroll",
     "watch-object": "^1.1.2"
   },
   "peerDependencies": {

@@ -179,6 +179,8 @@ export const scrollTargetBehavior = () => ({
       this.scrollTarget = this.scrollTargetSelector
     }
 
+    this._doc.style.overflow = this.scrollTarget !== this._doc ? 'hidden' : ''
+
     if (this.scrollTarget) {
       this.eventTarget = this.scrollTarget === this._doc ? window : this.scrollTarget
       this._boundScrollHandler = this._boundScrollHandler || this._scrollHandler.bind(this)

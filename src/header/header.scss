@@ -19,6 +19,7 @@
 		opacity: 0;
 		box-shadow: inset 0px 5px 6px -3px rgba(0, 0, 0, 0.4);
 		will-change: opacity;
+		z-index: -1;
 	}
 
 	:last-child {
@@ -36,6 +37,10 @@
 		&[fx-id] {
 			opacity: 1;
 		}
+	}
+
+	[primary] {
+		z-index: 1;
 	}
 }
 
@@ -67,6 +72,20 @@
 	position: relative;
 	width: 100%;
 	height: 100%;
+}
+
+// Fixes [primary] stack order when using condensing header
+// z-index on [primary] children is not getting applied because of the translate3d
+// applied to the [primary] element
+.mdk-header {
+	&[condenses] {
+		.mdk-header__content {
+			z-index: 0;
+		}
+		[primary] {
+			z-index: 1;
+		}
+	}
 }
 
 .mdk-header--shadow::after {

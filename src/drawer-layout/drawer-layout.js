@@ -115,7 +115,7 @@ export const drawerLayoutComponent = () => ({
    * @return {Object} A reference to the drawer component.
    */
   get drawer () {
-    const drawerNode = this.element.querySelector(':scope > .mdk-drawer')
+    const drawerNode = this.element.querySelector('.mdk-drawer')
     if (drawerNode) {
       return drawerNode.mdkDrawer
     }
@@ -143,12 +143,18 @@ export const drawerLayoutComponent = () => ({
   _resetLayout () {
     this.drawer.opened = this.drawer.persistent = !this.narrow
     this._onDrawerChange()
+
+    const child = this.element.querySelector('.mdk-drawer-layout')
+    if (child) {
+      child.style.paddingBottom = child.offsetTop + 'px'
+    }
   },
 
   _resetContent () {
     let drawer = this.drawer
     let drawerWidth = this.drawer.getWidth()
     let contentContainer = this.contentContainer
+    let isRTL = drawer._isRTL()
 
     if (!drawer.opened) {
       contentContainer.style.marginLeft = ''
@@ -156,7 +162,7 @@ export const drawerLayoutComponent = () => ({
       return
     }
 
-    if (drawer.position === 'right') {
+    if (drawer.position === 'right' || (!drawer.position && isRTL)) {
       contentContainer.style.marginLeft = ''
       contentContainer.style.marginRight = `${ drawerWidth }px`
     }
@@ -170,6 +176,7 @@ export const drawerLayoutComponent = () => ({
     let drawer = this.drawer
     let drawerWidth = this.drawer.getWidth()
     let contentContainer = this.contentContainer
+    let isRTL = drawer._isRTL()
 
     if (!drawer.opened) {
       util.transform('translate3d(0, 0, 0)', contentContainer)
@@ -179,7 +186,7 @@ export const drawerLayoutComponent = () => ({
       return
     }
 
-    if (drawer.position === 'right') {
+    if (drawer.position === 'right' || (!drawer.position && isRTL)) {
       util.transform(`translate3d(${ -1 * drawerWidth }px, 0, 0)`, contentContainer)
 
       if (!this.narrow) {
