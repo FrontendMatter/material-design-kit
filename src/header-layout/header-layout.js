@@ -57,14 +57,15 @@ export const headerLayoutComponent = () => ({
 
   _updateContentPosition () {
     const headerHeight = this.header.element.offsetHeight
-    let containerStyle = this.contentContainer.style
+    const gutter = parseInt(window.getComputedStyle(this.header.element).marginBottom, 10)
+    const containerStyle = this.contentContainer.style
     
     if (this.header.fixed && !this.header.willCondense() && this.hasScrollingRegion) {
       containerStyle.marginTop = `${ headerHeight }px`
-      containerStyle.paddingTop = ''
+      containerStyle.paddingTop = `${ gutter }px`
     }
     else {
-      containerStyle.paddingTop = `${ headerHeight }px`
+      containerStyle.paddingTop = `${ headerHeight + gutter }px`
       containerStyle.marginTop = ''
     }
   },

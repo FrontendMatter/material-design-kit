@@ -192,15 +192,20 @@ export const headerComponent = (element) => ({
   },
 
   _setupBackgrounds () {
-    let bgNode = document.createElement('DIV')
-    this.element.insertBefore(bgNode, this.element.childNodes[0])
-    bgNode.classList.add(BG.substr(1))
+    let bgNode = this.element.querySelector(`:scope > ${ BG }`)
+    if (!bgNode) {
+      bgNode = document.createElement('DIV')
+      this.element.insertBefore(bgNode, this.element.childNodes[0])
+      bgNode.classList.add(BG.substr(1))
+    }
 
-    const bgLayerClassNames = [FRONT_LAYER.substr(1), REAR_LAYER.substr(1)]
-    bgLayerClassNames.map(className => {
-      let bgNodeLayer = document.createElement('DIV')
-      bgNode.appendChild(bgNodeLayer)
-      bgNodeLayer.classList.add(className)
+    [FRONT_LAYER, REAR_LAYER].map(className => {
+      let bgNodeLayer = bgNode.querySelector(`:scope > ${ className }`)
+      if (!bgNodeLayer) {
+        bgNodeLayer = document.createElement('DIV')
+        bgNode.appendChild(bgNodeLayer)
+        bgNodeLayer.classList.add(className.substr(1))
+      }
     })
   },
 
