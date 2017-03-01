@@ -58,7 +58,11 @@ export const boxComponent = (element) => ({
    */
   isOnScreen () {
     return this._elementTop < this._scrollTop + this._scrollTargetHeight && 
-      this._elementTop + this._elementHeight > this._scrollTop
+      this._elementTop + this.element.offsetHeight > this._scrollTop
+  },
+
+  isVisible () {
+    return this.element.offsetWidth > 0 && this.element.offsetHeight > 0
   },
 
   /**
@@ -72,32 +76,21 @@ export const boxComponent = (element) => ({
   },
 
   _setupBackgrounds () {
-    let bgNode = document.createElement('DIV')
-    this.element.insertBefore(bgNode, this.element.childNodes[0])
-    bgNode.classList.add(BG.substr(1))
-
-    const bgLayerClassNames = [FRONT_LAYER.substr(1), REAR_LAYER.substr(1)]
-    bgLayerClassNames.map(className => {
-      let bgNodeLayer = document.createElement('DIV')
-      bgNode.appendChild(bgNodeLayer)
-      bgNodeLayer.classList.add(className)
-    })
-  },
-
-  _resetLayout () {
-    if (this.element.offsetWidth === 0 && this.element.offsetHeight === 0) {
-      return
+    let bgNode = this.element.querySelector(`:scope > ${ BG }`)
+    if (!bgNode) {
+      bgNode = document.createElement('DIV')
+      this.element.insertBefore(bgNode, this.element.childNodes[0])
+      bgNode.classList.add(BG.substr(1))
     }
 
-    let scrollTop = this._clampedScrollTop
-    this._elementTop = this._getElementTop()
-    this._elementHeight = this.element.offsetHeight
-    
-    let viewportTop = this._elementTop - scrollTop
-    this._progressTarget = Math.min(this._scrollTargetHeight, viewportTop + this._elementHeight)
-
-    this._setUpEffects()
-    this._updateScrollState(scrollTop)
+    [FRONT_LAYER, REAR_LAYER].map(className => {
+      let bgNodeLayer = bgNode.querySelector(`:scope > ${ className }`)
+      if (!bgNodeLayer) {
+        bgNodeLayer = document.createElement('DIV')
+        bgNode.appendChild(bgNodeLayer)
+        bgNodeLayer.classList.add(className.substr(1))
+      }
+    })
   },
 
   _getElementTop () {
@@ -121,8 +114,9 @@ export const boxComponent = (element) => ({
     }
 
     if (this.isOnScreen()) {
+      let target = Math.min(this._scrollTargetHeight, this._elementTop + this.element.offsetHeight)
       let viewportTop = this._elementTop - scrollTop
-      let progress = 1 - (viewportTop + this._elementHeight) / this._progressTarget
+      let progress = 1 - (viewportTop + this.element.offsetHeight) / target
 
       this._progress = progress
       this._runEffects(this._progress, scrollTop)
@@ -137,7 +131,7 @@ export const boxComponent = (element) => ({
     if (this._resizeWidth !== window.innerWidth) {
       this._onResizeTimeout = setTimeout(() => {
         this._resizeWidth = window.innerWidth
-        this._resetLayout()
+        this._reset()
       }, 50)
     }
   },
@@ -150,9 +144,14 @@ export const boxComponent = (element) => ({
 
     this.attachToScrollTarget()
     this._setupBackgrounds()
-    this._resetLayout()
-
+    
     SCROLL_EFFECTS.map(effect => this.registerEffect(effect.name, effect))
+  },
+
+  _reset () {
+    this._elementTop = this._getElementTop()
+    this._setUpEffects()
+    this._updateScrollState(this._clampedScrollTop)
   },
 
   /**

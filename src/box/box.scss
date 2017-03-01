@@ -13,6 +13,10 @@
 	height: 100%;
 }
 
+[effects*="parallax-background"] .mdk-box__bg {
+	visibility: hidden;
+}
+
 .mdk-box__bg-rear,
 .mdk-box__bg-front {
 	position: absolute;

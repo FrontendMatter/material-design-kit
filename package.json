@@ -1,6 +1,6 @@
 {
   "name": "material-design-kit",
-  "version": "1.0.0-alpha.9",
+  "version": "1.0.0-alpha.10",
   "description": "Interactive web components inspired from Material Design, using vanilla CSS, JavaScript and HTML.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -32,9 +32,7 @@
     "style-loader": "^0.13.0",
     "themekit-webpack-config": "^1.1.0",
     "url-loader": "^0.5.7",
-    "webpack": "^1.12.11"
-  },
-  "dependencies": {
+    "webpack": "^1.12.11",
     "retarget-mouse-scroll": "github:lazabogdan/RetargetMouseScroll",
     "watch-object": "^1.1.2"
   },

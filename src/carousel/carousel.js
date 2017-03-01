@@ -109,14 +109,12 @@ export const carouselComponent = () => ({
 
     var width = this.element.offsetWidth
     var itemWidth = this._items[0].offsetWidth
-    var itemHeight = this._items[0].offsetHeight
     var visible = width / itemWidth
     
     this._itemWidth = itemWidth
     this._visible = Math.round(visible)
     this._max = this._items.length - this._visible
 
-    this.element.style.height = itemHeight + 'px'
     this.element.style.overflow = 'hidden'
     this._content.style.width = (itemWidth * this._items.length) + 'px'
     

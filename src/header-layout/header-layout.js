@@ -73,7 +73,7 @@ export const headerLayoutComponent = () => ({
   /**
    * Initialize component
    */
-  init () {
+  _reset () {
     this._updateScroller()
     this._updateContentPosition()
   }

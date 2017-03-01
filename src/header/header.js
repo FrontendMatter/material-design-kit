@@ -403,11 +403,8 @@ export const headerComponent = (element) => ({
     this.attachToScrollTarget()
     this._handleFixedPositionedScroll()
     this._setupBackgrounds()
-    this._reset()
 
-    SCROLL_EFFECTS.concat(HEADER_SCROLL_EFFECTS).map(effect => {
-      this.registerEffect(effect.name, effect)
-    })
+    SCROLL_EFFECTS.concat(HEADER_SCROLL_EFFECTS).map(effect => this.registerEffect(effect.name, effect))
   },
 
   /**

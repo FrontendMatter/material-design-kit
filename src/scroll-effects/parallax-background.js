@@ -1,53 +1,14 @@
 const FRONT_LAYER = '[class*="__bg-front"]'
 const REAR_LAYER = '[class*="__bg-rear"]'
-const CONTAINER = '[class$="__bg"]'
+const BG = '[class$="__bg"]'
 
 /**
  * parallax-background effect
  */
 export const SCROLL_EFFECT_PARALLAX_BACKGROUND = {
   name: 'parallax-background',
-  setUp (config) {
-    config.distance = config.distance || (this.element.offsetHeight / 3)
-    
-    let container = this.element.querySelector(CONTAINER)
-    let frontLayer = this.element.querySelector(FRONT_LAYER)
-    let rearLayer = this.element.querySelector(REAR_LAYER)
-    let layers = [ frontLayer, rearLayer ]
-
-    let scalar = parseFloat(config.scalar ? config.scalar : 1.5)
-    let distance = frontLayer.offsetHeight - container.offsetHeight
-
-    if (distance === 0) {
-      distance = this._dHeight !== undefined ? this._dHeight : parseInt(config.distance, 10)
-    }
-
-    let offset = distance
-    if (this.element.offsetTop > 0 && !this._isPositionedFixed) {
-      offset = distance * scalar
-    }
-    else if ((this.element.offsetTop === 0 && !this._isPositionedFixed) || this._isPositionedFixed) {
-      offset = scalar > 1 ? (distance * scalar) - distance : distance - (distance * scalar)
-    }
-
-    this._parallaxBackgroundDelta = distance * scalar
-    
-    let transform = (this._parallaxBackgroundDelta * Math.min(1, this._progress)).toFixed(5)
-    let margin = (-1 * offset).toFixed(5)
-
-    layers.map(layer => {
-      if (layer) {
-        if (layer.style.transform === '') {
-          layer.style.willChange = 'transform'
-        }
-        layer.style[scalar > 1 || !this._isPositionedFixed ? 'marginTop' : 'marginBottom'] = `${ margin }px`
-        this._transform(`translate3d(0, ${ transform }px, 0)`, layer)
-      }
-    })
-  },
+  setUp () {},
   tearDown () {
-    delete this._parallaxBackgroundDelta
-    
     let layers = [ 
       this.element.querySelector(FRONT_LAYER), 
       this.element.querySelector(REAR_LAYER)
@@ -63,17 +24,36 @@ export const SCROLL_EFFECT_PARALLAX_BACKGROUND = {
     })
   },
   run (progress, top) {
+    let unscrolledPercent = (this.scrollTarget.scrollHeight - this._scrollTargetHeight) / this.scrollTarget.scrollHeight
+    let distance = this.element.offsetHeight * unscrolledPercent
+    
+    if (this._dHeight !== undefined) {
+      unscrolledPercent = this._dHeight / this.element.offsetHeight
+      distance = this._dHeight * unscrolledPercent
+    }
+
+    let scalar = 0.5
+    let delta = Math.abs(distance * scalar).toFixed(5)
+    
+    let max = this._isPositionedFixedEmulated ? 1000000 : distance
+    let deltaProgress = delta * progress
+    let transform = (Math.min(deltaProgress, max)).toFixed(5)
+
     let layers = [ 
       this.element.querySelector(FRONT_LAYER), 
       this.element.querySelector(REAR_LAYER)
     ]
-    
-    let transform = (this._parallaxBackgroundDelta * Math.min(1, progress)).toFixed(5)
 
     layers.map(layer => {
       if (layer) {
+        layer.style['marginTop'] = `${ -1 * delta }px`
         this._transform(`translate3d(0, ${ transform }px, 0)`, layer)
       }
     })
+
+    let bgNode = this.element.querySelector(BG)
+    if (!bgNode.style.visibility) {
+      bgNode.style.visibility = 'visible'
+    }
   }
 }

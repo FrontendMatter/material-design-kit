@@ -173,13 +173,15 @@ export const scrollTargetBehavior = () => ({
       this.scrollTarget = this._doc
     }
     else if (typeof this.scrollTargetSelector === 'string') {
-      this.scrollTarget = this._owner.querySelector(`#${ this.scrollTargetSelector }`)
+      this.scrollTarget = document.querySelector(`${ this.scrollTargetSelector }`)
     }
     else if (this.scrollTargetSelector instanceof HTMLElement) {
       this.scrollTarget = this.scrollTargetSelector
     }
 
-    this._doc.style.overflow = this.scrollTarget !== this._doc ? 'hidden' : ''
+    if (!this._doc.style.overflow) {
+      this._doc.style.overflow = this.scrollTarget !== this._doc ? 'hidden' : ''
+    }
 
     if (this.scrollTarget) {
       this.eventTarget = this.scrollTarget === this._doc ? window : this.scrollTarget

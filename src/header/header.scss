@@ -53,6 +53,10 @@
 	overflow: hidden;
 }
 
+[effects*="parallax-background"] .mdk-header__bg {
+	visibility: hidden;
+}
+
 .mdk-header__bg-rear,
 .mdk-header__bg-front {
 	position: absolute;

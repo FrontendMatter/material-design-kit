@@ -86,7 +86,6 @@ export const scrollEffectBehavior = () => ({
       throw new Error(`effect ${ effectName } is already registered.`)
     }
     this._scrollEffects[effectName] = effectDef
-    this._setUpEffects()
   },
 
   /**
