@@ -173,7 +173,6 @@ export const revealComponent = () => ({
    * Initialize component.
    */
   init () {
-    this._reset()
     this._resizeWidth = window.innerWidth
   },
 

@@ -33,6 +33,14 @@ export const headerLayoutComponent = () => ({
   ],
 
   /**
+   * Event listeners.
+   * @type {Array}
+   */
+  listeners: [
+    'window._debounceResize(resize)'
+  ],
+
+  /**
    * The header layout content wrapper HTMLElement
    * @return {HTMLElement}
    */
@@ -71,11 +79,35 @@ export const headerLayoutComponent = () => ({
   },
 
   /**
+   * Handle the resize event every 50ms
+   */
+  _debounceResize () {
+    clearTimeout(this._onResizeTimeout)
+    if (this._resizeWidth !== window.innerWidth) {
+      this._onResizeTimeout = setTimeout(() => {
+        this._resizeWidth = window.innerWidth
+        this._reset()
+      }, 50)
+    }
+  },
+
+  _reset () {
+    this._updateContentPosition()
+  },
+
+  /**
    * Initialize component
    */
-  _reset () {
+  init () {
+    this._resizeWidth = window.innerWidth
     this._updateScroller()
-    this._updateContentPosition()
+  },
+
+  /**
+   * Destroy component
+   */
+  destroy () {
+    clearTimeout(this._onResizeTimeout)
   }
 })
 
