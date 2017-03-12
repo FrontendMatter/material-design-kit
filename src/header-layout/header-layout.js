@@ -45,7 +45,7 @@ export const headerLayoutComponent = () => ({
    * @return {HTMLElement}
    */
   get contentContainer () {
-    return this.element.querySelector(':scope > .mdk-header-layout__content')
+    return this.element.querySelector('.mdk-header-layout__content')
   },
 
   /**
@@ -53,7 +53,7 @@ export const headerLayoutComponent = () => ({
    * @return {Object}
    */
   get header () {
-    const headerNode = this.element.querySelector(':scope > .mdk-header')
+    const headerNode = this.element.querySelector('.mdk-header')
     if (headerNode) {
       return headerNode.mdkHeader
     }

@@ -1,6 +1,6 @@
 {
   "name": "material-design-kit",
-  "version": "1.0.0-alpha.10",
+  "version": "1.0.0-alpha.11",
   "description": "Interactive web components inspired from Material Design, using vanilla CSS, JavaScript and HTML.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -37,7 +37,7 @@
     "watch-object": "^1.1.2"
   },
   "peerDependencies": {
-    "dom-factory": "^1.0.0-alpha.4"
+    "dom-factory": "^1.0.0-alpha.5"
   },
   "keywords": [
     "material-design",

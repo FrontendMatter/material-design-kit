@@ -192,7 +192,7 @@ export const headerComponent = (element) => ({
   },
 
   _setupBackgrounds () {
-    let bgNode = this.element.querySelector(`:scope > ${ BG }`)
+    let bgNode = this.element.querySelector(BG)
     if (!bgNode) {
       bgNode = document.createElement('DIV')
       this.element.insertBefore(bgNode, this.element.childNodes[0])
@@ -200,7 +200,7 @@ export const headerComponent = (element) => ({
     }
 
     [FRONT_LAYER, REAR_LAYER].map(className => {
-      let bgNodeLayer = bgNode.querySelector(`:scope > ${ className }`)
+      let bgNodeLayer = bgNode.querySelector(className)
       if (!bgNodeLayer) {
         bgNodeLayer = document.createElement('DIV')
         bgNode.appendChild(bgNodeLayer)
