@@ -48,6 +48,11 @@ export const drawerLayoutComponent = () => ({
     hasScrollingRegion: {
       type: Boolean,
       reflectToAttribute: true
+    },
+
+    fullbleed: {
+      type: Boolean,
+      reflectToAttribute: true
     }
   },
 
@@ -58,7 +63,8 @@ export const drawerLayoutComponent = () => ({
   observers: [
     '_resetLayout(narrow, forceNarrow)',
     '_onQueryMatches(mediaQuery.queryMatches)',
-    '_updateScroller(hasScrollingRegion)'
+    '_updateScroller(hasScrollingRegion)',
+    '_updateDocument(fullbleed)',
   ],
   
   /**
@@ -129,13 +135,21 @@ export const drawerLayoutComponent = () => ({
     return this.forceNarrow ? '(min-width: 0px)' : `(max-width: ${ this.responsiveWidth })`
   },
 
+  _updateDocument () {
+    const docElements = [...document.querySelectorAll('html, body')]
+    if (this.fullbleed) {
+      docElements.forEach(el => {
+        el.style.height = '100%'
+      })
+    }
+  },
+
   _updateScroller () {
     const docElements = [...document.querySelectorAll('html, body')]
     if (this.hasScrollingRegion) {
       docElements.forEach(el => {
         el.style.overflow = 'hidden'
         el.style.position = 'relative'
-        el.style.height = '100%'
       })
     }
   },
@@ -228,6 +242,7 @@ export const drawerLayoutComponent = () => ({
     this._setContentTransitionDuration('0s')
     setTimeout(() => this._setContentTransitionDuration(''), 0)
 
+    this._updateDocument()
     this._updateScroller()
 
     // Initialize mediaQuery

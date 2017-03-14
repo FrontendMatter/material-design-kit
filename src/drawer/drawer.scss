@@ -13,9 +13,11 @@
 	&[persistent] {
 		width: $mdk-drawer-width;
 		&[position=left] {
+			/*rtl:ignore*/
 			right: auto;
 		}
 		&[position=right] {
+			/*rtl:ignore*/
 			left: auto;
 		}
 	}
@@ -24,17 +26,22 @@
 	position: absolute;
 	top: 0;
 	bottom: 0;
-	left: 0;
 	width: $mdk-drawer-width;
 	padding: 120px 0;
 	transition: transform 0.2s ease;
-	transform: translate3d(-100%, 0, 0);
 	background-color: #fff;
+
+	/*rtl:begin:ignore*/
+	left: 0;
+	transform: translate3d(-100%, 0, 0);
+	/*rtl:end:ignore*/
 	
 	[position=right] > & {
+		/*rtl:begin:ignore*/
 		right: 0;
 		left: auto;
 		transform: translate3d(100%, 0, 0);
+		/*rtl:end:ignore*/
 	}
 
 	[opened] > & {

@@ -1,6 +1,7 @@
 .mdk-drawer-layout {
 	height: 100%;
 	position: relative;
+	overflow: hidden;
 	&[fullbleed] {
 		position: absolute;
 		top: 0;

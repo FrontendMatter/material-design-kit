@@ -1,6 +1,6 @@
 {
   "name": "material-design-kit",
-  "version": "1.0.0-alpha.11",
+  "version": "1.0.0-alpha.12",
   "description": "Interactive web components inspired from Material Design, using vanilla CSS, JavaScript and HTML.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
