@@ -359,12 +359,18 @@ export const headerComponent = (element) => ({
     if (this.transformDisabled) {
       return
     }
-    this._transform(`translate3d(0, ${ -top }px, 0)`)
+    let transform = top
     if (this._isPositionedAbsolute && this.scrollTarget === this._doc) {
-      this.element.style.marginTop = `${ top }px`
+      transform = 0
+    }
+
+    if (top === transform) {
+      this.element.style.willChange = 'transform'
+      this._transform(`translate3d(0, ${ transform * -1 }px, 0)`)
     }
 
     if (this._primaryElement && this.condenses && top >= this._primaryElementTop) {
+      this._primaryElement.style.willChange = 'transform'
       this._transform(`translate3d(0, ${ Math.min(top, this._dHeight) - this._primaryElementTop }px, 0)`, this._primaryElement)
     }
   },

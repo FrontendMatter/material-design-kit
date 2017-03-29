@@ -20,7 +20,7 @@ export const HEADER_SCROLL_EFFECT_FX_CONDENSES = {
 
     elements.forEach(element => {
       if (element) {
-        element.style.willChange = 'opacity'
+        element.style.willChange = 'transform'
         this._transform('translateZ(0)', element)
         if (window.getComputedStyle(element).display === 'inline') {
           element.style.display = 'inline-block'
@@ -79,6 +79,7 @@ export const HEADER_SCROLL_EFFECT_FX_CONDENSES = {
     if (progress >= 1) {
       fx.elements.forEach(el => {
         if (el) {
+          el.style.willChange = 'opacity'
           el.style.opacity = fx.targets.indexOf(el) !== -1 ? 0 : 1
         }
       })
@@ -86,6 +87,7 @@ export const HEADER_SCROLL_EFFECT_FX_CONDENSES = {
     else {
       fx.elements.forEach(el => {
         if (el) {
+          el.style.willChange = 'opacity'
           el.style.opacity = fx.targets.indexOf(el) !== -1 ? 1 : 0
         }
       })
@@ -97,6 +99,10 @@ export const HEADER_SCROLL_EFFECT_FX_CONDENSES = {
           Math.min(1, progress), 
           [ [1, fx.bounds[id].scale], [0, -fx.bounds[id].dx], [top, top - fx.bounds[id].dy] ],
           (scale, translateX, translateY) => {
+            target.style.willChange = 'transform'
+            translateX = translateX.toFixed(5)
+            translateY = translateY.toFixed(5)
+            scale = scale.toFixed(5)
             this._transform(`translate(${ translateX }px, ${ translateY }px) scale3d(${ scale }, ${ scale }, 1)`, target)
           })  
       }

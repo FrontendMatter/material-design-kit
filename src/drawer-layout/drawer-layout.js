@@ -64,7 +64,7 @@ export const drawerLayoutComponent = () => ({
     '_resetLayout(narrow, forceNarrow)',
     '_onQueryMatches(mediaQuery.queryMatches)',
     '_updateScroller(hasScrollingRegion)',
-    '_updateDocument(fullbleed)',
+    '_updateDocument(fullbleed)'
   ],
   
   /**
