@@ -2,6 +2,7 @@
 	z-index: 0;
 	position: relative;
 	transform: translateZ(0);
+	overflow: hidden;
 
 	&[force-reveal],
 	&[opened],
