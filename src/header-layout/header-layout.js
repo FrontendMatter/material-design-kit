@@ -20,6 +20,11 @@ export const headerLayoutComponent = () => ({
     hasScrollingRegion: {
       type: Boolean,
       reflectToAttribute: true
+    },
+
+    fullbleed: {
+      type: Boolean,
+      reflectToAttribute: true
     }
   },
 
@@ -29,7 +34,8 @@ export const headerLayoutComponent = () => ({
    */
   observers: [
     '_updateScroller(hasScrollingRegion)',
-    '_updateContentPosition(hasScrollingRegion, header.fixed, header.condenses)'
+    '_updateContentPosition(hasScrollingRegion, header.fixed, header.condenses)',
+    '_updateDocument(fullbleed)'
   ],
 
   /**
@@ -91,6 +97,15 @@ export const headerLayoutComponent = () => ({
     }
   },
 
+  _updateDocument () {
+    const docElements = [...document.querySelectorAll('html, body')]
+    if (this.fullbleed) {
+      docElements.forEach(el => {
+        el.style.height = '100%'
+      })
+    }
+  },
+
   _reset () {
     this._updateContentPosition()
   },
@@ -100,6 +115,7 @@ export const headerLayoutComponent = () => ({
    */
   init () {
     this._resizeWidth = window.innerWidth
+    this._updateDocument()
     this._updateScroller()
   },
 
