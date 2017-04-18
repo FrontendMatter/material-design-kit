@@ -6,7 +6,8 @@
 	right: 0;
 	visibility: hidden;
 	
-	&[opened] {
+	&[opened],
+	&[closing] {
 		visibility: visible;
 	}
 

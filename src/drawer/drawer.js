@@ -57,7 +57,8 @@ export const drawerComponent = () => ({
   observers: [
     '_resetPosition(align)',
     '_fireChange(opened, persistent, align, position)',
-    '_onChangedState(_drawerState)'
+    '_onChangedState(_drawerState)',
+    '_onClose(opened)'
   ],
 
   /**
@@ -131,6 +132,12 @@ export const drawerComponent = () => ({
     this.opened = true
   },
 
+  _onClose (opened) {
+    if (!opened) {
+      this.element.setAttribute('closing', true)
+    }
+  },
+
   _isRTL () {
     return window.getComputedStyle(this.element).direction === 'rtl'
   },
@@ -151,6 +158,9 @@ export const drawerComponent = () => ({
     }
 
     if (oldState !== this._drawerState) {
+      if (!this.opened) {
+        this.element.removeAttribute('closing')
+      }
       if (this._drawerState === this._DRAWER_STATE.OPENED) {
         document.body.style.overflow = 'hidden'
       }
