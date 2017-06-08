@@ -14,11 +14,11 @@
 	&[persistent] {
 		width: $mdk-drawer-width;
 		&[position=left] {
-			/*rtl:ignore*/
+			/*!rtl:ignore*/
 			right: auto;
 		}
 		&[position=right] {
-			/*rtl:ignore*/
+			/*!rtl:ignore*/
 			left: auto;
 		}
 	}
@@ -32,17 +32,17 @@
 	transition: transform 0.2s ease;
 	background-color: #fff;
 
-	/*rtl:begin:ignore*/
+	/*!rtl:begin:ignore*/
 	left: 0;
 	transform: translate3d(-100%, 0, 0);
-	/*rtl:end:ignore*/
+	/*!rtl:end:ignore*/
 	
 	[position=right] > & {
-		/*rtl:begin:ignore*/
+		/*!rtl:begin:ignore*/
 		right: 0;
 		left: auto;
 		transform: translate3d(100%, 0, 0);
-		/*rtl:end:ignore*/
+		/*!rtl:end:ignore*/
 	}
 
 	[opened] > & {
