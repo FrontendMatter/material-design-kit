@@ -12,7 +12,7 @@ A navigation drawer that can slide in from the left or right. Based on Polymer's
 Align the drawer at the start, which is left in LTR layouts (default).
 
 ```html
-<div class="mdk-drawer mdk-js-drawer">
+<div class="mdk-drawer js-mdk-drawer">
   <div class="mdk-drawer__content">
     <!-- Drawer content -->
   </div>
@@ -22,7 +22,7 @@ Align the drawer at the start, which is left in LTR layouts (default).
 Align the drawer at the end.
 
 ```html
-<div class="mdk-drawer mdk-js-drawer" align="end">
+<div class="mdk-drawer js-mdk-drawer" align="end">
   <div class="mdk-drawer__content">
     <!-- Drawer content -->
   </div>
@@ -32,7 +32,7 @@ Align the drawer at the end.
 Open the drawer.
 
 ```html
-<div class="mdk-drawer mdk-js-drawer" opened>
+<div class="mdk-drawer js-mdk-drawer" opened>
   <div class="mdk-drawer__content">
     <!-- Drawer content -->
   </div>
@@ -42,7 +42,7 @@ Open the drawer.
 Disable the drawer scrim.
 
 ```html
-<div class="mdk-drawer mdk-js-drawer" persistent>
+<div class="mdk-drawer js-mdk-drawer" persistent>
   <div class="mdk-drawer__content">
     <!-- Drawer content -->
   </div>
@@ -60,7 +60,7 @@ To make the contents of the drawer scrollable, create a wrapper for the scroll c
 ```
 
 ```html
-<div class="mdk-drawer mdk-js-drawer">
+<div class="mdk-drawer js-mdk-drawer">
   <div class="mdk-drawer__content">
     <div class="mdk-drawer__inner">
       <!-- Scrollable drawer content -->
@@ -71,7 +71,7 @@ To make the contents of the drawer scrollable, create a wrapper for the scroll c
 
 ## JavaScript
 
-Initialize the drawer component by adding the `mdk-js-drawer` class.
+Initialize the drawer component by adding the `js-mdk-drawer` class.
 
 ## Options
 
@@ -173,7 +173,7 @@ The drawer options can be used programatically (see [Programmatic usage](#progra
 </table>
 
 ```js
-var drawerNode = document.querySelector('.mdk-js-drawer')
+var drawerNode = document.querySelector('.js-mdk-drawer')
 drawerNode.addEventListener('mdk-drawer-change', function () {
   // do something
 })
@@ -184,7 +184,7 @@ drawerNode.addEventListener('mdk-drawer-change', function () {
 Get a reference to a drawer component and interact with the API.
 
 ```js
-var drawerNode = document.querySelector('.mdk-js-drawer')
+var drawerNode = document.querySelector('.js-mdk-drawer')
 var drawer = drawerNode.mdkDrawer
 
 // Set the opened state directly via property
@@ -206,7 +206,7 @@ button.addEventListener('click', function () {
 Sometimes you need to initialize a drawer dynamically, for example when using libraries like Vue.js or Angular2 where you need to hook into the application lifecycle.
 
 ```js
-var drawerNode = document.querySelector('.mdk-js-drawer')
+var drawerNode = document.querySelector('.js-mdk-drawer')
 
 // Initialize drawer
 domFactory.handler.upgradeElement(drawerNode, 'mdk-drawer')

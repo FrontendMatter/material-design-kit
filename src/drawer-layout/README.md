@@ -15,11 +15,11 @@ A wrapper element that positions a Drawer and other content. Based on Polymer's 
 Align the drawer at the start, which is left in LTR layouts (default).
 
 ```html
-<div class="mdk-drawer-layout mdk-js-drawer-layout">
+<div class="mdk-drawer-layout js-mdk-drawer-layout">
   <div class="mdk-drawer-layout__content">
 
     <!-- drawer -->
-    <div class="mdk-drawer mdk-js-drawer">
+    <div class="mdk-drawer js-mdk-drawer">
       <div class="mdk-drawer__content">
         <!-- drawer content -->
       </div>
@@ -42,14 +42,14 @@ With a Header Layout, a custom scrolling region for the main content and a push 
 ```
 
 ```html
-<div class="mdk-drawer-layout mdk-js-drawer-layout" fullbleed push>
+<div class="mdk-drawer-layout js-mdk-drawer-layout" fullbleed push>
   <div class="mdk-drawer-layout__content">
 
     <!-- header layout -->
-    <div class="mdk-header-layout mdk-js-header-layout" has-scrolling-region>
+    <div class="mdk-header-layout js-mdk-header-layout" has-scrolling-region>
 
       <!-- header -->
-      <div class="mdk-header mdk-js-header"
+      <div class="mdk-header js-mdk-header"
         effects="waterfall condenses fixed">
         <div class="mdk-header__content">
           <!-- header content -->
@@ -64,7 +64,7 @@ With a Header Layout, a custom scrolling region for the main content and a push 
     </div>
 
     <!-- drawer -->
-    <div class="mdk-drawer mdk-js-drawer">
+    <div class="mdk-drawer js-mdk-drawer">
       <div class="mdk-drawer__content">
         <!-- drawer content -->
       </div>
@@ -77,7 +77,7 @@ With a Header Layout, a custom scrolling region for the main content and a push 
 Customize the maximum viewport width for enabling the narrow layout.
 
 ```html
-<div class="mdk-drawer-layout mdk-js-drawer-layout" responsive-width="768px">
+<div class="mdk-drawer-layout js-mdk-drawer-layout" responsive-width="768px">
   <div class="mdk-drawer-layout__content">
     <!-- drawer and main content -->
   </div>
@@ -87,7 +87,7 @@ Customize the maximum viewport width for enabling the narrow layout.
 Ignore the `responsiveWidth` option and force the narrow layout on any screen size.
 
 ```html
-<div class="mdk-drawer-layout mdk-js-drawer-layout" force-narrow>
+<div class="mdk-drawer-layout js-mdk-drawer-layout" force-narrow>
   <div class="mdk-drawer-layout__content">
     <!-- drawer and main content -->
   </div>
@@ -96,7 +96,7 @@ Ignore the `responsiveWidth` option and force the narrow layout on any screen si
 
 ## JavaScript
 
-Initialize the drawer layout component by adding the `mdk-js-drawer-layout` class.
+Initialize the drawer layout component by adding the `js-mdk-drawer-layout` class.
 
 ## Options
 
@@ -155,7 +155,7 @@ The drawer layout options can be used programatically (see [Programmatic usage](
 Get a reference to a drawer layout component and interact with the API.
 
 ```js
-var drawerLayoutNode = document.querySelector('.mdk-js-drawer-layout')
+var drawerLayoutNode = document.querySelector('.js-mdk-drawer-layout')
 var drawerLayout = drawerLayoutNode.mdkDrawerLayout
 
 // Set the `responsiveWidth` option via property assignment
@@ -179,7 +179,7 @@ Sometimes you need to initialize a drawer layout dynamically, for example when u
 > Note that you will most likely have to initialize the [Drawer](https://github.com/themekit/material-design-kit/tree/master/src/drawer) as well.
 
 ```js
-var drawerLayoutNode = document.querySelector('.mdk-js-drawer-layout')
+var drawerLayoutNode = document.querySelector('.js-mdk-drawer-layout')
 
 // Initialize drawer layout
 domFactory.handler.upgradeElement(drawerLayoutNode, 'mdk-drawer-layout')

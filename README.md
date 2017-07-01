@@ -90,6 +90,7 @@ npm install material-design-kit dom-factory
 <body>
   <script src="node_modules/dom-factory/dist/dom-factory.js"></script>
   <script src="node_modules/material-design-kit/dist/material-design-kit.js" async defer></script>
+  <script>domFactory.handler.autoInit()</script>
 </body>
 </html>
 ```

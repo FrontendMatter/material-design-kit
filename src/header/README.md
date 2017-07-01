@@ -29,7 +29,7 @@ A container element for navigation and other content at the top of the screen wi
 By default, a header moves away from the viewport when scrolling down.
 
 ```html
-<div class="mdk-header mdk-js-header">
+<div class="mdk-header js-mdk-header">
   <div class="mdk-header__content">
     <button type="button">Toggle</button>
   </div>
@@ -41,7 +41,7 @@ By default, a header moves away from the viewport when scrolling down.
 The header can also slide back when scrolling up, when using the `reveals` option.
 
 ```html
-<div class="mdk-header mdk-js-header" reveals>
+<div class="mdk-header js-mdk-header" reveals>
   <div class="mdk-header__content">
     <button type="button">Toggle</button>
   </div>
@@ -55,7 +55,7 @@ The header can also condense when scrolling down. To achieve this behavior, the 
 > In this case the header is initially `200px` tall, and it shrinks to `64px` when scrolling down.
 
 ```html
-<div class="mdk-header mdk-js-header" style="height: 200px;" 
+<div class="mdk-header js-mdk-header" style="height: 200px;" 
   reveals condenses>
   <div class="mdk-header__content">
     <button style="height: 64px;" type="button">Toggle</button>
@@ -73,7 +73,7 @@ The `scrollTargetSelector` property of the header component allows to customize 
 
 ```html
 <div id="scrollingRegion" style="overflow-y: auto;">
-  <div class="mdk-header mdk-js-header" 
+  <div class="mdk-header js-mdk-header" 
     scroll-target="scrollingRegion">
     <!-- header content -->
   </div>
@@ -95,7 +95,7 @@ header.scrollTargetSelector = document.querySelector('#scrollingRegion')
 
 ## JavaScript
 
-Initialize the header component by adding the `mdk-js-header` class.
+Initialize the header component by adding the `js-mdk-header` class.
 
 ## Options
 
@@ -185,7 +185,7 @@ The header options can be used programatically (see [Programmatic usage](#progra
 Get a reference to a header component and interact with the API.
 
 ```js
-var headerNode = document.querySelector('.mdk-js-header')
+var headerNode = document.querySelector('.js-mdk-header')
 var header = headerNode.mdkHeader
 
 // Set the `fixed` option via property assignment
@@ -203,7 +203,7 @@ document.documentElement.addEventListener('scroll', function () {
 Sometimes you need to initialize a header dynamically, for example when using libraries like Vue.js or Angular2 where you need to hook into the application lifecycle.
 
 ```js
-var headerNode = document.querySelector('.mdk-js-header')
+var headerNode = document.querySelector('.js-mdk-header')
 
 // Initialize header
 domFactory.handler.upgradeElement(headerNode, 'mdk-header')
