@@ -4,8 +4,8 @@ A navigation drawer that can slide in from the left or right. Based on Polymer's
 
 ## Demos
 
-- [Left drawer](http://mdk-demo.themekit.io/drawer-left.html) - Slides in from the left
-- [Right drawer](http://mdk-demo.themekit.io/drawer-right.html) - Slides in from the right
+- [Left drawer](http://mdk.frontendmatter.com/drawer-left.html) - Slides in from the left
+- [Right drawer](http://mdk.frontendmatter.com/drawer-right.html) - Slides in from the right
 
 ## Examples
 

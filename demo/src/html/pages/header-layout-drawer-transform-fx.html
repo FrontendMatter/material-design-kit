@@ -1,7 +1,7 @@
 ---
 title: Header layout within drawer with header transform effects
 ---
-{% extends "layouts/demo.html" %}
+{% extends "layouts/default.html" %}
 {% block page %}
 
   <style>
@@ -88,14 +88,14 @@ title: Header layout within drawer with header transform effects
     }
   </style>
 
-  <div class="mdk-drawer mdk-js-drawer" opened>
+  <div class="mdk-drawer js-mdk-drawer" opened>
     <div class="mdk-drawer__content">
 
       <!-- header-layout -->
-      <div class="mdk-header-layout mdk-js-header-layout" has-scrolling-region>
+      <div class="mdk-header-layout js-mdk-header-layout" has-scrolling-region>
 
         <!-- header -->
-        <div class="mdk-header mdk-js-header bg-primary"
+        <div class="mdk-header js-mdk-header bg-primary"
           effects="waterfall fx-condenses" 
           condenses fixed>
           <div class="mdk-header__content">

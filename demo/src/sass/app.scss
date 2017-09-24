@@ -6,3 +6,15 @@
 
 // MDK
 @import 'material-design-kit/src/style';
+
+// For some reason, anything with position: fixed needs this
+.mdk-drawer,
+.mdk-header[fixed],
+.mdk-header[reveals] {
+  z-index: 1;
+}
+
+.navbar-toggler,
+.mdk-box {
+  color: #fff;
+}

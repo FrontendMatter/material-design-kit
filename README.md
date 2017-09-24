@@ -6,18 +6,18 @@ Interactive web components inspired from [Material Design](https://www.google.co
 
 ## Layout components
 
-- [x] [Drawer](https://github.com/themekit/material-design-kit/tree/master/src/drawer) - A navigation drawer that can slide in from the left or right.
-- [x] [Drawer Layout](https://github.com/themekit/material-design-kit/tree/master/src/drawer-layout) - A wrapper element that positions a Drawer and other content.
-- [x] [Header](https://github.com/themekit/material-design-kit/tree/master/src/header) - A container element for navigation and other content at the top of the screen with visual effects based on scroll position.
-- [x] [Header Layout](https://github.com/themekit/material-design-kit/tree/master/src/header-layout) - A wrapper element that positions a Header and other content.
-- [x] [Box](https://github.com/themekit/material-design-kit/tree/master/src/box) - A container element for generic content with visual effects based on scroll position.
+- [x] [Drawer](https://github.com/FrontendMatter/material-design-kit/tree/master/src/drawer) - A navigation drawer that can slide in from the left or right.
+- [x] [Drawer Layout](https://github.com/FrontendMatter/material-design-kit/tree/master/src/drawer-layout) - A wrapper element that positions a Drawer and other content.
+- [x] [Header](https://github.com/FrontendMatter/material-design-kit/tree/master/src/header) - A container element for navigation and other content at the top of the screen with visual effects based on scroll position.
+- [x] [Header Layout](https://github.com/FrontendMatter/material-design-kit/tree/master/src/header-layout) - A wrapper element that positions a Header and other content.
+- [x] [Box](https://github.com/FrontendMatter/material-design-kit/tree/master/src/box) - A container element for generic content with visual effects based on scroll position.
 - [ ] *Tabs*
 - [ ] *Footer*
 
 ## Media components
 
-- [x] [Reveal](https://github.com/themekit/material-design-kit/tree/master/src/reveal) - A content area that reveals on user interaction.
-- [x] [Carousel](https://github.com/themekit/material-design-kit/tree/master/src/carousel) - A component for cycling through elements with Mouse Grab (desktop) and Touch support.
+- [x] [Reveal](https://github.com/FrontendMatter/material-design-kit/tree/master/src/reveal) - A content area that reveals on user interaction.
+- [x] [Carousel](https://github.com/FrontendMatter/material-design-kit/tree/master/src/carousel) - A component for cycling through elements with Mouse Grab (desktop) and Touch support.
 - [ ] *Overlay*
 
 ## Form components
@@ -37,8 +37,8 @@ Interactive web components inspired from [Material Design](https://www.google.co
 
 ## Behaviors
 
-- [x] [Scroll Target](https://github.com/themekit/material-design-kit/tree/master/src/scroll-target-behavior) - Allows an element to respond to scroll events from a designated scroll target.
-- [x] [Scroll Effect](https://github.com/themekit/material-design-kit/tree/master/src/scroll-effect-behavior) - Allows a consumer of the Scroll Target behavior to use scroll effects.
+- [x] [Scroll Target](https://github.com/FrontendMatter/material-design-kit/tree/master/src/scroll-target-behavior) - Allows an element to respond to scroll events from a designated scroll target.
+- [x] [Scroll Effect](https://github.com/FrontendMatter/material-design-kit/tree/master/src/scroll-effect-behavior) - Allows a consumer of the Scroll Target behavior to use scroll effects.
 - [ ] *Ripple*
 - [ ] *Swipe Dismiss*
 
@@ -65,13 +65,13 @@ Interactive web components inspired from [Material Design](https://www.google.co
 
 > Note there are many more demos included with the source of each component.
 
-- [Left drawer](http://mdk-demo.themekit.io/drawer-left.html) - Slides in from the left
-- [Drawer layout with header layout](http://mdk-demo.themekit.io/drawer-layout-with-header-layout.html) - Uses a Header Layout with a custom scrolling region
-- [Header layout within drawer](http://mdk-demo.themekit.io/header-layout-drawer.html) - Positions a header and other content within a drawer
-- [Header layout within drawer with transform effects](http://mdk-demo.themekit.io/header-layout-drawer-transform-fx.html) - Positions a header and other content within a drawer and use transform effects on header elements based on scroll position
-- [Header with parallax and blend background effects](http://mdk-demo.themekit.io/header-parallax-blend.html)
-- [Reveal](http://mdk-demo.themekit.io/reveal.html)
-- [Carousel](http://mdk-demo.themekit.io/carousel.html)
+- [Left drawer](http://mdk.frontendmatter.com/drawer-left.html) - Slides in from the left
+- [Drawer layout with header layout](http://mdk.frontendmatter.com/drawer-layout-with-header-layout.html) - Uses a Header Layout with a custom scrolling region
+- [Header layout within drawer](http://mdk.frontendmatter.com/header-layout-drawer.html) - Positions a header and other content within a drawer
+- [Header layout within drawer with transform effects](http://mdk.frontendmatter.com/header-layout-drawer-transform-fx.html) - Positions a header and other content within a drawer and use transform effects on header elements based on scroll position
+- [Header with parallax and blend background effects](http://mdk.frontendmatter.com/header-parallax-blend.html)
+- [Reveal](http://mdk.frontendmatter.com/reveal.html)
+- [Carousel](http://mdk.frontendmatter.com/carousel.html)
 
 ## Installation
 

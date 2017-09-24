@@ -4,16 +4,16 @@ A container element for navigation and other content at the top of the screen wi
 
 ## Demos
 
-- [Scrolling header](http://mdk-demo.themekit.io/header.html) - Scrolls with the page
-- [Scrolling header with blend background color effect](http://mdk-demo.themekit.io/header-blend.html) - Scrolls with the page and changes the header background color when scrolling
-- [Scrolling header with parallax background effect](http://mdk-demo.themekit.io/header-parallax.html) - Scrolls with the page and moves the header background image at a different rate than the foreground when scrolling
-- [Condenses header](http://mdk-demo.themekit.io/header-condenses.html) - Shrinks when scrolling down
-- [Reveals header](http://mdk-demo.themekit.io/header-reveals.html) - Slides back the header when scrolling up
-- [Fixed header](http://mdk-demo.themekit.io/header-fixed.html) - Stays at the top of the visible viewport when scrolling
-- [Header with blend background color effect](http://mdk-demo.themekit.io/header-blend-color.html) - Changes the header background color when scrolling
-- [Header with blend background image effect](http://mdk-demo.themekit.io/header-blend-image.html) - Changes the header background image when scrolling
-- [Header with parallax and fade background effects](http://mdk-demo.themekit.io/header-parallax-fade.html) - Moves the header background image at a different rate than the foreground when scrolling and fades the background image into a background color after the header condenses
-- [Header with parallax and blend background effects](http://mdk-demo.themekit.io/header-parallax-blend.html)
+- [Scrolling header](http://mdk.frontendmatter.com/header.html) - Scrolls with the page
+- [Scrolling header with blend background color effect](http://mdk.frontendmatter.com/header-blend.html) - Scrolls with the page and changes the header background color when scrolling
+- [Scrolling header with parallax background effect](http://mdk.frontendmatter.com/header-parallax.html) - Scrolls with the page and moves the header background image at a different rate than the foreground when scrolling
+- [Condenses header](http://mdk.frontendmatter.com/header-condenses.html) - Shrinks when scrolling down
+- [Reveals header](http://mdk.frontendmatter.com/header-reveals.html) - Slides back the header when scrolling up
+- [Fixed header](http://mdk.frontendmatter.com/header-fixed.html) - Stays at the top of the visible viewport when scrolling
+- [Header with blend background color effect](http://mdk.frontendmatter.com/header-blend-color.html) - Changes the header background color when scrolling
+- [Header with blend background image effect](http://mdk.frontendmatter.com/header-blend-image.html) - Changes the header background image when scrolling
+- [Header with parallax and fade background effects](http://mdk.frontendmatter.com/header-parallax-fade.html) - Moves the header background image at a different rate than the foreground when scrolling and fades the background image into a background color after the header condenses
+- [Header with parallax and blend background effects](http://mdk.frontendmatter.com/header-parallax-blend.html)
 
 ## Examples
 

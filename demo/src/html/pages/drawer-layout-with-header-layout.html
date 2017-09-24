@@ -1,7 +1,7 @@
 ---
 title: Drawer layout with header layout
 ---
-{% extends "layouts/demo.html" %}
+{% extends "layouts/default.html" %}
 {% block page %}
 
   <style>
@@ -27,14 +27,14 @@ title: Drawer layout with header layout
     }
   </style>
 
-  <div class="mdk-drawer-layout mdk-js-drawer-layout" fullbleed push>
+  <div class="mdk-drawer-layout js-mdk-drawer-layout" fullbleed push>
     <div class="mdk-drawer-layout__content">
 
       <!-- header-layout -->
-      <div class="mdk-header-layout mdk-js-header-layout" has-scrolling-region>
+      <div class="mdk-header-layout js-mdk-header-layout" has-scrolling-region>
 
         <!-- header -->
-        <div class="mdk-header mdk-js-header bg-primary"
+        <div class="mdk-header js-mdk-header bg-primary"
           effects="waterfall" 
           condenses fixed>
           <div class="mdk-header__content">
@@ -60,7 +60,7 @@ title: Drawer layout with header layout
     <!-- // END drawer-layout__content -->
 
     <!-- drawer -->
-    <div class="mdk-drawer mdk-js-drawer">
+    <div class="mdk-drawer js-mdk-drawer">
       <div class="mdk-drawer__content">
         <div class="mdk-drawer__inner">
           <h4>Hello World</h4>

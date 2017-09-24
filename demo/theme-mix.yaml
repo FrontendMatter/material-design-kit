@@ -1,0 +1,18 @@
+runTasks:
+  clean: true
+  js: true
+  copy: false
+  sass: true
+  html: true
+enableCssThemes: false
+enableCssRTL: false
+clean:
+  - dist/**/*.html
+  - dist/assets/{css,fonts,js,vendor}
+sassSrc: src/sass/*.scss
+cssDest: dist/assets/css
+jsSrc: src/js/**/**.{js,vue}
+jsDest: dist/assets/js
+htmlDest: dist/[path][name].html
+laravelMixOptions:
+  processCssUrls: false

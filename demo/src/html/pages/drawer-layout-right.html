@@ -1,7 +1,7 @@
 ---
 title: Right drawer layout
 ---
-{% extends "layouts/demo.html" %}
+{% extends "layouts/default.html" %}
 {% block page %}
 
   <style>
@@ -29,7 +29,7 @@ title: Right drawer layout
     }
   </style>
 
-  <div class="mdk-drawer-layout mdk-js-drawer-layout" push>
+  <div class="mdk-drawer-layout js-mdk-drawer-layout" push>
 
     <!-- content -->
     <div class="mdk-drawer-layout__content">
@@ -42,7 +42,7 @@ title: Right drawer layout
     </div>
 
     <!-- drawer -->
-    <div class="mdk-drawer mdk-js-drawer" align="end">
+    <div class="mdk-drawer js-mdk-drawer" align="end">
       <div class="mdk-drawer__content">
         <div class="mdk-drawer__inner">
           <h4>Hello World</h4>

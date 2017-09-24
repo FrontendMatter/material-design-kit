@@ -1,10 +1,13 @@
 ---
 title: Push drawer layout
 ---
-{% extends "layouts/demo.html" %}
+{% extends "layouts/default.html" %}
 {% block page %}
 
   <style>
+    html,body {
+      height: 100%;
+    }
     .container {
       padding: 2rem;
     }
@@ -29,7 +32,7 @@ title: Push drawer layout
     }
   </style>
 
-  <div class="mdk-drawer-layout mdk-js-drawer-layout" push has-scrolling-region>
+  <div class="mdk-drawer-layout js-mdk-drawer-layout" push has-scrolling-region>
 
     <!-- content -->
     <div class="mdk-drawer-layout__content">
@@ -42,7 +45,7 @@ title: Push drawer layout
     </div>
 
     <!-- drawer -->
-    <div class="mdk-drawer mdk-js-drawer">
+    <div class="mdk-drawer js-mdk-drawer">
       <div class="mdk-drawer__content">
         <div class="mdk-drawer__inner">
           <h4>Hello World</h4>
