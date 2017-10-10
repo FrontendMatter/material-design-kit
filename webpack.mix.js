@@ -10,12 +10,13 @@ const components = [
   'carousel'
 ]
 
-mix.js('src', 'dist/material-design-kit.js')
+mix.js('node_modules/laravel-mix/src/builder/mock-entry.js', 'mix.js')
+  .js('src/index.js', 'dist/material-design-kit.js')
   .sass('src/style.scss', 'dist/material-design-kit.css')
 
 components.forEach(component => {
-  mix.js(`src/${component}`, 'dist')
   mix.sass(`src/${component}/${component}.scss`, 'dist')
+  mix.js(`src/${component}`, 'dist')
 })
 
 mix.webpackConfig({

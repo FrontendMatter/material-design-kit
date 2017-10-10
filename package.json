@@ -1,6 +1,6 @@
 {
   "name": "material-design-kit",
-  "version": "1.0.0-alpha.15",
+  "version": "1.0.0-alpha.16",
   "description": "Interactive web components inspired from Material Design, using vanilla CSS, JavaScript and HTML.",
   "scripts": {
     "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
@@ -8,12 +8,12 @@
     "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
   "main": "dist/material-design-kit.js",
-  "author": "MOSAICPRO <contact@mosaicpro.biz> (http://themeforest.net/user/mosaicpro/portfolio)",
+  "author": "FrontendMatter <contact@frontendmatter.com> (http://www.frontendmatter.com)",
   "license": "ISC",
   "devDependencies": {
     "camelcase": "^3.0.0",
     "cross-env": "^5.0.1",
-    "laravel-mix": "^1.0.7",
+    "laravel-mix": "^1.5.0",
     "retarget-mouse-scroll": "github:lazabogdan/RetargetMouseScroll",
     "watch-object": "^1.1.2"
   },
@@ -30,10 +30,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/themekit/material-design-kit.git"
+    "url": "git+https://github.com/FrontendMatter/material-design-kit.git"
   },
   "bugs": {
-    "url": "https://github.com/themekit/material-design-kit/issues"
+    "url": "https://github.com/FrontendMatter/material-design-kit/issues"
   },
-  "homepage": "https://github.com/themekit/material-design-kit#readme"
+  "homepage": "https://github.com/FrontendMatter/material-design-kit#readme"
 }

@@ -17,3 +17,6 @@ export { SCROLL_EFFECTS } from './scroll-effects'
 
 // EXPORT HEADER SCROLL EFFECTS
 export { HEADER_SCROLL_EFFECTS } from './header-scroll-effects'
+
+// EXPORT MEDIA QUERY UTILITY
+export { mediaQuery } from './media-query'
