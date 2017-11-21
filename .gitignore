@@ -1,4 +1,5 @@
 node_modules/
 demo/dist/
-/mix-manifest.json
-/mix.js
+mix-manifest.json
+mix.js
+package-lock.json
