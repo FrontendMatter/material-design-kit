@@ -28,20 +28,20 @@
 		margin-bottom: 0;
 	}
 
-	&[condenses],
-	&[reveals] {
+	&[data-condenses],
+	&[data-reveals] {
 		will-change: transform;
 	}
 
-	[fx-condenses] {
+	[data-fx-condenses] {
 		transform-origin: left top;
 		opacity: 0;
-		&[fx-id] {
+		&[data-fx-id] {
 			opacity: 1;
 		}
 	}
 
-	[primary] {
+	[data-primary] {
 		z-index: 1;
 	}
 }
@@ -55,7 +55,7 @@
 	overflow: hidden;
 }
 
-[effects*="parallax-background"] .mdk-header__bg {
+[data-effects*="parallax-background"] .mdk-header__bg {
 	visibility: hidden;
 }
 
@@ -84,11 +84,11 @@
 // z-index on [primary] children is not getting applied because of the translate3d
 // applied to the [primary] element
 .mdk-header {
-	&[condenses] {
+	&[data-condenses] {
 		.mdk-header__content {
 			z-index: 0;
 		}
-		[primary] {
+		[data-primary] {
 			z-index: 1;
 		}
 	}
@@ -111,7 +111,7 @@
 	&::after,
 	.mdk-header__bg-rear,
 	.mdk-header__bg-front,
-	.mdk-header__content > [primary] {
+	.mdk-header__content > [data-primary] {
 		transition: none !important;
 	}
 }

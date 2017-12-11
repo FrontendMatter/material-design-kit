@@ -20,7 +20,7 @@ export const tooltipComponent = (element) => ({
     for: {
       readOnly: true,
       value () {
-        var target = this.element.getAttribute('for')
+        var target = this.element.getAttribute('data-for')
         return document.querySelector('#' + target)
       }
     },

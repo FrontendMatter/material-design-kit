@@ -47,8 +47,8 @@ export const scrollTargetBehavior = () => ({
     if (this._scrollTargetSelector) {
       return this._scrollTargetSelector
     }
-    if (this.element.hasAttribute('scroll-target')) {
-      return this.element.getAttribute('scroll-target')
+    if (this.element.hasAttribute('data-scroll-target')) {
+      return this.element.getAttribute('data-scroll-target')
     }
   },
 

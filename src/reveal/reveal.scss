@@ -6,8 +6,8 @@
 	transform: translateZ(0);
 	overflow: hidden;
 
-	&[force-reveal],
-	&[opened],
+	&[data-force-reveal],
+	&[data-opened],
 	&--hover:hover {
 		.mdk-reveal__content {
 			transform: translate3d(0, 0, 0) !important;

@@ -8,18 +8,18 @@
 	right: 0;
 	visibility: hidden;
 	
-	&[opened],
-	&[closing] {
+	&[data-opened],
+	&[data-closing] {
 		visibility: visible;
 	}
 
-	&[persistent] {
+	&[data-persistent] {
 		width: $mdk-drawer-width;
-		&[position=left] {
+		&[data-position=left] {
 			/*!rtl:ignore*/
 			right: auto;
 		}
-		&[position=right] {
+		&[data-position=right] {
 			/*!rtl:ignore*/
 			left: auto;
 		}
@@ -39,7 +39,7 @@
 	transform: translate3d(-100%, 0, 0);
 	/*!rtl:end:ignore*/
 	
-	[position=right] > & {
+	[data-position=right] > & {
 		/*!rtl:begin:ignore*/
 		right: 0;
 		left: auto;
@@ -47,7 +47,7 @@
 		/*!rtl:end:ignore*/
 	}
 
-	[opened] > & {
+	[data-opened] > & {
 		transform: translate3d(0, 0, 0);
 	}
 }
@@ -62,11 +62,11 @@
 	opacity: 0;
 	background-color: rgba(0, 0, 0, .5);
 
-	[opened] > & {
+	[data-opened] > & {
 		opacity: 1;
 	}
 
-	[persistent] > & {
+	[data-persistent] > & {
 		visibility: hidden;
 		opacity: 0;
 	}

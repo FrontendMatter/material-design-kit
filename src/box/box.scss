@@ -15,7 +15,7 @@
 	height: 100%;
 }
 
-[effects*="parallax-background"] .mdk-box__bg {
+[data-effects*="parallax-background"] .mdk-box__bg {
 	visibility: hidden;
 }
 
@@ -45,7 +45,7 @@
 	&::after,
 	.mdk-box__bg-rear,
 	.mdk-box__bg-front,
-	.mdk-box__content > [primary] {
+	.mdk-box__content > [data-primary] {
 		transition: none !important;
 	}
 }

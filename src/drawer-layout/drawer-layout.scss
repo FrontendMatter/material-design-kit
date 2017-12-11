@@ -13,7 +13,7 @@
     bottom: 0;
   }
 
-  &[has-scrolling-region] .mdk-drawer {
+  &[data-has-scrolling-region] .mdk-drawer {
     position: absolute;
   }
 }

@@ -125,7 +125,7 @@ export const headerComponent = (element) => ({
    * @return {Boolean}
    */
   get transformDisabled () {
-    return this.disabled || this.element.hasAttribute('transform-disabled') || !this._isPositionedFixedEmulated
+    return this.disabled || this.element.dataset.transformDisabled || !this._isPositionedFixedEmulated
   },
 
   /**
@@ -133,7 +133,7 @@ export const headerComponent = (element) => ({
    * @param  {Boolean}  value
    */
   set transformDisabled (value) {
-    this.element[value ? 'setAttribute' : 'removeAttribute']('transform-disabled', 'transform-disabled')
+    this.element[value ? 'setAttribute' : 'removeAttribute']('data-transform-disabled', 'data-transform-disabled')
   },
 
   /**
@@ -260,7 +260,7 @@ export const headerComponent = (element) => ({
     for (let i = 0; i < nodes.length; i++) {
       if (nodes[i].nodeType === Node.ELEMENT_NODE) {
         let node = nodes[i]
-        if (node.hasAttribute('primary')) {
+        if (node.dataset.primary) {
           primaryElement = node
           break
         }

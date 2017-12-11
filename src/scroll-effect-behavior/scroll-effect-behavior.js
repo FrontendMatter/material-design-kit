@@ -38,9 +38,7 @@ export const scrollEffectBehavior = () => ({
    * @return {Array}
    */
   get effects () {
-    return this.element.hasAttribute('effects') 
-      ? (this.element.getAttribute('effects') || '').split(' ') 
-      : []
+    return this.element.dataset.effects || []
   },
 
   /**
@@ -51,9 +49,9 @@ export const scrollEffectBehavior = () => ({
     if (this._effectsConfig) {
       return this._effectsConfig
     }
-    if (this.element.hasAttribute('effects-config')) {
+    if (this.element.hasAttribute('data-effects-config')) {
       try {
-        return JSON.parse(this.element.getAttribute('effects-config'))
+        return JSON.parse(this.element.getAttribute('data-effects-config'))
       }
       catch (e) {}
     }

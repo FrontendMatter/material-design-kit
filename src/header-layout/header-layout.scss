@@ -22,8 +22,8 @@
 		z-index: 1;
 	}
 	
-	&[fullbleed],
-	&[has-scrolling-region] {
+	&[data-fullbleed],
+	&[data-has-scrolling-region] {
 		> .mdk-header {
 			position: absolute;
 		}

@@ -19,7 +19,7 @@
   border-radius: .25rem;
   pointer-events: none;
   
-  &[opened] {
+  &[data-opened] {
     transform: scale(1);
   }
 }

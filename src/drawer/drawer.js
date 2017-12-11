@@ -134,7 +134,7 @@ export const drawerComponent = () => ({
 
   _onClose (opened) {
     if (!opened) {
-      this.element.setAttribute('closing', true)
+      this.element.setAttribute('data-closing', true)
     }
   },
 
@@ -159,7 +159,7 @@ export const drawerComponent = () => ({
 
     if (oldState !== this._drawerState) {
       if (!this.opened) {
-        this.element.removeAttribute('closing')
+        this.element.removeAttribute('data-closing')
       }
       if (this._drawerState === this._DRAWER_STATE.OPENED) {
         document.body.style.overflow = 'hidden'

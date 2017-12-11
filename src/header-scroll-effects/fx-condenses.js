@@ -40,7 +40,7 @@ export const HEADER_SCROLL_EFFECT_FX_CONDENSES = {
     targets.forEach(target => {
       if (target) {
         let id = target.getAttribute('id')
-        let fxId = target.getAttribute('fx-id')
+        let fxId = target.getAttribute('data-fx-id')
         let fxEl = this.element.querySelector(`#${ fxId }`)
 
         let targetBounds = bounds[id]
