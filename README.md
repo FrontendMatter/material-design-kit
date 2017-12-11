@@ -57,7 +57,18 @@ Interactive web components inspired from [Material Design](https://www.google.co
 
 ## Compatibility
 
-- [ ] Supports ES5-compliant browsers (IE9+) - **currently IE10+**.
+> Supports the last two versions of every major browser.
+
+- Chrome
+- Safari
+- Firefox
+- IE 11/Edge
+- Opera
+- Mobile Safari
+- Chrome on Android
+
+> Library
+
 - [x] Compatible with projects using (or not using) jQuery, Bootstrap and MDL.
 - [x] UMD library format - supports AMD, CommonJS (browserify), ES6 imports and global namespace.
 

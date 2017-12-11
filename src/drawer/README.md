@@ -22,7 +22,7 @@ Align the drawer at the start, which is left in LTR layouts (default).
 Align the drawer at the end.
 
 ```html
-<div class="mdk-drawer js-mdk-drawer" align="end">
+<div class="mdk-drawer js-mdk-drawer" data-align="end">
   <div class="mdk-drawer__content">
     <!-- Drawer content -->
   </div>
@@ -32,7 +32,7 @@ Align the drawer at the end.
 Open the drawer.
 
 ```html
-<div class="mdk-drawer js-mdk-drawer" opened>
+<div class="mdk-drawer js-mdk-drawer" data-opened>
   <div class="mdk-drawer__content">
     <!-- Drawer content -->
   </div>
@@ -42,7 +42,7 @@ Open the drawer.
 Disable the drawer scrim.
 
 ```html
-<div class="mdk-drawer js-mdk-drawer" persistent>
+<div class="mdk-drawer js-mdk-drawer" data-persistent>
   <div class="mdk-drawer__content">
     <!-- Drawer content -->
   </div>
@@ -246,7 +246,7 @@ Customize the drawer background color.
 Customize the drawer based on position.
 
 ```css
-[position=left] .mdk-drawer__content {
+[data-position=left] .mdk-drawer__content {
   border-right: 1px solid #eee;
 }
 ```

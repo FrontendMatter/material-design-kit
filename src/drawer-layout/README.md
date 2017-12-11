@@ -19,7 +19,7 @@ Align the drawer at the start, which is left in LTR layouts (default).
   <div class="mdk-drawer-layout__content">
 
     <!-- drawer -->
-    <div class="mdk-drawer js-mdk-drawer">
+    <div class="mdk-drawer js-mdk-drawer" data-align="start">
       <div class="mdk-drawer__content">
         <!-- drawer content -->
       </div>
@@ -42,15 +42,15 @@ With a Header Layout, a custom scrolling region for the main content and a push 
 ```
 
 ```html
-<div class="mdk-drawer-layout js-mdk-drawer-layout" fullbleed push>
+<div class="mdk-drawer-layout js-mdk-drawer-layout mdk-drawer-layout--fullbleed" data-fullbleed data-push>
   <div class="mdk-drawer-layout__content">
 
     <!-- header layout -->
-    <div class="mdk-header-layout js-mdk-header-layout" has-scrolling-region>
+    <div class="mdk-header-layout js-mdk-header-layout" data-has-scrolling-region>
 
       <!-- header -->
       <div class="mdk-header js-mdk-header"
-        effects="waterfall condenses fixed">
+        data-effects="waterfall condenses fixed">
         <div class="mdk-header__content">
           <!-- header content -->
           <button type="button">Toggle</button>
@@ -58,7 +58,7 @@ With a Header Layout, a custom scrolling region for the main content and a push 
       </div>
       
       <!-- header layout content -->
-      <div class="mdk-header-layout__content">
+      <div class="mdk-header-layout__content mdk-header-layout__content--scrollable">
         <!-- main content -->
       </div>
     </div>
@@ -77,7 +77,7 @@ With a Header Layout, a custom scrolling region for the main content and a push 
 Customize the maximum viewport width for enabling the narrow layout.
 
 ```html
-<div class="mdk-drawer-layout js-mdk-drawer-layout" responsive-width="768px">
+<div class="mdk-drawer-layout js-mdk-drawer-layout" data-responsive-width="768px">
   <div class="mdk-drawer-layout__content">
     <!-- drawer and main content -->
   </div>
@@ -87,8 +87,18 @@ Customize the maximum viewport width for enabling the narrow layout.
 Ignore the `responsiveWidth` option and force the narrow layout on any screen size.
 
 ```html
-<div class="mdk-drawer-layout js-mdk-drawer-layout" force-narrow>
+<div class="mdk-drawer-layout js-mdk-drawer-layout" data-force-narrow>
   <div class="mdk-drawer-layout__content">
+    <!-- drawer and main content -->
+  </div>
+</div>
+```
+
+Make the drawer layout content scrollable.
+
+```html
+<div class="mdk-drawer-layout js-mdk-drawer-layout">
+  <div class="mdk-drawer-layout__content mdk-drawer-layout__content--scrollable">
     <!-- drawer and main content -->
   </div>
 </div>
