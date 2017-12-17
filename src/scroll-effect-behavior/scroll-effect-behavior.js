@@ -38,7 +38,10 @@ export const scrollEffectBehavior = () => ({
    * @return {Array}
    */
   get effects () {
-    return this.element.dataset.effects || []
+    if (!this.element.dataset.effects) {
+      return []
+    }
+    return this.element.dataset.effects.split(' ')
   },
 
   /**
