@@ -19,6 +19,7 @@ export const revealComponent = () => ({
      */
     partialHeight: {
       reflectToAttribute: true,
+      type: Number,
       value: 0
     },
 
