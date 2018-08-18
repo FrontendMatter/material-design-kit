@@ -1,5 +1,5 @@
 ---
-title: Header layout within drawer with header transform effects
+title: Header layout within drawer with header transform data-effects
 ---
 {% extends "layouts/default.html" %}
 {% block page %}
@@ -88,37 +88,37 @@ title: Header layout within drawer with header transform effects
     }
   </style>
 
-  <div class="mdk-drawer js-mdk-drawer" opened>
+  <div class="mdk-drawer js-mdk-drawer" data-opened>
     <div class="mdk-drawer__content">
 
       <!-- header-layout -->
-      <div class="mdk-header-layout js-mdk-header-layout" has-scrolling-region>
+      <div class="mdk-header-layout js-mdk-header-layout" data-has-scrolling-region>
 
         <!-- header -->
         <div class="mdk-header js-mdk-header bg-primary"
-          effects="waterfall fx-condenses" 
-          condenses fixed>
+          data-effects="waterfall fx-condenses" 
+          data-condenses data-fixed>
           <div class="mdk-header__content">
 
             <!-- user -->
             <div class="user-meta user-meta--condensed">
               <a href="#">
-                <img fx-condenses id="fx-avatar" src="https://api.adorable.io/avatars/40/abott@adorable.io.png" alt="avatar">
+                <img data-fx-condenses id="fx-avatar" src="https://api.adorable.io/avatars/40/abott@adorable.io.png" alt="avatar">
                 <span class="meta">
-                  <span class="h5" fx-condenses id="fx-name">Thomas Vaughn</span>
-                  <small fx-condenses id="fx-email">thomas.vaughn@gmail.com</small>
+                  <span class="h5" data-fx-condenses id="fx-name">Thomas Vaughn</span>
+                  <small data-fx-condenses id="fx-email">thomas.vaughn@gmail.com</small>
                 </span>
               </a>
             </div>
             <div class="user-avatar">
-              <a href="#" fx-condenses fx-id="fx-avatar">
+              <a href="#" data-fx-condenses data-fx-id="fx-avatar">
                 <img src="https://api.adorable.io/avatars/70/abott@adorable.io.png" alt="avatar">
               </a>
             </div>
             <div class="user-meta user-meta--expanded">
               <a href="#">
-                <span class="h5" fx-condenses fx-id="fx-name">Thomas Vaughn</span>
-                <small fx-condenses fx-id="fx-email">thomas.vaughn@gmail.com</small>
+                <span class="h5" data-fx-condenses data-fx-id="fx-name">Thomas Vaughn</span>
+                <small data-fx-condenses data-fx-id="fx-email">thomas.vaughn@gmail.com</small>
               </a>
             </div>
             <!-- // END user -->
@@ -128,7 +128,7 @@ title: Header layout within drawer with header transform effects
         <!-- // END header -->
         
         <!-- content -->
-        <div class="mdk-header-layout__content">
+        <div class="mdk-header-layout__content mdk-header-layout__content--fullbleed mdk-header-layout__content--scrollable">
           <div class="mdk-drawer__inner">
             <h4>Hello World</h4>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum nisi, aspernatur esse ea velit, possimus quod labore doloremque perspiciatis veniam amet fuga incidunt, beatae saepe assumenda quia laudantium ut qui!</p>

@@ -33,11 +33,12 @@ export const revealComponent = () => ({
     },
 
     /**
-     * Toggle reveal on mouseenter/mouseleave or touchstart/touchend.
+     * Toggle reveal on click/mouseenter/mouseleave or touchstart/touchend.
+     * click|hover
      * @type {Object}
      */
-    hoverReveal: {
-      type: Boolean,
+    trigger: {
+      value: 'click',
       reflectToAttribute: true
     },
 
@@ -66,7 +67,8 @@ export const revealComponent = () => ({
   listeners: [
     '_onEnter(mouseenter, touchstart)',
     '_onLeave(mouseleave, touchend)',
-    'window._debounceResize(resize)'
+    'window._debounceResize(resize)',
+    '_onClick(click)',
   ],
 
   /**
@@ -117,24 +119,21 @@ export const revealComponent = () => ({
    * Gets called automatically on `window.load`
    */
   _reset () {
-    const revealOffsetTop = parseInt(window.getComputedStyle(this.reveal)['margin-top'], 10)
-    const revealHeight = this.reveal.offsetHeight
-    let translate = 'translate3d(0, ' + (revealHeight - this.partialHeight) + 'px, 0)'
-    this._translateReveal = translate
-    if (this.forceReveal) {
-      translate = 'translate3d(0, 0, 0)'
-    }
+    this._translate = 'translateY(' + (-1 * (this.reveal.offsetHeight - this.partialHeight)) + 'px)'
+    
     if (this.partialHeight !== 0) {
       this.partial.style.height = this.partialHeight + 'px'
     }
-    this.reveal.style.transitionDuration = '0s'
-    util.transform(translate, this.reveal)
-    this.element.style.height = revealOffsetTop + revealHeight + 'px'
-    setTimeout(() => this.reveal.style.transitionDuration = '', 0)
+
+    this.element.style.height = this.reveal.offsetTop + this.partialHeight + 'px'
+
+    if (this.forceReveal && !this.opened) {
+      this.open()
+    }
   },
 
   _onChange () {
-    util.transform(this.opened || this.forceReveal ? 'translate3d(0, 0, 0)' : this._translateReveal, this.reveal)
+    util.transform(this.opened ? this._translate : 'translateY(0)', this.reveal)
   },
 
   /**
@@ -142,8 +141,18 @@ export const revealComponent = () => ({
    * @param  {MouseEvent|TouchEvent} event
    */
   _onEnter () {
-    if (this.hoverReveal && !this.forceReveal) {
+    if (this.trigger === 'hover' && !this.forceReveal) {
       this.open()
+    }
+  },
+
+  /**
+   * Handle `click` event.
+   * @param  {MouseEvent|TouchEvent} event
+   */
+  _onClick () {
+    if (this.trigger === 'click') {
+      this.toggle()
     }
   },
 
@@ -152,7 +161,7 @@ export const revealComponent = () => ({
    * @param  {MouseEvent|TouchEvent} event
    */
   _onLeave () {
-    if (this.hoverReveal && !this.forceReveal) {
+    if (this.trigger === 'hover' && !this.forceReveal) {
       this.close()
     }
   },

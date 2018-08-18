@@ -13,8 +13,8 @@ const interpolate = (progress, points, fn, ctx) => {
 export const HEADER_SCROLL_EFFECT_FX_CONDENSES = {
   name: 'fx-condenses',
   setUp () {
-    const elements = [ ...this.element.querySelectorAll('[fx-condenses]') ]
-    const targets = [ ...this.element.querySelectorAll('[fx-id]') ]
+    const elements = [ ...this.element.querySelectorAll('[data-fx-condenses]') ]
+    const targets = [ ...this.element.querySelectorAll('[data-fx-id]') ]
 
     let bounds = {}
 

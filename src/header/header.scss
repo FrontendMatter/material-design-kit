@@ -2,27 +2,10 @@
 
 .mdk-header {
 	position: relative;
-	transition-timing-function: linear;
-	transition-property: transform;
+	z-index: 1;
 
 	margin-bottom: $mdk-spacer;
 	height: 200px;
-
-	&::after {
-		position: absolute;
-		right: 0;
-		bottom: -5px;
-		left: 0;
-		width: 100%;
-		height: 5px;
-		content: "";
-		transition: opacity 0.4s;
-		pointer-events: none;
-		opacity: 0;
-		box-shadow: inset 0px 5px 6px -3px rgba(0, 0, 0, 0.4);
-		will-change: opacity;
-		z-index: -1;
-	}
 
 	:last-child {
 		margin-bottom: 0;
@@ -43,6 +26,8 @@
 
 	[data-primary] {
 		z-index: 1;
+		transition-timing-function: linear;
+		transition-property: transform;
 	}
 }
 
@@ -95,6 +80,21 @@
 }
 
 .mdk-header--shadow::after {
+	position: absolute;
+	right: 0;
+	bottom: -5px;
+	left: 0;
+	width: 100%;
+	height: 5px;
+	content: "";
+	pointer-events: none;
+	opacity: 0;
+	box-shadow: inset 0px 5px 6px -3px rgba(0, 0, 0, 0.4);
+	will-change: opacity;
+	z-index: -1;
+}
+
+.mdk-header--shadow-show::after {
 	opacity: 1;
 }
 

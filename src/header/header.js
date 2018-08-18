@@ -102,11 +102,11 @@ export const headerComponent = (element) => ({
   // The distance in pixels the header will be translated to when scrolling
   _dHeight: 0,
 
-  // The offsetTop of `_primaryElement`
-  _primaryElementTop: 0,
+  // The offsetTop of `_primary`
+  _primaryTop: 0,
 
   // The element that remains visibile when the header condenses
-  _primaryElement: null,
+  _primary: null,
 
   // The header's top value used for the `transformY`
   _top: 0,
@@ -150,6 +150,10 @@ export const headerComponent = (element) => ({
 
   get _isPositionedAbsolute () {
     return window.getComputedStyle(this.element).position === 'absolute'
+  },
+
+  get _primaryisPositionedFixed () {
+    return window.getComputedStyle(this._primary).position === 'fixed'
   },
 
   /**
@@ -214,22 +218,19 @@ export const headerComponent = (element) => ({
       return
     }
 
-    this.element.classList[this._isPositionedFixedEmulated ? 'add' : 'remove'](MODIFIER_FIXED)
-    this._transform('translate3d(0, 0, 0)')
-    if (this._primaryElement) {
-      this._transform('translate3d(0, 0, 0)', this._primaryElement)
+    if (this._primaryisPositionedFixed) {
+      this.element.style.paddingTop = this._primary.offsetHeight + 'px'
     }
 
     let scrollTop = this._clampedScrollTop
     let firstSetup = this._height === 0 || scrollTop === 0
 
     this._height = this.element.offsetHeight
-    this._primaryElement = this._getPrimaryElement()
-    this._primaryElementTop = this._primaryElement ? this._primaryElement.offsetTop : 0
+    this._primaryTop = this._primary ? this._primary.offsetTop : 0
     this._dHeight = 0
     
     if (this._mayMove()) {
-      this._dHeight = this._primaryElement ? this._height - this._primaryElement.offsetHeight : 0
+      this._dHeight = this._primary ? this._height - this._primary.offsetHeight : 0
     }
     
     this._setUpEffects()
@@ -253,23 +254,29 @@ export const headerComponent = (element) => ({
    * Returns a reference to the element that remains visible when the header condenses.
    * @return {HTMLElement}
    */
-  _getPrimaryElement () {
-    let primaryElement
+  get _primary () {
+    if (this._primaryElement) {
+      return this._primaryElement
+    }
+
+    let primary
     let nodes = this.element.querySelector(CONTENT).children
 
     for (let i = 0; i < nodes.length; i++) {
       if (nodes[i].nodeType === Node.ELEMENT_NODE) {
         let node = nodes[i]
-        if (node.dataset.primary) {
-          primaryElement = node
+        if (node.dataset.primary !== undefined) {
+          primary = node
           break
         }
-        else if (!primaryElement) {
-          primaryElement = node
+        else if (!primary) {
+          primary = node
         }
       }
     }
-    return primaryElement
+
+    this._primaryElement = primary
+    return this._primaryElement
   },
 
   /**
@@ -282,19 +289,18 @@ export const headerComponent = (element) => ({
       return
     }
 
+    if (!forceUpdate && scrollTop === this._lastScrollTop) {
+      return
+    }
+
     let progress = 0
     let top = 0
     let lastTop = this._top
-    let lastScrollTop = this._lastScrollTop
     let maxHeaderTop = this._maxHeaderTop
-    let dScrollTop = scrollTop - lastScrollTop
+    let dScrollTop = scrollTop - this._lastScrollTop
     let absDScrollTop = Math.abs(dScrollTop)
-    let isScrollingDown = scrollTop > lastScrollTop
+    let isScrollingDown = scrollTop > this._lastScrollTop
     let now = Date.now()
-
-    if (!forceUpdate && scrollTop === lastScrollTop) {
-      return
-    }
 
     if (this._mayMove()) {
       top = this._clamp(this.reveals ? lastTop + dScrollTop : scrollTop, 0, maxHeaderTop)
@@ -302,7 +308,6 @@ export const headerComponent = (element) => ({
 
     if (scrollTop >= this._dHeight) {
       top = this.condenses ? Math.max(this._dHeight, top) : top
-      this.element.style.transitionDuration = '0ms'
     }
 
     if (this.reveals && absDScrollTop < 100) {
@@ -320,7 +325,7 @@ export const headerComponent = (element) => ({
           }
 
           let scrollVelocity = dScrollTop / (now - this._lastTimestamp)
-          this.element.style.transitionDuration = `${ this._clamp((top - lastTop) / scrollVelocity, 0, 300) }ms`
+          this._revealTransitionDuration = this._clamp((top - lastTop) / scrollVelocity, 0, 300)
         }
         else {
           top = this._top
@@ -344,10 +349,8 @@ export const headerComponent = (element) => ({
 
     if (forceUpdate || progress !== this._progress || lastTop !== top || scrollTop === 0) {
       this._progress = progress
-      requestAnimationFrame(() => {
-        this._runEffects(progress, top)
-        this._transformHeader(top)
-      })
+      this._runEffects(progress, top)
+      this._transformHeader(top)
     }
   },
 
@@ -359,19 +362,41 @@ export const headerComponent = (element) => ({
     if (this.transformDisabled) {
       return
     }
-    let transform = top
-    if (this._isPositionedAbsolute && this.scrollTarget === this._doc) {
-      transform = 0
-    }
 
-    if (top === transform) {
-      this.element.style.willChange = 'transform'
-      this._transform(`translate3d(0, ${ transform * -1 }px, 0)`)
-    }
+    if (this._isPositionedAbsolute) {
+      let transform = top
+      if (this.scrollTarget === this._doc) {
+        transform = 0
+      }
 
-    if (this._primaryElement && this.condenses && top >= this._primaryElementTop) {
-      this._primaryElement.style.willChange = 'transform'
-      this._transform(`translate3d(0, ${ Math.min(top, this._dHeight) - this._primaryElementTop }px, 0)`, this._primaryElement)
+      if (top === transform) {
+        this.element.style.willChange = 'transform'
+        this._transform(`translate3d(0, ${ transform * -1 }px, 0)`)
+      }
+
+      if (this.condenses && top >= this._primaryTop) {
+        this._primary.style.willChange = 'transform'
+        this._transform(`translate3d(0, ${ Math.min(top, this._dHeight) - this._primaryTop }px, 0)`, this._primary)
+      }
+      return
+    }
+    
+    if (!this.fixed) {
+      let transform = 0
+      
+      if (this.reveals) {
+        this._primary.style.transitionDuration = `${ this._revealTransitionDuration }ms`
+      }
+
+      if (top > this._dHeight) {
+        transform = -1 * (top - this._dHeight)
+
+        if (this.reveals) {
+          this._primary.style.transitionDuration = '0ms'
+        }
+      }
+      this._primary.style.willChange = 'transform'
+      this._transform(`translate3d(0, ${ transform }px, 0)`, this._primary)
     }
   },
 
@@ -409,6 +434,9 @@ export const headerComponent = (element) => ({
     this.attachToScrollTarget()
     this._handleFixedPositionedScroll()
     this._setupBackgrounds()
+
+    this._primary.setAttribute('data-primary', 'data-primary')
+    this._primary.classList[(this.fixed || this.condenses) ? 'add' : 'remove'](MODIFIER_FIXED)
 
     SCROLL_EFFECTS.concat(HEADER_SCROLL_EFFECTS).map(effect => this.registerEffect(effect.name, effect))
   },

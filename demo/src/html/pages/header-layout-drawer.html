@@ -51,6 +51,7 @@ title: Header layout within drawer
       display: flex;
       flex-direction: row;
       align-items: center;
+      position: relative;
     }
     .user-avatar {
       height: 120px;
@@ -71,16 +72,16 @@ title: Header layout within drawer
     }
   </style>
 
-  <div class="mdk-drawer js-mdk-drawer" opened>
+  <div class="mdk-drawer js-mdk-drawer" data-opened>
     <div class="mdk-drawer__content">
 
       <!-- header-layout -->
-      <div class="mdk-header-layout js-mdk-header-layout" has-scrolling-region>
+      <div class="mdk-header-layout js-mdk-header-layout" data-has-scrolling-region>
 
         <!-- header -->
         <div class="mdk-header js-mdk-header bg-primary"
-          effects="waterfall blend-background" 
-          condenses fixed>
+          data-effects="waterfall blend-background" 
+          data-condenses data-fixed>
           <div class="mdk-header__content">
 
             <!-- user -->
@@ -89,7 +90,7 @@ title: Header layout within drawer
                 <img src="https://api.adorable.io/avatars/70/abott@adorable.io.png" alt="avatar">
               </a>
             </div>
-            <div class="user-meta" primary>
+            <div class="user-meta" data-primary>
               <a href="#">
                 <span class="h5">Thomas Vaughn</span>
                 <small>thomas.vaughn@gmail.com</small>
@@ -102,7 +103,7 @@ title: Header layout within drawer
         <!-- // END header -->
         
         <!-- content -->
-        <div class="mdk-header-layout__content">
+        <div class="mdk-header-layout__content mdk-header-layout__content--fullbleed mdk-header-layout__content--scrollable">
           <div class="mdk-drawer__inner">
             <h4>Hello World</h4>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum nisi, aspernatur esse ea velit, possimus quod labore doloremque perspiciatis veniam amet fuga incidunt, beatae saepe assumenda quia laudantium ut qui!</p>

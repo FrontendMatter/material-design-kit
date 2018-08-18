@@ -164,7 +164,25 @@ export const drawerLayoutComponent = () => ({
     }
   },
 
+  _isDisplayFlexbox () {
+    const flex = [
+      'flex',
+      '-webkit-box',
+      '-ms-flexbox',
+    ]
+    let isFlex = false
+    flex.some(f => {
+      isFlex = window.getComputedStyle(this.element).display === f
+      return isFlex
+    })
+    return isFlex
+  },
+
   _resetContent () {
+    if (this._isDisplayFlexbox()) {
+      return
+    }
+
     let drawer = this.drawer
     let drawerWidth = this.drawer.getWidth()
     let contentContainer = this.contentContainer
@@ -191,6 +209,24 @@ export const drawerLayoutComponent = () => ({
     let drawerWidth = this.drawer.getWidth()
     let contentContainer = this.contentContainer
     let isRTL = drawer._isRTL()
+
+    if (this._isDisplayFlexbox()) {
+      if (drawer.opened) {
+        util.transform('translate3d(0, 0, 0)', contentContainer)
+        return
+      }
+
+      let transform = (this.element.offsetWidth - contentContainer.offsetWidth) / 2
+
+      if (drawer.position === 'right') {
+        util.transform(`translate3d(${ trasform }px, 0, 0)`, contentContainer)
+      }
+      else {
+        util.transform(`translate3d(${ -1 * transform }px, 0, 0)`, contentContainer)
+      }
+
+      return
+    }
 
     if (!drawer.opened) {
       util.transform('translate3d(0, 0, 0)', contentContainer)

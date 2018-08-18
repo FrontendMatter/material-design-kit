@@ -8,7 +8,7 @@ blockquote {
   color: #888;
   padding: ($spacer / 2) $spacer;
   margin-bottom: $spacer;
-  border-left: .25rem solid $blockquote-border-color;
+  border-left: .25rem solid $border-color;
   :last-child {
     margin-bottom: 0;
   }

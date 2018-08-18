@@ -1,11 +1,14 @@
 runTasks:
   clean: true
   js: true
-  copy: false
+  copy: true
   sass: true
   html: true
 enableCssThemes: false
 enableCssRTL: false
+copy:
+  - dom-factory/dist/*
+  - material-design-kit/dist/material-design-kit.js
 clean:
   - dist/**/*.html
   - dist/assets/{css,fonts,js,vendor}
@@ -16,3 +19,5 @@ jsDest: dist/assets/js
 htmlDest: dist/[path][name].html
 laravelMixOptions:
   processCssUrls: false
+expose:
+  - dom-factory: domFactory

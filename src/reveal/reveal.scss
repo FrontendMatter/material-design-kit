@@ -3,24 +3,18 @@
 .mdk-reveal {
 	z-index: 0;
 	position: relative;
-	transform: translateZ(0);
 	overflow: hidden;
+	display: block;
 
-	&[data-force-reveal],
 	&[data-opened],
 	&--hover:hover {
-		.mdk-reveal__content {
-			transform: translate3d(0, 0, 0) !important;
-		}
 		.mdk-reveal__partial {
 			opacity: 0;
 		}
 	}
 }
 .mdk-reveal__content {
-	margin-top: $mdk-reveal-content-offset-top;
 	transition: transform .2s;
-	transform: translate3d(0, 100%, 0);
 	background-color: $mdk-reveal-content-bg;
 	position: relative;
 	z-index: 0;

@@ -16,6 +16,31 @@
   &[data-has-scrolling-region] .mdk-drawer {
     position: absolute;
   }
+
+  @media (min-width: 768px) {
+    &--flex {
+      display: flex;
+      .mdk-drawer-layout__content {
+        order: 1;
+        flex: 1;
+      }
+      .mdk-drawer {
+        position: relative;
+
+        &[data-persistent] {
+          width: $mdk-drawer-width;
+          &[data-position=left] {
+            /*!rtl:ignore*/
+            order: 0;
+          }
+          &[data-position=right] {
+            /*!rtl:ignore*/
+            order: 2;
+          }
+        }
+      }
+    }
+  }
 }
 .mdk-drawer-layout__content {
   position: relative;

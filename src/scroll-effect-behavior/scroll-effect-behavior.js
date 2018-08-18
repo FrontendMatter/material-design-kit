@@ -194,6 +194,7 @@ export const scrollEffectBehavior = () => ({
    */
   _scrollHandler () {
     this._updateScrollState(this._clampedScrollTop)
+    this._loop()
   },
 
   /**

@@ -32,10 +32,10 @@ title: Push drawer layout
     }
   </style>
 
-  <div class="mdk-drawer-layout js-mdk-drawer-layout" push has-scrolling-region>
+  <div class="mdk-drawer-layout js-mdk-drawer-layout" data-push data-has-scrolling-region>
 
     <!-- content -->
-    <div class="mdk-drawer-layout__content">
+    <div class="mdk-drawer-layout__content mdk-drawer-layout__content--fullbleed mdk-drawer-layout__content--scrollable">
       <div class="container">
         <button class="btn btn-primary" type="button">Toggle drawer</button>
         {% include '_drawer-layout.html' %}

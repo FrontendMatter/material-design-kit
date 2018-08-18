@@ -186,8 +186,13 @@ export const scrollTargetBehavior = () => ({
     if (this.scrollTarget) {
       this.eventTarget = this.scrollTarget === this._doc ? window : this.scrollTarget
       this._boundScrollHandler = this._boundScrollHandler || this._scrollHandler.bind(this)
-      this.eventTarget.addEventListener('scroll', this._boundScrollHandler)
+      this._loop()
+      // this.eventTarget.addEventListener('scroll', this._boundScrollHandler)
     }
+  },
+
+  _loop () {
+    requestAnimationFrame(this._boundScrollHandler)
   },
 
   /**
@@ -196,9 +201,9 @@ export const scrollTargetBehavior = () => ({
    */
   detachFromScrollTarget () {
     unwatch(this, 'scrollTargetSelector', this.attachToScrollTarget)
-    if (this.eventTarget) {
-      this.eventTarget.removeEventListener('scroll', this._boundScrollHandler)
-    }
+    // if (this.eventTarget) {
+    //   this.eventTarget.removeEventListener('scroll', this._boundScrollHandler)
+    // }
   },
 
   /**

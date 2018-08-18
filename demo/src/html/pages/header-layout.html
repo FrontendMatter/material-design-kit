@@ -30,12 +30,12 @@ title: Basic header layout
   <div id="custom">
 
     <!-- header-layout -->
-    <div class="mdk-header-layout js-mdk-header-layout" has-scrolling-region>
+    <div class="mdk-header-layout js-mdk-header-layout" data-has-scrolling-region>
 
       <!-- header -->
       <div class="mdk-header js-mdk-header bg-primary"
-        effects="waterfall" 
-        condenses fixed>
+        data-effects="waterfall" 
+        data-condenses data-fixed>
         <div class="mdk-header__content">
           <button class="navbar-toggler" type="button">
             <span class="material-icons">menu</span>
@@ -44,7 +44,7 @@ title: Basic header layout
       </div>
       
       <!-- content -->
-      <div class="mdk-header-layout__content">
+      <div class="mdk-header-layout__content mdk-header-layout__content--fullbleed mdk-header-layout__content--scrollable">
         <div class="container">
           <div class="content">
             {% include '_header-layout.html' %}
