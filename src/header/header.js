@@ -125,7 +125,7 @@ export const headerComponent = (element) => ({
    * @return {Boolean}
    */
   get transformDisabled () {
-    return this.disabled || this.element.dataset.transformDisabled || !this._isPositionedFixedEmulated
+    return this.disabled || this.element.dataset.transformDisabled || !this._isPositionedFixedEmulated || !this.willCondense()
   },
 
   /**
@@ -374,30 +374,41 @@ export const headerComponent = (element) => ({
         this._transform(`translate3d(0, ${ transform * -1 }px, 0)`)
       }
 
-      if (this.condenses && top >= this._primaryTop) {
+      if (top >= this._primaryTop) {
         this._primary.style.willChange = 'transform'
         this._transform(`translate3d(0, ${ Math.min(top, this._dHeight) - this._primaryTop }px, 0)`, this._primary)
       }
       return
     }
-    
-    if (!this.fixed) {
-      let transform = 0
-      
-      if (this.reveals) {
-        this._primary.style.transitionDuration = `${ this._revealTransitionDuration }ms`
-      }
 
-      if (top > this._dHeight) {
-        transform = -1 * (top - this._dHeight)
+    if (this.fixed && this._isPositionedFixed) {
+      let transform = top
 
-        if (this.reveals) {
-          this._primary.style.transitionDuration = '0ms'
-        }
+      this.element.style.willChange = 'transform'
+      this._transform(`translate3d(0, ${ transform * -1 }px, 0)`)
+
+      if (top >= this._primaryTop) {
+        this._primary.style.willChange = 'transform'
+        this._transform(`translate3d(0, ${ Math.min(top, this._dHeight) - this._primaryTop }px, 0)`, this._primary)
       }
-      this._primary.style.willChange = 'transform'
-      this._transform(`translate3d(0, ${ transform }px, 0)`, this._primary)
+      return
     }
+
+    let transform = 0
+    let duration = `${ this._revealTransitionDuration }ms`
+
+    if (top > this._dHeight) {
+      transform = -1 * (top - this._dHeight)
+
+      if (this.reveals) {
+        duration = '0ms'
+      }
+    }
+    if (this.reveals) {
+      this._primary.style.transitionDuration = duration
+    }
+    this._primary.style.willChange = 'transform'
+    this._transform(`translate3d(0, ${ transform }px, 0)`, this._primary)
   },
 
   _clamp (v, min, max) {

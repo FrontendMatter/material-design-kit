@@ -74,7 +74,7 @@ export const headerLayoutComponent = () => ({
     const gutter = parseInt(window.getComputedStyle(this.header.element).marginBottom, 10)
     const containerStyle = this.contentContainer.style
     
-    if (this.hasScrollingRegion && (this.header.fixed || this.header.willCondense())) {
+    if (this.header.fixed || this.header.willCondense()) {
       containerStyle.paddingTop = `${ headerHeight + gutter }px`
       containerStyle.marginTop = ''
     }

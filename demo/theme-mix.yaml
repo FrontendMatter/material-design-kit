@@ -17,6 +17,7 @@ cssDest: dist/assets/css
 jsSrc: src/js/**/**.{js,vue}
 jsDest: dist/assets/js
 htmlDest: dist/[path][name].html
+htmllint: false
 laravelMixOptions:
   processCssUrls: false
 expose:
