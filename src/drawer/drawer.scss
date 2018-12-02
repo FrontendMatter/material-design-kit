@@ -1,11 +1,7 @@
 @import '../variables';
 
 .mdk-drawer {
-	position: fixed;
-	top: -120px;
-	bottom: -120px;
-	left: 0;
-	right: 0;
+	position: relative;
 	visibility: hidden;
 	
 	&[data-opened],
@@ -26,11 +22,10 @@
 	}
 }
 .mdk-drawer__content {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	bottom: 0;
 	width: $mdk-drawer-width;
-	padding: 120px 0;
 	transition: transform 0.2s ease;
 	background-color: #fff;
 
@@ -52,7 +47,7 @@
 	}
 }
 .mdk-drawer__scrim {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	bottom: 0;

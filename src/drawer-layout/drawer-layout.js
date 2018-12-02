@@ -24,15 +24,6 @@ export const drawerLayoutComponent = () => ({
     },
 
     /**
-     * Enable a push effect on the layout.
-     * @type {Object}
-     */
-    push: {
-      type: Boolean,
-      reflectToAttribute: true
-    },
-
-    /**
      * The maximum viewport width for which the narrow layout is enabled.
      * @type {Object}
      */
@@ -121,7 +112,10 @@ export const drawerLayoutComponent = () => ({
    * @return {Object} A reference to the drawer component.
    */
   get drawer () {
-    const drawerNode = this.element.querySelector('.mdk-drawer')
+    let drawerNode
+    try {
+      drawerNode = Array.from(this.element.children).find(e => e.matches('.mdk-drawer'))
+    } catch(e) {}
     if (drawerNode) {
       return drawerNode.mdkDrawer
     }
@@ -157,51 +151,6 @@ export const drawerLayoutComponent = () => ({
   _resetLayout () {
     this.drawer.opened = this.drawer.persistent = !this.narrow
     this._onDrawerChange()
-
-    const child = this.element.querySelector('.mdk-drawer-layout')
-    if (child) {
-      child.style.paddingBottom = child.offsetTop + 'px'
-    }
-  },
-
-  _isDisplayFlexbox () {
-    const flex = [
-      'flex',
-      '-webkit-box',
-      '-ms-flexbox',
-    ]
-    let isFlex = false
-    flex.some(f => {
-      isFlex = window.getComputedStyle(this.element).display === f
-      return isFlex
-    })
-    return isFlex
-  },
-
-  _resetContent () {
-    if (this._isDisplayFlexbox()) {
-      return
-    }
-
-    let drawer = this.drawer
-    let drawerWidth = this.drawer.getWidth()
-    let contentContainer = this.contentContainer
-    let isRTL = drawer._isRTL()
-
-    if (!drawer.opened) {
-      contentContainer.style.marginLeft = ''
-      contentContainer.style.marginRight = ''
-      return
-    }
-
-    if (drawer.position === 'right' || (!drawer.position && isRTL)) {
-      contentContainer.style.marginLeft = ''
-      contentContainer.style.marginRight = `${ drawerWidth }px`
-    }
-    else {
-      contentContainer.style.marginLeft = `${ drawerWidth }px`
-      contentContainer.style.marginRight = ''
-    }
   },
 
   _resetPush () {
@@ -210,48 +159,15 @@ export const drawerLayoutComponent = () => ({
     let contentContainer = this.contentContainer
     let isRTL = drawer._isRTL()
 
-    if (this._isDisplayFlexbox()) {
-      if (drawer.opened) {
-        util.transform('translate3d(0, 0, 0)', contentContainer)
-        return
-      }
-
-      let transform = (this.element.offsetWidth - contentContainer.offsetWidth) / 2
-
-      if (drawer.position === 'right') {
-        util.transform(`translate3d(${ trasform }px, 0, 0)`, contentContainer)
-      }
-      else {
-        util.transform(`translate3d(${ -1 * transform }px, 0, 0)`, contentContainer)
-      }
-
-      return
-    }
-
-    if (!drawer.opened) {
+    if (drawer.opened) {
       util.transform('translate3d(0, 0, 0)', contentContainer)
-
-      contentContainer.style.marginLeft = ''
-      contentContainer.style.marginRight = ''
       return
     }
 
-    if (drawer.position === 'right' || (!drawer.position && isRTL)) {
-      util.transform(`translate3d(${ -1 * drawerWidth }px, 0, 0)`, contentContainer)
+    let transform = (this.element.offsetWidth - contentContainer.offsetWidth) / 2
+    transform = drawer.position === 'right' ? transform : transform * -1
 
-      if (!this.narrow) {
-        contentContainer.style.marginLeft = `${ drawerWidth }px`
-        contentContainer.style.marginRight = ''
-      }
-    }
-    else {
-      util.transform(`translate3d(${ drawerWidth }px, 0, 0)`, contentContainer)
-
-      if (!this.narrow) {
-        contentContainer.style.marginLeft = ''
-        contentContainer.style.marginRight = `${ drawerWidth }px`
-      }
-    }
+    util.transform(`translate3d(${ transform }px, 0, 0)`, contentContainer)
   },
 
   _setContentTransitionDuration (duration) {
@@ -259,11 +175,7 @@ export const drawerLayoutComponent = () => ({
   },
 
   _onDrawerChange () {
-    if (this.push) {
-      return this._resetPush()
-    }
-
-    this._resetContent()
+    this._resetPush()
   },
 
   _onQueryMatches (value) {
