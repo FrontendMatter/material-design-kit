@@ -1,7 +1,8 @@
 {
-  "plugins": ["transform-runtime"],
+  "plugins": ["@babel/transform-runtime"],
   "presets": [
-    ["env", {
+    ["@babel/env", {
+      "useBuiltIns": "usage",
       "targets": {
         "ie": "11",
         "browsers": ["last 2 versions"]
