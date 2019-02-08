@@ -1,6 +1,12 @@
 import { mediaQuery } from '../media-query'
 import { handler, util } from 'dom-factory'
 
+// IE9+ Element.matches polyfill
+// https://developer.mozilla.org/en-US/docs/Web/API/Element/matches
+if (!Element.prototype.matches) {
+  Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector
+}
+
 /**
  * A wrapper element that positions a Drawer and other content.
  * @param  {HTMLElement} element
@@ -107,17 +113,25 @@ export const drawerLayoutComponent = () => ({
     return this.element.querySelector('.mdk-drawer-layout__content')
   },
 
+  get drawerNode () {
+    let drawerNode
+    try {
+      drawerNode = Array.from(this.element.children).find(e => e.matches('.mdk-drawer'))
+    } catch(e) {
+      console.error(e.message, e.stack)
+    }
+    if (drawerNode) {
+      return drawerNode
+    }
+  },
+
   /**
    * The drawerComponent
    * @return {Object} A reference to the drawer component.
    */
   get drawer () {
-    let drawerNode
-    try {
-      drawerNode = Array.from(this.element.children).find(e => e.matches('.mdk-drawer'))
-    } catch(e) {}
-    if (drawerNode) {
-      return drawerNode.mdkDrawer
+    if (this.drawerNode) {
+      return this.drawerNode.mdkDrawer
     }
   },
 
@@ -193,8 +207,10 @@ export const drawerLayoutComponent = () => ({
     this._updateDocument()
     this._updateScroller()
 
-    // Initialize mediaQuery
-    this.mediaQuery.init()
+    if (this.drawerNode) {
+      // Initialize mediaQuery
+      this.mediaQuery.init()
+    }
   },
 
   /**

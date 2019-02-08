@@ -1,11 +1,20 @@
 {
-  "plugins": ["@babel/transform-runtime"],
+  "plugins": [
+    ["@babel/plugin-transform-runtime", {
+      "helpers": true,
+      "forceAllTransforms": false
+    }]
+  ],
   "presets": [
-    ["@babel/env", {
+    ["@babel/preset-env", {
+      "debug": true,
       "useBuiltIns": "usage",
+      "modules": "auto",
       "targets": {
-        "ie": "11",
-        "browsers": ["last 2 versions"]
+        "browsers": [
+          "last 2 versions",
+          "ie >= 11"
+        ]
       }
     }]
   ]
