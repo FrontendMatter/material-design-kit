@@ -67,6 +67,12 @@ export const headerComponent = (element) => ({
     disabled: {
       type: Boolean,
       reflectToAttribute: true
+    },
+
+    retargetMouseScroll: {
+      type: Boolean,
+      reflectToAttribute: true,
+      value: true
     }
   },
 
@@ -245,7 +251,7 @@ export const headerComponent = (element) => ({
     if (this._fixedPositionedScrollHandler !== undefined) {
       this._fixedPositionedScrollHandler.restore()
     }
-    if (this._isValidScrollTarget() && this._isPositionedFixedEmulated && this.scrollTarget !== this._doc) {
+    if (this._isValidScrollTarget() && this._isPositionedFixedEmulated && this.scrollTarget !== this._doc && this.retargetMouseScroll) {
       this._fixedPositionedScrollHandler = RetargetMouseScroll(this.element, this.scrollTarget)
     }
   },

@@ -64,6 +64,18 @@ const difference = (a, b) => {
  */
 export const carouselComponent = () => ({
 
+  properties: {
+    autoStart: {
+      type: Boolean,
+      reflectToAttribute: true
+    },
+    interval: {
+      type: Number,
+      reflectToAttribute: true,
+      value: 3000
+    }
+  },
+
   /**
    * Event listeners.
    * @type {Array}
@@ -135,7 +147,9 @@ export const carouselComponent = () => ({
 
     this._transform(currentIndex * itemWidth * -1, 0)
 
-    this.start()
+    if (this.autoStart) {
+      this.start()
+    }
   },
 
   /**
@@ -148,7 +162,7 @@ export const carouselComponent = () => ({
       return
     }
     this._setContentTransitionDuration('')
-    this._interval = setInterval(this.next.bind(this), 2000)
+    this._interval = setInterval(this.next.bind(this), this.interval)
   },
 
   /**
@@ -269,7 +283,7 @@ export const carouselComponent = () => ({
    * (Re)start the carousel auto sliding on `mouseleave`.
    */
   _onLeave () {
-    if (!this._drag.wasDragging) {
+    if (!this._drag.wasDragging && this.autoStart) {
       this.start()
     }
   },
