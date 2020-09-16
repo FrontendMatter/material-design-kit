@@ -10,6 +10,12 @@ const components = [
   'carousel'
 ]
 
+mix.options({
+  postCss: [
+    require('postcss-rtl')
+  ]
+})
+
 mix.js('node_modules/laravel-mix/src/builder/mock-entry.js', 'mix.js')
   .js('src/index.js', 'dist/material-design-kit.js')
   .sass('src/style.scss', 'dist/material-design-kit.css')

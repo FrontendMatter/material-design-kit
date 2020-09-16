@@ -19,18 +19,10 @@
     &[data-persistent] {
       width: $mdk-drawer-width;
       &[data-position=left] {
-        /*!rtl:remove*/
-        order: 0;
-        /*rtl:raw:
-        order: 2;
-        */
+        order: 0#{'/* rtl:2 */'};
       }
       &[data-position=right] {
-        /*!rtl:remove*/
-        order: 2;
-        /*rtl:raw:
-        order: 0;
-        */
+        order: 2#{'/* rtl:0 */'};
       }
     }
   }

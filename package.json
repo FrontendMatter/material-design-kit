@@ -1,6 +1,6 @@
 {
   "name": "material-design-kit",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Interactive web components inspired from Material Design, using vanilla CSS, JavaScript and HTML.",
   "scripts": {
     "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
@@ -15,6 +15,7 @@
     "camelcase": "^5.0.0",
     "cross-env": "^5.2.0",
     "laravel-mix": "^4.0.14",
+    "postcss-rtl": "^1.7.3",
     "resolve-url-loader": "^2.3.1",
     "retarget-mouse-scroll": "github:lazabogdan/RetargetMouseScroll",
     "sass": "^1.16.1",
