@@ -7,8 +7,9 @@
   ],
   "presets": [
     ["@babel/preset-env", {
-      "debug": true,
+      "debug": false,
       "useBuiltIns": "usage",
+      "corejs": "3.6",
       "modules": "auto",
       "targets": {
         "browsers": [

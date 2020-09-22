@@ -218,6 +218,15 @@ export const drawerLayoutComponent = () => ({
    */
   destroy () {
     this.mediaQuery.destroy()
+
+    const docElements = [...document.querySelectorAll('html, body')]
+    docElements.forEach(el => {
+      // fullbleed
+      el.style.height = ''
+      // has-scrolling-region
+      el.style.overflow = ''
+      el.style.position = ''
+    })
   }
 })
 

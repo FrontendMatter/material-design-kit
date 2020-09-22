@@ -1,3 +1,5 @@
+import './style.scss'
+
 // EXPORT BEHAVIORS
 export { scrollTargetBehavior } from './scroll-target-behavior'
 export { scrollEffectBehavior } from './scroll-effect-behavior'

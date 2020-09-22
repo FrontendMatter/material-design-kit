@@ -120,6 +120,12 @@ export const headerLayoutComponent = () => ({
    */
   destroy () {
     clearTimeout(this._onResizeTimeout)
+
+    const docElements = [...document.querySelectorAll('html, body')]
+    docElements.forEach(el => {
+      // fullbleed
+      el.style.height = ''
+    })
   }
 })
 
