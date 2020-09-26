@@ -2,7 +2,8 @@ import { scrollTargetBehavior } from '../scroll-target-behavior'
 import { scrollEffectBehavior } from '../scroll-effect-behavior'
 import { handler } from 'dom-factory'
 
-import { RetargetMouseScroll } from 'retarget-mouse-scroll'
+// const RetargetMouseScroll = require('retarget-mouse-scroll')
+import {RetargetMouseScroll} from './retarget-mouse-scroll'
 
 // SCROLL EFFECTS
 import { SCROLL_EFFECTS } from '../scroll-effects'

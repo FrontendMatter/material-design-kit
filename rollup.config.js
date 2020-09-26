@@ -1,20 +1,23 @@
-import alias from 'rollup-plugin-alias'
+import alias from '@rollup/plugin-alias'
+import resolve from '@rollup/plugin-node-resolve'
 import peerDepsExternal from 'rollup-plugin-peer-deps-external'
-import buble from 'rollup-plugin-buble'
-import commonjs from 'rollup-plugin-commonjs'
+import commonjs from '@rollup/plugin-commonjs'
 import scss from 'rollup-plugin-scss'
 import babel from '@rollup/plugin-babel'
+import { terser } from 'rollup-plugin-terser'
+
+const path = require('path')
 
 const plugins = [
   peerDepsExternal(),
   alias({
-    resolve: ['.js', '.vue'],
-    '~': __dirname + '/src'
+    entries: [
+      {
+        find: '~',
+        replacement: path.resolve(__dirname, 'src')
+      }
+    ]
   }),
-  babel({
-    babelHelpers: 'runtime'
-  }),
-  commonjs(),
   scss({
     output: 'dist/material-design-kit.css',
     processor: css => require('postcss')([
@@ -22,28 +25,47 @@ const plugins = [
       require('autoprefixer'),
     ])
   }),
-  buble({
-    objectAssign: 'Object.assign'
-  })
+  resolve(),
+  commonjs()
 ]
 
+const baseConfig = {
+  input: 'src/index.js'
+}
+
 export default [
+  // EMS Module
   {
-    input: 'src/index.js',
-    output: {
-      format: 'esm',
+    ...baseConfig,
+    output: [{
+      format: 'es',
       file: 'dist/material-design-kit.esm.js'
-    },
+    }],
     plugins,
-    external: [/@babel\/runtime/]
-  },
+    external: [
+      'dom-factory'
+    ]
+  }, 
+
+  // UMD Browser
   {
-    input: 'src/index.js',
+    ...baseConfig,
     output: {
       format: 'umd',
       name: 'MDK',
-      file: 'dist/material-design-kit.umd.js'
+      file: 'dist/material-design-kit.js'
     },
-    plugins: plugins
+    plugins: [
+      ...plugins,
+      babel({
+        babelHelpers: 'bundled',
+        skipPreflightCheck: true,
+        exclude: 'node_modules/**'
+      }),
+      terser()
+    ],
+    external: [
+      'dom-factory'
+    ]
   }
 ]

@@ -1,7 +1,7 @@
 {
-  "plugins": ["transform-runtime"],
+  "plugins": ["@babel/transform-runtime"],
   "presets": [
-    ["env", {
+    ["@babel/env", {
       "targets": {
         "ie": "11",
         "browsers": ["last 2 versions"]
