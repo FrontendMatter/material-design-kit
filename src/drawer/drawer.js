@@ -1,4 +1,5 @@
 import { handler } from 'dom-factory'
+let isRTLIntv
 
 /**
  * A navigation drawer that can slide in from the left or right
@@ -55,7 +56,7 @@ export const drawerComponent = () => ({
    * @type {Array}
    */
   observers: [
-    '_resetPosition(align)',
+    '_resetPosition(align, isRTL)',
     '_fireChange(opened, persistent, align, position)',
     '_onChangedState(_drawerState)',
     '_onClose(opened)'
@@ -80,6 +81,8 @@ export const drawerComponent = () => ({
     OPENED_PERSISTENT: 2,
     CLOSED: 3
   },
+
+  isRTL: false,
 
   /**
    * The drawer content HTMLElement
@@ -173,10 +176,10 @@ export const drawerComponent = () => ({
   _resetPosition () {
     switch (this.align) {
       case 'start':
-        this.position = this._isRTL() ? 'right' : 'left'
+        this.position = this.isRTL ? 'right' : 'left'
         return
       case 'end':
-        this.position = this._isRTL() ? 'left' : 'right'
+        this.position = this.isRTL ? 'left' : 'right'
         return
     }
     this.position = this.align
@@ -208,10 +211,15 @@ export const drawerComponent = () => ({
     }
   },
 
+  destroy() {
+    clearInterval(isRTLIntv)
+  },
+
   /**
    * Initialize component
    */
   init () {
+    isRTLIntv = setInterval(() => this.isRTL = this._isRTL(), 100)
     this._resetPosition()
     this._setTransitionDuration('0s')
 
