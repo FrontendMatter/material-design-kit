@@ -171,7 +171,6 @@ export const drawerLayoutComponent = () => ({
     let drawer = this.drawer
     let drawerWidth = this.drawer.getWidth()
     let contentContainer = this.contentContainer
-    let isRTL = drawer._isRTL()
 
     if (drawer.opened) {
       util.transform('translate3d(0, 0, 0)', contentContainer)

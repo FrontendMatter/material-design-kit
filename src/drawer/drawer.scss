@@ -1,61 +1,65 @@
 @import '../variables';
 
-.mdk-drawer {
-	position: relative;
-	visibility: hidden;
-	
-	&[data-opened],
-	&[data-closing] {
-		visibility: visible;
+[dir] {
+	.mdk-drawer {
+		position: relative;
+		visibility: hidden;
+		
+		&[data-opened],
+		&[data-closing] {
+			visibility: visible;
+		}
+
+		&[data-persistent] {
+			width: $mdk-drawer-width;
+			&[data-position=left] {
+				right: auto;
+			}
+			&[data-position=right] {
+				left: auto;
+			}
+		}
 	}
 
-	&[data-persistent] {
+	.mdk-drawer__content {
+		position: fixed;
+		top: 0;
+		bottom: 0;
 		width: $mdk-drawer-width;
-		&[data-position=left] {
-			right: auto#{'/* rtl:ignore */'};
-		}
-		&[data-position=right] {
-			left: auto#{'/* rtl:ignore */'};
-		}
-	}
-}
-.mdk-drawer__content {
-	position: fixed;
-	top: 0;
-	bottom: 0;
-	width: $mdk-drawer-width;
-	transition: transform 0.2s ease;
-	background-color: #fff;
+		transition: transform 0.2s ease;
+		background-color: #fff;
 
-	left: 0#{'/* rtl:ignore */'};
-	transform: translate3d(-100%, 0, 0)#{'/* rtl:ignore */'};
-	
-	[data-position=right] > & {
-		right: 0#{'/* rtl:ignore */'};
-		left: auto#{'/* rtl:ignore */'};
-		transform: translate3d(100%, 0, 0)#{'/* rtl:ignore */'};
+		left: 0;
+		transform: translate3d(-100%, 0, 0);
 	}
 
-	[data-opened] > & {
+	[data-position=right] > .mdk-drawer__content {
+		right: 0;
+		left: auto;
+		transform: translate3d(100%, 0, 0);
+	}
+
+	[data-opened] > .mdk-drawer__content {
 		transform: translate3d(0, 0, 0);
 	}
-}
-.mdk-drawer__scrim {
-	position: fixed;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
-	transition: opacity 0.2s ease;
-	transform: translateZ(0);
-	opacity: 0;
-	background-color: rgba(0, 0, 0, .5);
 
-	[data-opened] > & {
+	.mdk-drawer__scrim {
+		position: fixed;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		transition: opacity 0.2s ease;
+		transform: translateZ(0);
+		opacity: 0;
+		background-color: rgba(0, 0, 0, .5);
+	}
+
+	[data-opened] > .mdk-drawer__scrim {
 		opacity: 1;
 	}
 
-	[data-persistent] > & {
+	[data-persistent] > .mdk-drawer__scrim {
 		visibility: hidden;
 		opacity: 0;
 	}

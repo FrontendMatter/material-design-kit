@@ -1686,7 +1686,7 @@ const drawerComponent = () => ({
    * @type {Array}
    */
   observers: [
-    '_resetPosition(align, isRTL)',
+    '_resetPosition(align, _isRTL)',
     '_fireChange(opened, persistent, align, position)',
     '_onChangedState(_drawerState)',
     '_onClose(opened)'
@@ -1712,7 +1712,7 @@ const drawerComponent = () => ({
     CLOSED: 3
   },
 
-  isRTL: false,
+  _isRTL: false,
 
   /**
    * The drawer content HTMLElement
@@ -1771,10 +1771,6 @@ const drawerComponent = () => ({
     }
   },
 
-  _isRTL () {
-    return window.getComputedStyle(this.element).direction === 'rtl'
-  },
-
   _setTransitionDuration (duration) {
     this.contentContainer.style.transitionDuration = duration;
     this.scrim.style.transitionDuration = duration;
@@ -1806,10 +1802,10 @@ const drawerComponent = () => ({
   _resetPosition () {
     switch (this.align) {
       case 'start':
-        this.position = this.isRTL ? 'right' : 'left';
+        this.position = this._isRTL ? 'right' : 'left';
         return
       case 'end':
-        this.position = this.isRTL ? 'left' : 'right';
+        this.position = this._isRTL ? 'left' : 'right';
         return
     }
     this.position = this.align;
@@ -1849,7 +1845,7 @@ const drawerComponent = () => ({
    * Initialize component
    */
   init () {
-    isRTLIntv = setInterval(() => this.isRTL = this._isRTL(), 100);
+    isRTLIntv = setInterval(() => this._isRTL = window && window.getComputedStyle(this.element).direction === 'rtl', 100);
     this._resetPosition();
     this._setTransitionDuration('0s');
 
@@ -2102,7 +2098,6 @@ const drawerLayoutComponent = () => ({
     let drawer = this.drawer;
     let drawerWidth = this.drawer.getWidth();
     let contentContainer = this.contentContainer;
-    let isRTL = drawer._isRTL();
 
     if (drawer.opened) {
       util.transform('translate3d(0, 0, 0)', contentContainer);

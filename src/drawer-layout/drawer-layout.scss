@@ -19,10 +19,10 @@
     &[data-persistent] {
       width: $mdk-drawer-width;
       &[data-position=left] {
-        order: 0#{'/* rtl:2 */'};
+        order: 0;
       }
       &[data-position=right] {
-        order: 2#{'/* rtl:0 */'};
+        order: 2;
       }
     }
   }
@@ -41,5 +41,16 @@
   &--scrollable {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+  }
+}
+
+[dir=rtl] .mdk-drawer-layout {
+  .mdk-drawer[data-persistent] {
+    &[data-position=left] {
+      order: 2;
+    }
+    &[data-position=right] {
+      order: 0;
+    }
   }
 }
