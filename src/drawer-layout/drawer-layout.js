@@ -1,12 +1,6 @@
 import { mediaQuery } from '../media-query'
 import { handler, util } from 'dom-factory'
 
-// IE9+ Element.matches polyfill
-// https://developer.mozilla.org/en-US/docs/Web/API/Element/matches
-if (!Element.prototype.matches) {
-  Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector
-}
-
 /**
  * A wrapper element that positions a Drawer and other content.
  * @param  {HTMLElement} element

@@ -1,4 +1,8 @@
-import { util, handler } from 'dom-factory';
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+var domFactory = require('dom-factory');
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -510,7 +514,7 @@ const scrollEffectBehavior = () => ({
    */
   _transform (value, element) {
     element = element || this.element;
-    util.transform(value, element);
+    domFactory.util.transform(value, element);
   }
 });
 
@@ -1336,7 +1340,7 @@ const headerComponent = (element) => ({
   }
 });
 
-handler.register(MODULE, headerComponent);
+domFactory.handler.register(MODULE, headerComponent);
 
 /**
  * A wrapper element that positions a Header and other content.
@@ -1467,7 +1471,7 @@ const headerLayoutComponent = () => ({
   }
 });
 
-handler.register('mdk-header-layout', headerLayoutComponent);
+domFactory.handler.register('mdk-header-layout', headerLayoutComponent);
 
 const MODULE$1 = 'mdk-box';
 const BG$2 = `.${ MODULE$1 }__bg`;
@@ -1627,7 +1631,7 @@ const boxComponent = (element) => ({
   }
 });
 
-handler.register(MODULE$1, boxComponent);
+domFactory.handler.register(MODULE$1, boxComponent);
 
 let isRTLIntv;
 
@@ -1856,7 +1860,7 @@ const drawerComponent = () => ({
   }
 });
 
-handler.register('mdk-drawer', drawerComponent);
+domFactory.handler.register('mdk-drawer', drawerComponent);
 
 /**
  * Bind to a CSS media query
@@ -2094,14 +2098,14 @@ const drawerLayoutComponent = () => ({
     let contentContainer = this.contentContainer;
 
     if (drawer.opened) {
-      util.transform('translate3d(0, 0, 0)', contentContainer);
+      domFactory.util.transform('translate3d(0, 0, 0)', contentContainer);
       return
     }
 
     let transform = (this.element.offsetWidth - contentContainer.offsetWidth) / 2;
     transform = drawer.position === 'right' ? transform : transform * -1;
 
-    util.transform(`translate3d(${ transform }px, 0, 0)`, contentContainer);
+    domFactory.util.transform(`translate3d(${ transform }px, 0, 0)`, contentContainer);
   },
 
   _setContentTransitionDuration (duration) {
@@ -2150,7 +2154,7 @@ const drawerLayoutComponent = () => ({
   }
 });
 
-handler.register('mdk-drawer-layout', drawerLayoutComponent);
+domFactory.handler.register('mdk-drawer-layout', drawerLayoutComponent);
 
 /**
  * A content area that reveals on user interaction.
@@ -2285,7 +2289,7 @@ const revealComponent = () => ({
   },
 
   _onChange () {
-    util.transform(this.opened ? this._translate : 'translateY(0)', this.reveal);
+    domFactory.util.transform(this.opened ? this._translate : 'translateY(0)', this.reveal);
   },
 
   /**
@@ -2346,7 +2350,7 @@ const revealComponent = () => ({
   }
 });
 
-handler.register('mdk-reveal', revealComponent);
+domFactory.handler.register('mdk-reveal', revealComponent);
 
 const isTouch = () => ('ontouchstart' in window);
 
@@ -2570,7 +2574,7 @@ const carouselComponent = () => ({
         if (duration !== 0) {
           this._isMoving = true;
         }
-        util.transform('translate3d(' + translate + 'px, 0, 0)', this._content);
+        domFactory.util.transform('translate3d(' + translate + 'px, 0, 0)', this._content);
 
         if (typeof callback === 'function') {
           callback.call(this);
@@ -2763,7 +2767,7 @@ const carouselComponent = () => ({
   }
 });
 
-handler.register('mdk-carousel', carouselComponent);
+domFactory.handler.register('mdk-carousel', carouselComponent);
 
 /**
  * @param  {HTMLElement} element
@@ -2929,6 +2933,18 @@ const tooltipComponent = (element) => ({
   }
 });
 
-handler.register('mdk-tooltip', tooltipComponent);
+domFactory.handler.register('mdk-tooltip', tooltipComponent);
 
-export { HEADER_SCROLL_EFFECTS, SCROLL_EFFECTS, boxComponent, carouselComponent, drawerComponent, drawerLayoutComponent, headerComponent, headerLayoutComponent, mediaQuery, revealComponent, scrollEffectBehavior, scrollTargetBehavior, tooltipComponent };
+exports.HEADER_SCROLL_EFFECTS = HEADER_SCROLL_EFFECTS;
+exports.SCROLL_EFFECTS = SCROLL_EFFECTS;
+exports.boxComponent = boxComponent;
+exports.carouselComponent = carouselComponent;
+exports.drawerComponent = drawerComponent;
+exports.drawerLayoutComponent = drawerLayoutComponent;
+exports.headerComponent = headerComponent;
+exports.headerLayoutComponent = headerLayoutComponent;
+exports.mediaQuery = mediaQuery;
+exports.revealComponent = revealComponent;
+exports.scrollEffectBehavior = scrollEffectBehavior;
+exports.scrollTargetBehavior = scrollTargetBehavior;
+exports.tooltipComponent = tooltipComponent;

@@ -47,6 +47,19 @@ export default [
     ]
   }, 
 
+  // SSR build.
+  {
+    input: 'src/index.js',
+    output: {
+      format: 'cjs',
+      file: 'dist/material-design-kit.common.js'
+    },
+    plugins,
+    external: [
+      'dom-factory'
+    ]
+  },
+
   // UMD Browser
   {
     ...baseConfig,

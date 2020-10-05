@@ -1,12 +1,13 @@
 {
   "name": "material-design-kit",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "description": "Interactive web components inspired from Material Design, using vanilla CSS, JavaScript and HTML.",
   "scripts": {
     "build": "rollup -c --environment BUILD:production",
     "watch": "rollup -c --watch"
   },
-  "main": "dist/material-design-kit.js",
+  "main": "dist/material-design-kit.common.js",
+  "browser": "dist/material-design-kit.js",
   "module": "dist/material-design-kit.esm.js",
   "author": "FrontendMatter <contact@frontendmatter.com> (http://www.frontendmatter.com)",
   "license": "ISC",
