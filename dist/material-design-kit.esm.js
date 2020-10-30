@@ -778,7 +778,6 @@ const HEADER_SCROLL_EFFECT_FX_CONDENSES = {
 
     elements.forEach(element => {
       if (element) {
-        element.style.willChange = 'transform';
         this._transform('translateZ(0)', element);
         if (window.getComputedStyle(element).display === 'inline') {
           element.style.display = 'inline-block';
@@ -837,7 +836,6 @@ const HEADER_SCROLL_EFFECT_FX_CONDENSES = {
     if (progress >= 1) {
       fx.elements.forEach(el => {
         if (el) {
-          el.style.willChange = 'opacity';
           el.style.opacity = fx.targets.indexOf(el) !== -1 ? 0 : 1;
         }
       });
@@ -845,7 +843,6 @@ const HEADER_SCROLL_EFFECT_FX_CONDENSES = {
     else {
       fx.elements.forEach(el => {
         if (el) {
-          el.style.willChange = 'opacity';
           el.style.opacity = fx.targets.indexOf(el) !== -1 ? 1 : 0;
         }
       });
@@ -857,7 +854,6 @@ const HEADER_SCROLL_EFFECT_FX_CONDENSES = {
           Math.min(1, progress), 
           [ [1, fx.bounds[id].scale], [0, -fx.bounds[id].dx], [top, top - fx.bounds[id].dy] ],
           (scale, translateX, translateY) => {
-            target.style.willChange = 'transform';
             translateX = translateX.toFixed(5);
             translateY = translateY.toFixed(5);
             scale = scale.toFixed(5);
@@ -1000,7 +996,10 @@ const headerComponent = (element) => ({
    * @return {Boolean}
    */
   get transformDisabled () {
-    return this.disabled || this.element.dataset.transformDisabled || !this._isPositionedFixedEmulated || !this.willCondense()
+    return this.disabled || 
+      this.element.dataset.transformDisabled || 
+      ! this._isPositionedFixedEmulated || 
+      this.condenses && ! this.willCondense()
   },
 
   /**
@@ -1089,6 +1088,8 @@ const headerComponent = (element) => ({
   },
 
   _reset () {
+    this._primary.classList[(this.fixed || this.condenses || this.reveals) ? 'add' : 'remove'](MODIFIER_FIXED);
+
     if (this.element.offsetWidth === 0 && this.element.offsetHeight === 0) {
       return
     }
@@ -1245,12 +1246,10 @@ const headerComponent = (element) => ({
       }
 
       if (top === transform) {
-        this.element.style.willChange = 'transform';
         this._transform(`translate3d(0, ${ transform * -1 }px, 0)`);
       }
 
       if (top >= this._primaryTop) {
-        this._primary.style.willChange = 'transform';
         this._transform(`translate3d(0, ${ Math.min(top, this._dHeight) - this._primaryTop }px, 0)`, this._primary);
       }
       return
@@ -1259,11 +1258,9 @@ const headerComponent = (element) => ({
     if (this.fixed && this._isPositionedFixed) {
       let transform = top;
 
-      this.element.style.willChange = 'transform';
       this._transform(`translate3d(0, ${ transform * -1 }px, 0)`);
 
       if (top >= this._primaryTop) {
-        this._primary.style.willChange = 'transform';
         this._transform(`translate3d(0, ${ Math.min(top, this._dHeight) - this._primaryTop }px, 0)`, this._primary);
       }
       return
@@ -1279,11 +1276,15 @@ const headerComponent = (element) => ({
         duration = '0ms';
       }
     }
-    if (this.reveals) {
+    if (this.reveals && top <= this._dHeight) {
       this._primary.style.transitionDuration = duration;
     }
-    this._primary.style.willChange = 'transform';
+
     this._transform(`translate3d(0, ${ transform }px, 0)`, this._primary);
+    
+    if (this.reveals && top > this._dHeight) {
+      setTimeout(() => this._primary.style.transitionDuration = duration);
+    }
   },
 
   _clamp (v, min, max) {
@@ -1322,8 +1323,7 @@ const headerComponent = (element) => ({
     this._setupBackgrounds();
 
     this._primary.setAttribute('data-primary', 'data-primary');
-    this._primary.classList[(this.fixed || this.condenses) ? 'add' : 'remove'](MODIFIER_FIXED);
-
+    
     SCROLL_EFFECTS.concat(HEADER_SCROLL_EFFECTS).map(effect => this.registerEffect(effect.name, effect));
   },
 

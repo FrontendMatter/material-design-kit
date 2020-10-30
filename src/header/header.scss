@@ -11,11 +11,6 @@
 		margin-bottom: 0;
 	}
 
-	&[data-condenses],
-	&[data-reveals] {
-		will-change: transform;
-	}
-
 	[data-fx-condenses] {
 		transform-origin: left top;
 		opacity: 0;
@@ -77,6 +72,10 @@
 	}
 }
 
+.mdk-header--shadow {
+	transition: 0.25s box-shadow;
+}
+
 .mdk-header--shadow::after {
 	position: absolute;
 	right: 0;
@@ -88,7 +87,6 @@
 	pointer-events: none;
 	opacity: 0;
 	box-shadow: inset 0px 5px 6px -3px rgba(0, 0, 0, 0.4);
-	will-change: opacity;
 	z-index: -1;
 }
 
@@ -102,6 +100,14 @@
 	left: 0;
 	width: 100%;
 	margin-bottom: 0;
+}
+
+.mdk-header[data-reveals] [data-primary] {
+	transition: 0.25s transform;
+
+	&.mdk-header--shadow {
+		transition: 0.25s box-shadow, transform;
+	}
 }
 
 .mdk-header[disabled] {

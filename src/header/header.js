@@ -132,7 +132,10 @@ export const headerComponent = (element) => ({
    * @return {Boolean}
    */
   get transformDisabled () {
-    return this.disabled || this.element.dataset.transformDisabled || !this._isPositionedFixedEmulated || !this.willCondense()
+    return this.disabled || 
+      this.element.dataset.transformDisabled || 
+      ! this._isPositionedFixedEmulated || 
+      this.condenses && ! this.willCondense()
   },
 
   /**
@@ -221,6 +224,8 @@ export const headerComponent = (element) => ({
   },
 
   _reset () {
+    this._primary.classList[(this.fixed || this.condenses || this.reveals) ? 'add' : 'remove'](MODIFIER_FIXED)
+
     if (this.element.offsetWidth === 0 && this.element.offsetHeight === 0) {
       return
     }
@@ -377,12 +382,10 @@ export const headerComponent = (element) => ({
       }
 
       if (top === transform) {
-        this.element.style.willChange = 'transform'
         this._transform(`translate3d(0, ${ transform * -1 }px, 0)`)
       }
 
       if (top >= this._primaryTop) {
-        this._primary.style.willChange = 'transform'
         this._transform(`translate3d(0, ${ Math.min(top, this._dHeight) - this._primaryTop }px, 0)`, this._primary)
       }
       return
@@ -391,11 +394,9 @@ export const headerComponent = (element) => ({
     if (this.fixed && this._isPositionedFixed) {
       let transform = top
 
-      this.element.style.willChange = 'transform'
       this._transform(`translate3d(0, ${ transform * -1 }px, 0)`)
 
       if (top >= this._primaryTop) {
-        this._primary.style.willChange = 'transform'
         this._transform(`translate3d(0, ${ Math.min(top, this._dHeight) - this._primaryTop }px, 0)`, this._primary)
       }
       return
@@ -411,11 +412,15 @@ export const headerComponent = (element) => ({
         duration = '0ms'
       }
     }
-    if (this.reveals) {
+    if (this.reveals && top <= this._dHeight) {
       this._primary.style.transitionDuration = duration
     }
-    this._primary.style.willChange = 'transform'
+
     this._transform(`translate3d(0, ${ transform }px, 0)`, this._primary)
+    
+    if (this.reveals && top > this._dHeight) {
+      setTimeout(() => this._primary.style.transitionDuration = duration)
+    }
   },
 
   _clamp (v, min, max) {
@@ -454,8 +459,7 @@ export const headerComponent = (element) => ({
     this._setupBackgrounds()
 
     this._primary.setAttribute('data-primary', 'data-primary')
-    this._primary.classList[(this.fixed || this.condenses) ? 'add' : 'remove'](MODIFIER_FIXED)
-
+    
     SCROLL_EFFECTS.concat(HEADER_SCROLL_EFFECTS).map(effect => this.registerEffect(effect.name, effect))
   },
 
